@@ -1,13 +1,34 @@
 from flask_sqlalchemy import SQLAlchemy
+import enum
 
 db = SQLAlchemy()
+
+class RoleEnum(str,enum.Enum):
+    CLIENT= "Cliente"
+    PROVIDERS = "Proveedor"
+    
+class CategoryEnum(str,enum.Enum):
+    PLOMERIA = "Plomería"
+    ELECTRICIDAD = "Electricidad"
+    ALBAÑILERIA = "Albañilería"
+    CARPINTERIA = "Carpintería"
+    PINTURA_Y_DECORACION = "Pintura y Decoración"
+    TECHOS_Y_ESTRUCTURAS = "Techos y Estructuras"
+    REFORMAS_DE_INTERIORES = "Reformas de Interiores"
+    JARDINERIA_Y_PAISAJISMO = "Jardinería y Paisajismo"
+    LIMPIEZA_Y_MANTENIMIENTO = "Limpieza y Mantenimiento"
+    REPARACIONES_GENERALES = "Reparaciones Generales"
+    SISTEMAS_DE_SEGURIDAD = "Sistemas de Seguridad"
+    REFORMAS_INTEGRALES = "Reformas Integrales"
+
+
 
 class User(db.Model):
     __tablename__='user'
     id = db.Column(db.Integer, primary_key=True)
     username=db.Column(db.String(50),unique=True,nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    role=db.Column(db.String(50),nullable=False)
+    role=db.Column(db.Enum(RoleEnum),nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     create_at=db.Column(db.Date, unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
@@ -62,7 +83,7 @@ class Providers(db.Model):
     profession=db.Column(db.String(50),nullable=False)
     description=db.Column(db.String(150),nullable=False)
     price=db.Column(db.Integer,nullable=False)
-    category=db.Column(db.String(50),nullable=False)
+    category=db.Column(db.Enum(CategoryEnum),nullable=False)
     create_at=db.Column(db.Date, unique=False, nullable=False)
 
     def __repr__(self):
