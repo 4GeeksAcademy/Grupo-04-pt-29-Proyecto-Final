@@ -47,6 +47,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			}
+
+
+			register:async(name,lastName,email,password)=>{
+				try {
+					const response = await fetch(process.env.BACKEND_URL +"/api/singup",{
+						method:"POST",
+						headers:{"Content-Type":"application/json"},
+						body:JSON.stringify({
+							name:name,
+							last_name:lastName,
+							email:email,
+							password:password,
+						})
+					})
+					const data = await response.json()
+					if(!response.ok){
+						throw new Error("Error al Registrarte")
+					} 
+					console.log(data)
+					return true
+				} catch (error) {
+					alert(error)
+				}
+			},
 		}
 	};
 };

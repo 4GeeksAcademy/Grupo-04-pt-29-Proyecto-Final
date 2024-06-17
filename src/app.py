@@ -11,6 +11,12 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 
+rom flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
+
+
 # from models import Person
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -68,6 +74,41 @@ def serve_any_other_file(path):
     return response
 
 # INicio de los endpoints
+
+
+# Sign Up o Registro
+
+@app.route('/app/signup', methods=["POST"])
+def signup():
+    body = request.get_json(silent=True)
+    
+    if body is None:
+        return jsonify ({'msg':'Los campos de usuario y contraseña están vacíos'}), 400
+    if 'username' not in body:
+        return jsonify ({'msg':'Debe crear un usuario para continuar.'}), 400
+    if 'email' not in body:
+        return jsonify ({'msg':'No puede continuar sin un correo electrónico.'}), 400
+    if 'password' not in body:
+        return jsonify ({'msg':'No puede continuar sin su contraseña de seguridad.'}), 400
+    
+    password_hash= bcrypt.generate_password_hash(body["password"]).decode("utf-8")
+
+    new_user = User(
+    username = body["username"],
+    #role = body["role"],
+    email = body["email"],
+    password = password_hash,
+    #create_at = body["create_at"],
+    #is_active = True,
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify ({'msg':'Usuario Creado .'}), 200
+
+
+
+
+
 
 #endpoint pruba proveedores - traer servicios de forma general
 @app.route('/providers', methods=['GET'])
