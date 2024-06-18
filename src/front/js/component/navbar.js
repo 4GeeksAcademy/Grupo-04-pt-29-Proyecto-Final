@@ -16,8 +16,8 @@ export const Navbar = () => {
 		  <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 menu">
 			<li><a href="#" className=" px-3 active">Inicio</a></li>
 			<li><a href="#" className=" px-3">Sobre Nosotros</a></li>
-			<li><a href="#" className=" px-3">Regístrate</a></li>
-			<li><a href="#" className=" px-3">Iniciar Sesión</a></li>
+			<li><a href="/signup" className=" px-3">Regístrate</a></li>
+			<li><a href="/login" className=" px-3">Iniciar Sesión</a></li>
 		  </ul>
 	
 		  <div className="col-md-3 text-end ">

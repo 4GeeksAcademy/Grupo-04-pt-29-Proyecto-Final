@@ -13,7 +13,14 @@ export const Signup = () => {
   const register = async (e) => {
     e.preventDefault();
     if (username == "" && email == "" && password == "" &&role == "") {
-      alert("Hay campos vacios ");
+      //alert("Hay campos vacios ");
+      Swal.fire({
+        title: 'Error!',
+        text: 'hay campos vacios',
+        icon: 'error',
+        confirmButtonText: 'Cool'
+      })
+
     } else {
       const result = await actions.register(username, email, password, role);
       if (result) {

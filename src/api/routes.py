@@ -55,7 +55,6 @@ def signup():
     db.session.commit()
     return jsonify ({'msg':'Usuario Creado .'}), 200
 
-#Login o Inciar Seccion
 
 # Log In o Iniciar Seccion  
 
