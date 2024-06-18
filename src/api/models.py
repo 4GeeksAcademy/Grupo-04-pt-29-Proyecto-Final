@@ -1,11 +1,12 @@
 from flask_sqlalchemy import SQLAlchemy
 import enum
+from datetime import date
 
 db = SQLAlchemy()
 
 class RoleEnum(str,enum.Enum):
-    CLIENT= "Cliente"
-    PROVIDERS = "Proveedor"
+    CLIENT= "Client"
+    PROVIDER = "Provider"
     
 class CategoryEnum(str,enum.Enum):
     PLOMERIA = "Plomería"
@@ -30,9 +31,9 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     role=db.Column(db.Enum(RoleEnum),nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
-    create_at=db.Column(db.Date, unique=False, nullable=False)
+    create_at=db.Column(db.Date, unique=False, nullable=False, default=date.today) 
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
-
+ 
     def __repr__(self):
         return f'User {self.id}  {self.username} {self.email} {self.role} {self.create_at} {self.is_active}'
 
