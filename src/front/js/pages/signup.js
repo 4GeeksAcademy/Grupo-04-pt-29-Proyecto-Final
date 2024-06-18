@@ -1,25 +1,23 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
-import "../../styles/signup.css";
 
-export const SignUp = () => {
+
+export const Signup = () => {
   const { actions } = useContext(Context);
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const registro = async (e) => {
+  const register = async (e) => {
     e.preventDefault();
-    if (name == "" && lastName == "" && email == "" && password == "") {
+    if (username == "" && email == "" && password == "") {
       alert("Hay campos vacios ");
     } else {
-      const result = await actions.register(name, lastName, email, password);
+      const result = await actions.register(username, email, password);
       if (result) {
-        navigate("/login");
+        navigate("/");
       }
     }
   };
@@ -35,21 +33,8 @@ export const SignUp = () => {
                 nombre:
               </label>
               <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                type="text"
-                className="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
-            </div>
-            <div className="col">
-              <label htmlFor="exampleInputEmail1" className="form-label">
-                apellido:
-              </label>
-              <input
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 type="text"
                 className="form-control"
                 id="exampleInputEmail1"
@@ -91,7 +76,7 @@ export const SignUp = () => {
           </div>
           <div className="d-flex justify-content-center">
             <button
-              onClick={(e) => registro(e)}
+              onClick={(e) => register(e)}
               className="btn btn-outline-success"
             >
               Registrar

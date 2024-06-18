@@ -6,15 +6,14 @@ from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
-from api.models import db,User,UserProfiles,Orders,Providers,Reviews
+from api.models import db,User,UserProfiles,Orders,Providers,Reviews,RoleEnum
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 
-rom flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
+
 from flask_jwt_extended import JWTManager
+from flask_bcrypt import Bcrypt
 
 
 # from models import Person
@@ -22,7 +21,11 @@ from flask_jwt_extended import JWTManager
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
+
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
+app.bcrypt = bcrypt
+
 app.url_map.strict_slashes = False
 
 # database condiguration
@@ -75,10 +78,9 @@ def serve_any_other_file(path):
 
 # INicio de los endpoints
 
-
 # Sign Up o Registro
 
-@app.route('/app/signup', methods=["POST"])
+@app.route('/api/signup', methods=["POST"])
 def signup():
     body = request.get_json(silent=True)
     
@@ -95,20 +97,14 @@ def signup():
 
     new_user = User(
     username = body["username"],
-    #role = body["role"],
+    role = body["role"],
     email = body["email"],
     password = password_hash,
-    #create_at = body["create_at"],
-    #is_active = True,
+    is_active = True,
     )
     db.session.add(new_user)
     db.session.commit()
     return jsonify ({'msg':'Usuario Creado .'}), 200
-
-
-
-
-
 
 #endpoint pruba proveedores - traer servicios de forma general
 @app.route('/providers', methods=['GET'])
