@@ -78,33 +78,6 @@ def serve_any_other_file(path):
 
 # INicio de los endpoints
 
-# Sign Up o Registro
-
-@app.route('/api/signup', methods=["POST"])
-def signup():
-    body = request.get_json(silent=True)
-    
-    if body is None:
-        return jsonify ({'msg':'Los campos de usuario y contraseña están vacíos'}), 400
-    if 'username' not in body:
-        return jsonify ({'msg':'Debe crear un usuario para continuar.'}), 400
-    if 'email' not in body:
-        return jsonify ({'msg':'No puede continuar sin un correo electrónico.'}), 400
-    if 'password' not in body:
-        return jsonify ({'msg':'No puede continuar sin su contraseña de seguridad.'}), 400
-    
-    password_hash= bcrypt.generate_password_hash(body["password"]).decode("utf-8")
-
-    new_user = User(
-    username = body["username"],
-    role = body["role"],
-    email = body["email"],
-    password = password_hash,
-    is_active = True,
-    )
-    db.session.add(new_user)
-    db.session.commit()
-    return jsonify ({'msg':'Usuario Creado .'}), 200
 
 #endpoint pruba proveedores - traer servicios de forma general
 @app.route('/providers', methods=['GET'])

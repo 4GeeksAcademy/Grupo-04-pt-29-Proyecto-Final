@@ -36,7 +36,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ demo: demo });
       },
 
-      register: async (username, email, password,) => {
+      register: async (username, email, password,role) => {
         try {
           const response = await fetch(
             process.env.BACKEND_URL + "api/signup",
@@ -47,6 +47,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 username: username,
                 email: email,
                 password: password,
+                role: role,
               }),
             }
           );
