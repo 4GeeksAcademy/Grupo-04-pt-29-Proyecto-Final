@@ -2,13 +2,14 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint, current_app
-from api.models import db, User
+from api.models import db, User, UserProfiles,Orders,Providers,Reviews,RoleEnum
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager
 
 api = Blueprint('api', __name__)
 
@@ -53,3 +54,28 @@ def signup():
     db.session.add(new_user)
     db.session.commit()
     return jsonify ({'msg':'Usuario Creado .'}), 200
+
+#Login o Inciar Seccion
+
+# Log In o Iniciar Seccion  
+
+@api.route('/login', methods=["POST"])
+def login():
+    body = request.get_json(silent=True)
+    if body is None:
+        return jsonify ({'msg':'Los campos de usuario y contraseña están vacíos'}), 400
+    if 'email' not in body:
+        return jsonify ({'msg':'No puede continuar sin su correo electrónico.'}), 400
+    if 'password' not in body:
+        return jsonify ({'msg':'No puede continuar sin su Contraseña de Seguridad.'}), 400
+    
+    user = User.query.filter_by(email=body['email']).first()
+    if user is None :
+       return jsonify ({'msg':'Datos de acceso inválidos. Por favor, verifique e intente nuevamente.'}), 400
+    
+    correct_password = current_app.bcrypt.check_password_hash(user.password, body['password'])
+    if correct_password is False:
+        return jsonify ({'msg':'Datos de acceso inválidos. Por favor, verifique e intente nuevamente.'}), 400
+    if True :
+        access_token = create_access_token(identity=user.email)
+    return jsonify ({'msg': 'Ha iniciado sesión correctamente', 'access_token':access_token}), 200
