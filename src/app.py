@@ -6,17 +6,26 @@ from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
-from api.models import db,User,UserProfiles,Orders,Providers,Reviews
+from api.models import db,User,UserProfiles,Orders,Providers,Reviews,RoleEnum
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+
+
+from flask_jwt_extended import JWTManager
+from flask_bcrypt import Bcrypt
+from datetime import timedelta  
 
 # from models import Person
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
+
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
+app.bcrypt = bcrypt
+
 app.url_map.strict_slashes = False
 
 # database condiguration
@@ -30,6 +39,11 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
+
+app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET")  # Change this!
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
+jwt = JWTManager(app)
+
 
 # add the admin
 setup_admin(app)
@@ -68,6 +82,7 @@ def serve_any_other_file(path):
     return response
 
 # INicio de los endpoints
+
 
 #endpoint pruba proveedores - traer servicios de forma general
 @app.route('/providers', methods=['GET'])
