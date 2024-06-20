@@ -81,4 +81,4 @@ database.db
 diagram.png
 __pycache__/
 migrations/
-.vscode/
+.vscode/settings.json
