@@ -15,7 +15,7 @@ const Suscribete = () => {
                     <div className="container-text">
                         <h1>Suscríbete</h1>
                         <p>recibe las nuevas actualizaciones, ofertas y <br /> tips para mejorar tu experiencia</p>
-                        <button type="button" class="btn btn-primary">Tu Email</button>
+                        <button type="button" class="btn-suscribete btn-primary">Tu Email</button>
                     </div>
                 </div>
             </section>
