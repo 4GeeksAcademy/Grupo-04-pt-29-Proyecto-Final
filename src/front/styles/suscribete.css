@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+
+.suscribete {
+    background-image: url("https://res.cloudinary.com/dq3mxxidu/image/upload/v1718678263/banner_w6dimf.jpg");
+    background-size: cover; /* ajusta el tamaño de la imagen para cubrir todo el div */
+    background-position: center; /* centra la imagen en el div */
+    background-repeat: no-repeat; /* evita que la imagen se repita */
+    width: 100%;
+    height: 400px;
+}
+
+.fondo-gradiente{
+    background:linear-gradient(rgba(5,7,12,0.7),rgba(5,7,12,0.7));
+}
+
+
+.button-style {
+    background-color: #508DF7;
+    font-family: “Montserrat”, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: #FFFFFF;
+    font-size: 18px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.h1-suscribete{
+    text-align: center;
+    font-size:70px;
+    color:white;
+}
+
+.title-parrafo{
+    color:white;
+}
+
+/* .title-unete{
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-variation-settings:
+      "slnt" 0;
+      font-size: 32px;
+    color: #FFFFFF;
+} */
+
+/* @media(min-width:775px) and (max-width:1105px){
+
+    .container-text{
+        left: 30%;
+    }
+}
+
+@media(max-width:774px){
+    .container-text{
+        left: 15%;
+        top:30%;
+    }
+    .container-text > h1{
+        font-size: 50px;
+    }
+} */
