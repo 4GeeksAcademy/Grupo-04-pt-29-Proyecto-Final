@@ -1,0 +1,71 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap");
+
+.foto-listaServ {
+    width: 150px;
+    height: 150px;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.tarjeta-listaServ {
+    border:none;
+    background: rgba(128, 128, 128, 0.062);
+}
+
+.titulo-listaServ {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-variation-settings:"slnt" 0;
+    font-size: 24px;
+}
+
+.nombre-listaServ {
+    color:rgba(102, 102, 236, 0.918);
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-variation-settings:"slnt" 0;
+    font-size: 20px;
+}
+
+.icono-listaServ {
+    font-size: 20px;
+    color:rgba(102, 102, 236, 0.918);
+}
+
+.textoTarjeta-listaServ {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.precio-listaServ {
+    color:rgba(102, 102, 236, 0.918);
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-variation-settings:"slnt" 0;
+    font-size: 20px;
+}
+
+.textoIconos-listaServ {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.corazon-listaServ {
+    color:rgba(102, 102, 236, 0.918);
+    cursor:pointer;
+    font-size: 20px;
+}
