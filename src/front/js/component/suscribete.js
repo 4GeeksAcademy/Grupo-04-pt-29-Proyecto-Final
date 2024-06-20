@@ -10,7 +10,7 @@ const Suscribete = () => {
 
             <section className="suscribete">
                 <div className="fondo-gradiente">
-                    <div className="content-img container py-5 d-flex justify-content-center align-items-center" style={{ "height": "400px" }}>
+                    <div className="container py-5 d-flex justify-content-center align-items-center" style={{ "height": "400px" }}>
                         <div>
                             <h1 className="h1-suscribete">Suscríbete</h1>
                             <div className="row title-parrafo">recibe las nuevas actualizaciones, ofertas y <br /> tips para mejorar tu experiencia</div>
