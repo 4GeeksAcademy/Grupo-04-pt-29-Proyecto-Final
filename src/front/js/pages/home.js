@@ -4,6 +4,7 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import Suscribete from "../component/suscribete";
 import Hero from "../component/Hero";
+import Serviciospopulares from "../component/serviciosPopulares";
 
 
 
@@ -12,7 +13,8 @@ export const Home = () => {
 
 	return (
 		<div>
-			<Hero/>
+			<Hero />
+			<Serviciospopulares />
 			<Suscribete />
 		</div>
 	);
