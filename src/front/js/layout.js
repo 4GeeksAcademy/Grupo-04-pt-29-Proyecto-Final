@@ -35,11 +35,9 @@ const Layout = () => {
             <Route element={<PrivateRoutes/>}>
               {/* Aqui van todas las rutas que quiero Proteger *(las Rutas Privadas) */}
               <Route element={<Demo />} path="/demo" />
-              
+              <Route element={<ProductsPage />} path="/productspage" />
             </Route>
             <Route element={<Login />} path="/login" />
-
-            
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />
@@ -47,7 +45,6 @@ const Layout = () => {
       </BrowserRouter>
     </div>
   );
-
 };
 
 export default injectContext(Layout);
