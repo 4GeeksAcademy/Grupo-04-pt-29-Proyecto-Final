@@ -5,6 +5,8 @@
     color: #508DF7;
     font-family: "Inter", sans-serif;
     font-weight: 700;
+    font-size: 22px;
+    margin: 12px 0px;
 }
 
 .h5-descripcion {
@@ -26,3 +28,12 @@
 .color-card {
     background-color: #f6f6f6;
 }
+
+.row-content{
+    width:100%;
+}
+
+/* .linea{
+    position: relative;
+    left: 8.5%;
+} */
