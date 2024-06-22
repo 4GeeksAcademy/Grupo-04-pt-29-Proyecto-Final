@@ -7,11 +7,11 @@ export const Navbar = () => {
 	
 	return (
 		<div className="bg-white">
-		<div className="container-navbar">
+		<div className="Navbar">
 		<header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2">
 		  <div className="col-md-3 mb-2 mb-md-0">
 			<a href="/" className="d-inline-flex link-body-emphasis text-decoration-none">
-			 <h3>Logo</h3>
+			 <img className="mt-3" src= "https://res.cloudinary.com/dq3mxxidu/image/upload/v1719006034/logo_ecy7em.jpg"style={{height:"51px", width:"250px"}} />
 			</a>
 		  </div>
 
