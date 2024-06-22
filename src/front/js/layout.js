@@ -7,6 +7,7 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
+import { ProductsPage } from "./pages/productsPage";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -22,7 +23,7 @@ const Layout = () => {
 
   if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "")
     return <BackendURL />;
-
+    
   return (
     <div>
       <BrowserRouter basename={basename}>
@@ -35,11 +36,9 @@ const Layout = () => {
             <Route element={<PrivateRoutes/>}>
               {/* Aqui van todas las rutas que quiero Proteger *(las Rutas Privadas) */}
               <Route element={<Demo />} path="/demo" />
-              
+              <Route element={<ProductsPage />} path="/productspage" />
             </Route>
             <Route element={<Login />} path="/login" />
-
-            
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />
