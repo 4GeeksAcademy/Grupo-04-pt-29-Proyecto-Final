@@ -13,6 +13,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Signup } from "./pages/signup";
 import Login from "./pages/login";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 //create your first component
 const Layout = () => {
@@ -22,25 +23,28 @@ const Layout = () => {
 
   if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "")
     return <BackendURL />;
-
-
-    return (
-        <div>
-            <BrowserRouter basename={basename}>
-                <ScrollToTop>
-                    <Navbar />
-                    <Routes>
-                        <Route element={<Home />} path="/" />
-                        <Route element={<ProductsPage />} path="/productspage" />
-                        <Route element={<Demo />} path="/demo" />
-                        <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<h1>Not found!</h1>} />
-                    </Routes>
-                    <Footer />
-                </ScrollToTop>
-            </BrowserRouter>
-        </div>
-    );
+  return (
+    <div>
+      <BrowserRouter basename={basename}>
+        <ScrollToTop>
+          <Navbar />
+          <Routes>
+            <Route element={<Home />} path="/" />
+            <Route element={<Signup />} path="/signup" />
+            <Route element={<Single />} path="/single/:theid" />
+            <Route element={<PrivateRoutes/>}>
+              {/* Aqui van todas las rutas que quiero Proteger *(las Rutas Privadas) */}
+              <Route element={<Demo />} path="/demo" />
+              <Route element={<ProductsPage />} path="/productspage" />
+            </Route>
+            <Route element={<Login />} path="/login" />
+            <Route element={<h1>Not found!</h1>} />
+          </Routes>
+          <Footer />
+        </ScrollToTop>
+      </BrowserRouter>
+    </div>
+  );
 };
 
 export default injectContext(Layout);
