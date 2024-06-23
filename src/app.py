@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
-from api.models import db,User,UserProfiles,Orders,Providers,Reviews,RoleEnum
+from api.models import db,User,Client,Orders,Providers,Reviews,RoleEnum
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
@@ -85,7 +85,7 @@ def serve_any_other_file(path):
 
 
 #endpoint pruba proveedores - traer servicios de forma general
-@app.route('/providers', methods=['GET'])
+@app.route('/api/providers', methods=['GET'])
 def get_providers():
     all_providers = Providers.query.all()
     providers_serialized=[]
@@ -93,6 +93,8 @@ def get_providers():
         providers_serialized.append(providers.serialize())
     print(providers_serialized)
     return jsonify({"data":providers_serialized}), 200
+
+
 
 
 
