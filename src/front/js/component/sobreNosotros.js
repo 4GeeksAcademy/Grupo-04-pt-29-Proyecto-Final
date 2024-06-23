@@ -6,7 +6,7 @@ import "../../styles/sobreNosotros.css";
 export const SobreNosotros = () => {
     return (
         <div>
-            <div className="p-3 titulo-aboutUs">
+            <div className=" titulo-aboutUs p-3">
                 <p><strong>Sobre la Empresa</strong></p>
             </div>
             <div className="container-aboutUs">

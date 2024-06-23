@@ -49,19 +49,24 @@ class User(db.Model):
         }
         
 
-class UserProfiles(db.Model):
-    __tablename__='user_profiles'
+class Client(db.Model):
+    __tablename__='client'
     id = db.Column(db.Integer, primary_key=True)
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
     user=db.relationship(User);
-    first_name=db.Column(db.String(50),nullable=False)
+    name=db.Column(db.String(50),nullable=False)
     last_name=db.Column(db.String(50),nullable=False)
-    bio=db.Column(db.String(50),nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    phone=db.Column(db.Integer, unique=True, nullable=False)
     location=db.Column(db.String(50),nullable=False)
-    profile_picture=db.Column(db.String(150),nullable=False)
+    url_image = db.Column(db.String(150), nullable=False)
+    bio=db.Column(db.String(50),nullable=False)
+    password = db.Column(db.String(80), unique=False, nullable=False)
+    
+
 
     def __repr__(self):
-        return f'User {self.id}  {self.user_id}  {self.first_name} {self.last_name} {self.bio} {self.location} {self.profile_picture}'
+        return f'User {self.id}  {self.user_id}  {self.name} {self.last_name} {self.bio} {self.location} {self.url_image} {self.email} {self.phone} {self.password}'
 
     def serialize(self):
         return {
@@ -71,7 +76,12 @@ class UserProfiles(db.Model):
             "last_name":self.last_name,
             "bio":self.bio,
             "location":self.location,
-            "profile_picture":self.profile_picture             
+            "url_image":self.url_image,
+            "email":self.email,
+            "url_image":self.url_image,
+            "phone":self.phone,
+    
+
             # do not serialize the password, its a security breach
         }
         
@@ -81,14 +91,28 @@ class Providers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
     user=db.relationship(User);
-    profession=db.Column(db.String(50),nullable=False)
-    description=db.Column(db.String(150),nullable=False)
-    price=db.Column(db.Integer,nullable=False)
+    name=db.Column(db.String(50), nullable=False)
+    last_name=db.Column(db.String(50), nullable=False)
+    identity_number=db.Column(db.Integer, unique=True,nullable=False)
+    company=db.Column(db.String(50), nullable=False)
+    number_company=db.Column(db.String(50), unique=True, nullable=False)
+    email=db.Column(db.String(50),unique=True, nullable=False)
+    phone=db.Column(db.Integer, unique=True, nullable=False)
+    location=db.Column(db.String(50),nullable=False)
     category=db.Column(db.Enum(CategoryEnum),nullable=False)
+    profession=db.Column(db.String(50),nullable=False)
+    experience=db.Column(db.Integer, nullable=False)
+    price=db.Column(db.Integer, unique=True, nullable=False)
+    description=db.Column(db.String(150),nullable=False)
+    url_image = db.Column(db.String(100), nullable=False)
+    valoration= db.Column(db.Integer, nullable=False)
+    user_coments=db.Column(db.String(200),nullable=False)
     create_at=db.Column(db.Date, unique=False, nullable=False)
+    password = db.Column(db.String(80), unique=False, nullable=False)
+     
 
     def __repr__(self):
-        return f'User {self.user_id} {self.profession} {self.description} {self.price} {self.category} {self.create_at}'
+        return f'User {self.user_id} {self.profession} {self.description} {self.price} {self.category} {self.create_at} {self.location} {self.user_coments} {self.name} {self.last_name} {self.email} {self.phone} {self.company} {self.number_company} {self.identity_number} {self.experience} {self.password} {self.url_image} {self.valoration}'
 
     def serialize(self):
         return {
@@ -98,7 +122,19 @@ class Providers(db.Model):
             "description":self.description,
             "price":self.price,
             "category":self.category,
-            "create_at":self.create_at             
+            "create_at":self.create_at,
+            "location":self.location,
+            "user_coments":self.reputation,
+            "name":self.name,
+            "last_name":self.last_name,
+            "email":self.email,
+            "phone":self.phone,
+            "email":self.email,
+            "number_company":self.number_company,
+            "identity_number":self.identity_number,
+            "experience":self.experience,
+            "url_image":self.url_image,
+            "valoration":self.valoration
             # do not serialize the password, its a security breach
         }  
         

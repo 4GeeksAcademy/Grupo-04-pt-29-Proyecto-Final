@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint, current_app
-from api.models import db, User, UserProfiles,Orders,Providers,Reviews,RoleEnum
+from api.models import db, User, Client,Orders,Providers,Reviews,RoleEnum
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
@@ -78,3 +78,7 @@ def login():
     if True :
         access_token = create_access_token(identity=user.email)
     return jsonify ({'msg': 'Ha iniciado sesión correctamente', 'access_token':access_token}), 200
+
+
+
+
