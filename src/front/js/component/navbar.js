@@ -16,7 +16,7 @@ export const Navbar = () => {
   const handlerProfile = () => {
     navigate("/provider");
   };
-
+  
   return (
     <div className="bg-white">
       <div className="Navbar">

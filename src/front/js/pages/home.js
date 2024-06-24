@@ -7,6 +7,7 @@ import Category from "../component/Category"
 import UneteSection from "../component/uneteSection"
 import { SobreNosotros } from "../component/sobreNosotros";
 import Suscribete from "../component/suscribete";
+import Serviciospopulares from "../component/serviciosPopulares";
 
 
 
@@ -19,6 +20,7 @@ export const Home = () => {
 			<Category/>
 			<UneteSection/>
 			<SobreNosotros/>
+			<Serviciospopulares />
 			<Suscribete />
 		</div>
 	);
