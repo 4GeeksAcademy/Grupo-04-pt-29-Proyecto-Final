@@ -84,6 +84,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					alert(error)
 				}
 			},
+      logout:()=> {
+				let store= getStore()
+				setStore({...store,user:{}})
+			}
     },
   };
 };
