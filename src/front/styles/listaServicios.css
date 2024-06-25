@@ -48,6 +48,7 @@
 }
 
 .precio-listaServ {
+    text-align: right;
     color:rgba(102, 102, 236, 0.918);
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;

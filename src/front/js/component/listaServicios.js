@@ -8,6 +8,7 @@ export const ListaServicios = () => {
     useEffect(()=>{
         actions.getProviders()},[])
     
+        
     console.log(store.listProviders);
    
     return (
