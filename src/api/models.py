@@ -72,7 +72,7 @@ class Client(db.Model):
         return {
             "id": self.id,
             "user_id":self.user_id,
-            "first_name": self.first_name,
+            "name": self.name,
             "last_name":self.last_name,
             "bio":self.bio,
             "location":self.location,
@@ -104,7 +104,7 @@ class Providers(db.Model):
     experience=db.Column(db.Integer, nullable=False)
     price=db.Column(db.Integer, unique=True, nullable=False)
     description=db.Column(db.String(150),nullable=False)
-    url_image = db.Column(db.String(100), nullable=False)
+    url_image = db.Column(db.String(300), nullable=False)
     valoration= db.Column(db.Integer, nullable=False)
     user_coments=db.Column(db.String(200),nullable=False)
     create_at=db.Column(db.Date, unique=False, nullable=False)
@@ -124,12 +124,11 @@ class Providers(db.Model):
             "category":self.category,
             "create_at":self.create_at,
             "location":self.location,
-            "user_coments":self.reputation,
+            "user_coments":self.user_coments,
             "name":self.name,
             "last_name":self.last_name,
             "email":self.email,
             "phone":self.phone,
-            "email":self.email,
             "number_company":self.number_company,
             "identity_number":self.identity_number,
             "experience":self.experience,
@@ -182,7 +181,6 @@ class Reviews(db.Model):
             "id": self.id,
             "order_id":self.order_id,
             "rating": self.rating,
-            "last_name":self.last_name,
             "comment":self.comment,
             "created_at":self.created_at          
             # do not serialize the password, its a security breach

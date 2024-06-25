@@ -4,7 +4,8 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
 
-      user:{}
+      user:{},
+      listProviders:[]
 
     },
     actions: {
@@ -84,8 +85,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 					alert(error)
 				}
 			},
+
+      getProviders: ()=>{
+        console.log("funciona")
+				fetch("https://laughing-space-carnival-q77xrw6gg74xcxr4w-3001.app.github.dev/api/providers" 
+          // {
+	        // 'mode': 'no-cors',
+	        // 'headers': {
+          //   	'Access-Control-Allow-Origin': '*',
+        	// }}
+        )
+				.then((response)=>{
+          if (!response.ok) {
+            throw new Error ("error")
+          }
+					return response.json()
+				})
+				.then((data)=>{
+					setStore({listProviders:data.data})
+          console.log(data.data);
+				})
+				.catch((error) => {error})
+			}
     },
   };
 };
+
+
 
 export default getState;
