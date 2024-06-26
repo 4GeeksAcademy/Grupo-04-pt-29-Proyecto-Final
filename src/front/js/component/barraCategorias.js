@@ -31,7 +31,7 @@ export const BarraCategorias = () => {
                   <button type="button" className="btn btn-link categoria-bc">
                     <label className="d-flex">
                       <input type="checkbox" className="categoria-checkbox-bc" />
-                      {value.category}
+                      {value.services[0].category}
                     </label>
                   </button>
                   <h6 className="disponibleCategoria-bc">15</h6>
@@ -60,7 +60,7 @@ export const BarraCategorias = () => {
                   <button type="button" className="btn btn-link categoria-bc">
                     <label className="d-flex">
                       <input type="checkbox" className="categoria-checkbox-bc" />
-                      {value.price}
+                      {value.services[0].price}
                     </label>
                   </button>
                   <h6 className="disponibleCategoria-bc">4</h6>

@@ -70,3 +70,7 @@
     cursor:pointer;
     font-size: 20px;
 }
+
+.favorito-listaServ {
+    text-align: right;
+}
