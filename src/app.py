@@ -97,7 +97,15 @@ def get_providers():
     return jsonify({"data":providers_serialized}), 200, {'Access-Control-Allow-Origin':'*'}
 
 
+#endpoint para escoger cada proovedor con un id
+@app.route('/api/provider/<int:id>', methods=['GET'])
+def get_single_provider(id):
+    single_provider = Providers.query.get(id)
 
+    if single_provider is None:
+        return jsonify({"msg": f"El usuario ccon le ID: {id} no existe"}), 400
+    print(single_provider.serialize())
+    return jsonify({"data": single_provider.serialize()}, 200)
 
 
 

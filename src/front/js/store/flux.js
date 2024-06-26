@@ -108,6 +108,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.catch((error) => {error})
 			}
     },
+
+    logout:()=> {
+      let store= getStore()
+      setStore({...store,user:{}})},
+
+    getSingleProvider: (id) => {
+      fetch(process.env.BACKEND_URL + `api/priveder${id}`, {
+        method: "GET"
+      })
+        .then((response) => {
+          console.log(response.status);
+          return response.json()
+
+        })
+        .then((data) => {
+          console.log(data);
+          setStore({ provider: data.provider })
+
+        })
+        .catch((error) => { error })
+    }
   };
 };
 
