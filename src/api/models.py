@@ -50,7 +50,7 @@ class User(db.Model):
         
 
 class Client(db.Model):
-    __tablename__='client'
+    __tablename__='Client'
     id = db.Column(db.Integer, primary_key=True)
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
     user=db.relationship(User);
@@ -66,28 +66,31 @@ class Client(db.Model):
 
 
     def __repr__(self):
-        return f'User {self.id}  {self.user_id}  {self.name} {self.last_name} {self.bio} {self.location} {self.url_image} {self.email} {self.phone} {self.password}'
+        return f'client {self.id} {self.user_id} {self.name} {self.last_name} 
+        {self.email}
+        {self.phone}
+        {self.location}
+        {self.url_image} 
+        {self.bio}'
 
     def serialize(self):
         return {
             "id": self.id,
             "user_id":self.user_id,
-            "first_name": self.first_name,
+            "name": self.name,
             "last_name":self.last_name,
-            "bio":self.bio,
             "location":self.location,
             "url_image":self.url_image,
             "email":self.email,
-            "url_image":self.url_image,
             "phone":self.phone,
-    
-
+            "url_image":self.url_image,
+            "bio":self.bio,
             # do not serialize the password, its a security breach
         }
         
     
 class Providers(db.Model):
-    __tablename__='providers'
+    __tablename__='Providers'
     id = db.Column(db.Integer, primary_key=True)
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
     user=db.relationship(User);
@@ -112,29 +115,47 @@ class Providers(db.Model):
      
 
     def __repr__(self):
-        return f'User {self.user_id} {self.profession} {self.description} {self.price} {self.category} {self.create_at} {self.location} {self.user_coments} {self.name} {self.last_name} {self.email} {self.phone} {self.company} {self.number_company} {self.identity_number} {self.experience} {self.password} {self.url_image} {self.valoration}'
-
+        return f'providers  
+        {self.user_id} 
+        {self.name} 
+        {self.last_name}
+        {self.identity_number}
+        {self.company} 
+        {self.number_company}
+        {self.email} 
+        {self.phone} 
+        {self.location} 
+        {self.category} 
+        {self.profession}
+        {self.experience}
+        {self.price} 
+        {self.description} 
+        {self.url_image}
+        {self.user_coments} 
+        {self.valoration}
+        {self.create_at}'
+        
     def serialize(self):
         return {
             "id": self.id,
             "user_id":self.user_id,
-            "profession": self.profession,
-            "description":self.description,
-            "price":self.price,
-            "category":self.category,
-            "create_at":self.create_at,
-            "location":self.location,
-            "user_coments":self.reputation,
             "name":self.name,
             "last_name":self.last_name,
+            "identity_number":self.identity_number,
+            "company":self.company,
+            "number_company":self.number_company,
             "email":self.email,
             "phone":self.phone,
-            "email":self.email,
-            "number_company":self.number_company,
-            "identity_number":self.identity_number,
+            "location":self.location,
+            "category":self.category,
+            "profession": self.profession,
             "experience":self.experience,
+            "price":self.price,
+            "description":self.description,
             "url_image":self.url_image,
-            "valoration":self.valoration
+            "user_coments":self.user_coments,
+            "valoration":self.valoration,
+            "create_at":self.create_at,
             # do not serialize the password, its a security breach
         }  
         
@@ -151,7 +172,7 @@ class Orders(db.Model):
     completion_date=db.Column(db.Date, unique=False, nullable=False)
 
     def __repr__(self):
-        return f'User {self.id} {self.providers_id} {self.client_id} {self.status} {self.order_date} {self.completion_date}'
+        return f'Orders {self.id} {self.providers_id} {self.client_id} {self.status} {self.order_date} {self.completion_date}'
 
     def serialize(self):
         return {
@@ -175,7 +196,7 @@ class Reviews(db.Model):
     created_at=db.Column(db.Date, unique=False, nullable=False)
 
     def __repr__(self):
-        return f'User {self.id}  {self.order_id}  {self.rating} {self.comment} {self.created_at}'
+        return f'Reviews {self.id}  {self.order_id}  {self.rating} {self.comment} {self.created_at}'
 
     def serialize(self):
         return {
