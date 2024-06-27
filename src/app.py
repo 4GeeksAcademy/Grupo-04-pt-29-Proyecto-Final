@@ -15,6 +15,7 @@ from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 from datetime import timedelta  
+from flask_cors import CORS
 
 # from models import Person
 
@@ -23,6 +24,7 @@ static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
 
 app = Flask(__name__)
+CORS(app)
 bcrypt = Bcrypt(app)
 app.bcrypt = bcrypt
 
@@ -95,7 +97,15 @@ def get_providers():
     return jsonify({"data":providers_serialized}), 200
 
 
+#endpoint para escoger cada proovedor con un id
+@app.route('/api/provider/<int:id>', methods=['GET'])
+def get_single_provider(id):
+    single_provider = Providers.query.get(id)
 
+    if single_provider is None:
+        return jsonify({"msg": f"El usuario ccon le ID: {id} no existe"}), 400
+    print(single_provider.serialize())
+    return jsonify({"data": single_provider.serialize()}, 200)
 
 
 
