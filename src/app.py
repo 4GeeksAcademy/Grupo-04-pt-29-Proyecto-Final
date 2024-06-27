@@ -15,6 +15,7 @@ from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 from datetime import timedelta  
+from flask_cors import CORS
 
 # from models import Person
 
@@ -23,6 +24,7 @@ static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
 
 app = Flask(__name__)
+CORS(app)
 bcrypt = Bcrypt(app)
 app.bcrypt = bcrypt
 
