@@ -62,22 +62,23 @@ class Client(db.Model):
     bio=db.Column(db.String(50),nullable=False)
     orders=db.relationship("Orders", backref="client", lazy=True)
     reviews=db.relationship("Reviews", backref="client", lazy=True, uselist=True)
-    
+    order_favorite=db.relationship("OrderFavorite", backref="client", lazy=True)
+
 
 
     def __repr__(self):
-        return f'Client {self.id}  {self.user_id}  {self.name} {self.last_name} {self.bio} {self.location} {self.url_image} {self.phone}'
+        return f'Client {self.id}  {self.user_id}  {self.name} {self.last_name} {self.phone} {self.location} {self.bio} {self.url_image}'
 
     def serialize(self):
         return {
             "id": self.id,
             "user_id":self.user_id,
-            "first_name": self.first_name,
+            "name": self.name,
             "last_name":self.last_name,
-            "bio":self.bio,
+            "phone":self.phone,
             "location":self.location,
             "url_image":self.url_image,
-            "phone":self.phone,
+            "bio":self.bio,
             "reviews":[review.serialize() for review in self.reviews]
 
             # do not serialize the password, its a security breach
@@ -100,29 +101,32 @@ class Providers(db.Model):
     experience=db.Column(db.Integer, nullable=False)
     valoration= db.Column(db.Integer, nullable=False)
     url_image=db.Column(db.String(200),nullable=True)
+    description=db.Column(db.String(500),nullable=True)
     reviews=db.relationship("Reviews", backref="providers", lazy=True, uselist=True)
     services=db.relationship("Services", backref="providers", lazy=True, uselist=True)
     orders=db.relationship("Orders", backref="providers", lazy=True, uselist=True)
      
     def __repr__(self):
-        return f'Providers {self.user_id} {self.profession}  {self.location} {self.name} {self.last_name} {self.phone} {self.company} {self.number_company} {self.identity_number} {self.experience} {self.valoration}'
+        return f'Providers {self.user_id} {self.name} {self.last_name} {self.identity_number} {self.company} {self.number_company} {self.phone} {self.location} {self.profession} {self.experience} {self.valoration} {self.url_image}'
 
     def serialize(self):
         return {
             "id": self.id,
             "user_id":self.user_id,
-            "profession": self.profession,
-            "location":self.location,
-            "reviews":[review.serialize() for review in self.reviews],
-            "services":[service.serialize() for service in self.services],
             "name":self.name,
             "last_name":self.last_name,
-            "phone":self.phone,
-            "number_company":self.number_company,
             "identity_number":self.identity_number,
+            "company":self.company,
+            "number_company":self.number_company,
+            "phone":self.phone,
+            "location":self.location,
+            "profession": self.profession,
             "experience":self.experience,
+            "valoration":self.valoration,
             "url_image":self.url_image,
-            "valoration":self.valoration
+            "reviews":[review.serialize() for review in self.reviews],
+            "services":[service.serialize() for service in self.services],
+            "description":self.description,
             # do not serialize the password, its a security breach
         }  
     
@@ -135,6 +139,7 @@ class Services(db.Model):
     url_image = db.Column(db.String(100), nullable=False)
     category=db.Column(db.Enum(CategoryEnum),nullable=False)
     orders=db.relationship("Orders", backref="services", lazy=True, uselist=True)
+    reviews=db.relationship("Reviews", backref="services", lazy=True)
 
     def serialize(self):
         return {
@@ -157,7 +162,7 @@ class Orders(db.Model):
     status=db.Column(db.String(50),nullable=False)
     order_date=db.Column(db.Date, unique=False, nullable=False)
     completion_date=db.Column(db.Date, unique=False, nullable=False)
-    reviews=db.relationship("Reviews", backref="orders", lazy=True)
+    order_favorite=db.relationship("OrderFavorite", backref="orders", lazy=True)
 
 
     def __repr__(self):
@@ -174,13 +179,32 @@ class Orders(db.Model):
             # do not serialize the password, its a security breach
         } 
 
+class OrderFavorite(db.Model):
+    __tablename__='order_favorite'
+    id = db.Column(db.Integer, primary_key=True)
+    order_id=db.Column(db.Integer,db.ForeignKey('orders.id'),nullable=False)
+    client_id=db.Column(db.Integer,db.ForeignKey('client.id'),nullable=False)
+    
+    def __repr__(self):
+        return f'OrderFavorite {self.id}  {self.order_id}  {self.client_id}'
+
+    def serialize(self):
+        order = Orders.query.get(self.order_id)
+        # client = Client.query.get(self.client_id)
+        return {
+            "id": self.id,
+            "order":order.serialize(),
+            # "client":client.serialize(),
+        }
+
+
 class Reviews(db.Model):
     __tablename__='reviews'
     id = db.Column(db.Integer, primary_key=True)
     rating=db.Column(db.Integer,nullable=False)
-    comment=db.Column(db.String(50),nullable=False)
+    comment=db.Column(db.String(500),nullable=False)
     created_at=db.Column(db.Date, unique=False, nullable=False)
-    order_id=db.Column(db.Integer,db.ForeignKey('orders.id'),nullable=False)
+    services_id=db.Column(db.Integer,db.ForeignKey('services.id'),nullable=False)
     client_id=db.Column(db.Integer,db.ForeignKey('client.id'),nullable=False)
     provider_id=db.Column(db.Integer,db.ForeignKey('providers.id'),nullable=False)
 

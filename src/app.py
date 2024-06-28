@@ -6,12 +6,13 @@ from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
-from api.models import db,User,Client,Orders,Providers,Reviews,RoleEnum
+from api.models import db,User,Client,Orders,Providers,Reviews,RoleEnum,OrderFavorite
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
-
-
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 from datetime import timedelta  
@@ -25,6 +26,7 @@ static_file_dir = os.path.join(os.path.dirname(
 
 app = Flask(__name__)
 CORS(app)
+
 bcrypt = Bcrypt(app)
 app.bcrypt = bcrypt
 
@@ -86,6 +88,62 @@ def serve_any_other_file(path):
 # INicio de los endpoints
 
 
+# Sign Up o Registro
+
+@app.route('/api/signup', methods=["POST"])
+def signup():
+    body = request.get_json(silent=True)
+    
+    if body is None:
+        return jsonify ({'msg':'Los campos de usuario y contraseña están vacíos'}), 400
+    if 'username' not in body:
+        return jsonify ({'msg':'Debe crear un usuario para continuar.'}), 400
+    if 'email' not in body:
+        return jsonify ({'msg':'No puede continuar sin un correo electrónico.'}), 400
+    if 'password' not in body:
+        return jsonify ({'msg':'No puede continuar sin su contraseña de seguridad.'}), 400
+    
+    password_hash= bcrypt.generate_password_hash(body["password"]).decode("utf-8")
+
+    new_user = User(
+        username = body["username"],
+        role = body["role"],
+        email = body["email"],
+        password = password_hash,
+        is_active = True,
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify ({'msg':'Usuario Creado .'}), 200
+
+
+# Log In o Iniciar Seccion  
+
+@app.route('/api/login', methods=["POST"])
+def login():
+    body = request.get_json(silent=True)
+    if body is None:
+        return jsonify ({'msg':'Los campos de usuario y contraseña están vacíos'}), 400
+    if 'email' not in body:
+        return jsonify ({'msg':'No puede continuar sin su correo electrónico.'}), 400
+    if 'password' not in body:
+        return jsonify ({'msg':'No puede continuar sin su Contraseña de Seguridad.'}), 400
+    
+    user = User.query.filter_by(email=body['email']).first()
+    if user is None :
+       return jsonify ({'msg':'Datos de acceso inválidos. Por favor, verifique e intente nuevamente.'}), 400
+    
+    correct_password = bcrypt.check_password_hash(user.password, body['password'])
+    if correct_password is False:
+        return jsonify ({'msg':'Datos de acceso inválidos. Por favor, verifique e intente nuevamente.'}), 400
+    if True :
+        response_body={
+            "access_token": create_access_token(identity=user.email),
+            "user":user.serialize()
+        }
+        
+    return jsonify (response_body), 200
+
 #endpoint pruba proveedores - traer servicios de forma general
 @app.route('/api/providers', methods=['GET'])
 def get_providers():
@@ -107,9 +165,20 @@ def get_single_provider(id):
     print(single_provider.serialize())
     return jsonify({"data": single_provider.serialize()}, 200)
 
+#endpoint para obtener las Ordenes Favoritas del Cliente
 
+@app.route('/api/client/<int:client_id>/favorites', methods=["GET"])
+def client_favorites(client_id):
+
+    favorites = OrderFavorite.query.filter_by(client_id=client_id).all()
+    if len(favorites) == 0:
+        raise APIException('El cliente aún no tiene favoritos', status_code=404)
+    favorites = list(map(lambda item: item.serialize(), favorites))
+        
+    return jsonify (favorites), 200
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
     app.run(host='0.0.0.0', port=PORT, debug=True)
+

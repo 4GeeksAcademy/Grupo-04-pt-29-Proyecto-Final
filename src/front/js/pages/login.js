@@ -25,7 +25,15 @@ const Login = () => {
     else {
       const result = await actions.login(email, password);
       if(result){
-        navigate("/profile");
+
+
+        if(store.user.role == "Client"){
+          navigate("/productspage");
+        }
+        if(store.user.role == "Provider"){
+          navigate("/productspage");
+        }
+        //navigate("/productspage");
       }
     }
   };
