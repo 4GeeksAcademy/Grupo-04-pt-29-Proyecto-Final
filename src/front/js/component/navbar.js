@@ -13,8 +13,20 @@ export const Navbar = () => {
     actions.logout();
     navigate("/");
   };
-  const handlerProfile = () => {
-    navigate("/provider");
+  const handleProfile = () => {
+    if (store.user?.role === "Client") {
+      navigate("/client");
+    } else if (store.user?.role === "Provider") {
+      navigate("/provider");
+    } else {
+      // Handle the case where the user role is not found or invalid
+      console.warn("Invalid user role:", store.user?.role);
+    };
+  };
+  console.log(store.user)
+  
+  const handleHome = () => {
+    navigate("/productspage");
   };
   
   return (
@@ -58,17 +70,23 @@ export const Navbar = () => {
 
           {isLoggedIn() ? (
             <div className="col-md-2  d-flex text-end ">
+              <button className="btn" style={{ fontSize: "22px" }}
+              onClick={handleHome}>
+                {" "}
+                <>home</>
+              </button>
+
               <button className="btn" style={{ fontSize: "22px" }}>
                 {" "}
                 <i className="px-3 fa-regular fa-heart"></i>
               </button>
-			  <div class="dropdown">
+			        <div class="dropdown">
                 <button
                   class="btn dropdown-toggle"
                   type="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-				  style={{ fontSize: "22px" }}
+				          style={{ fontSize: "22px" }}
                 >
                   <i className="fa-solid fa-user"></i>
                 </button>
@@ -76,7 +94,7 @@ export const Navbar = () => {
                   class="dropdown-menu"
                   style={{ backgroundColor: "transparent" }}
                 >
-                   <li className="p-1" onClick={handlerProfile}>
+                   <li className="p-1" onClick={handleProfile}>
                     <button className="btn btn-outline-primary"> profile </button>
                   </li>
                   <li className="p-1" onClick={handlerOut}>

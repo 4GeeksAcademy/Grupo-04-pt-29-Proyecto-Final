@@ -55,7 +55,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (!response.ok) {
             throw new Error("Error al Registrarte");
           }
-          console.log(data);
+          console.log(data);comm
           return true;
         } catch (error) {
           alert(error);
@@ -77,7 +77,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("Error al hacer Login")
 					} 
 					localStorage.setItem("token",data.access_token )
-					console.log(data)
+					console.log(data.user)
 					setStore({user:data.user})
 					return true
 				} catch (error) {
