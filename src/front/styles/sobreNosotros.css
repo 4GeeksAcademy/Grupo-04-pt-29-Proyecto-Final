@@ -15,7 +15,18 @@
     
   }
 
+  .contenedor-titulo-aboutUs {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+  }
+  
+
   .titulo-aboutUs {
+    display:flex;
+    text-align:center;
+    align-items: center;
+    padding: 20px;
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
     font-weight: 700;
