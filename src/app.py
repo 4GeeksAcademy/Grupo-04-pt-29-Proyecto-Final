@@ -44,7 +44,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
 
-app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET")  # Change this!
+app.config["JWT_SECRE T_KEY"] = os.getenv("JWT_SECRET")  # Change this!
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 jwt = JWTManager(app)
 
@@ -88,7 +88,7 @@ def serve_any_other_file(path):
 # INicio de los endpoints
 
 
-# Sign Up o Registro
+#Sign Up o Registro
 
 @app.route('/api/signup', methods=["POST"])
 def signup():
