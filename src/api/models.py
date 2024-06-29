@@ -99,7 +99,6 @@ class Providers(db.Model):
     location=db.Column(db.String(30),nullable=False)
     profession=db.Column(db.String(30),nullable=False)
     experience=db.Column(db.Integer, nullable=False)
-    valoration= db.Column(db.Integer, nullable=False)
     url_image=db.Column(db.String(200),nullable=True)
     description=db.Column(db.String(500),nullable=True)
     reviews=db.relationship("Reviews", backref="providers", lazy=True, uselist=True)
@@ -107,7 +106,7 @@ class Providers(db.Model):
     orders=db.relationship("Orders", backref="providers", lazy=True, uselist=True)
      
     def __repr__(self):
-        return f'Providers {self.user_id} {self.name} {self.last_name} {self.identity_number} {self.company} {self.number_company} {self.phone} {self.location} {self.profession} {self.experience} {self.valoration} {self.url_image}'
+        return f'Providers {self.user_id} {self.name} {self.last_name} {self.identity_number} {self.company} {self.number_company} {self.phone} {self.location} {self.profession} {self.experience} {self.url_image}'
 
     def serialize(self):
         return {
@@ -122,7 +121,6 @@ class Providers(db.Model):
             "location":self.location,
             "profession": self.profession,
             "experience":self.experience,
-            "valoration":self.valoration,
             "url_image":self.url_image,
             "reviews":[review.serialize() for review in self.reviews],
             "services":[service.serialize() for service in self.services],

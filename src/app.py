@@ -184,7 +184,6 @@ def update_provider(id):
     body = request.get_json()
     if update_provider is None:
         return jsonify({"msg": f"El id {id} provider no fue encontrado"}), 400
-    
     if "name" in body:
         update_provider.name = body["name"]
     if "last_name" in body:
@@ -204,28 +203,30 @@ def update_provider(id):
     db.session.commit()
     return jsonify({"data": update_provider.serialize()})
 
+
+
 #endpoint para crear informacion de proveedor
 @app.route('/api/add/provider', methods=['POST'])
 def new_provider():
     body = request.get_json(silent=True)
-    # if body is None:
-    #     return jsonify({'msg': 'Debes enviar información en el body'}), 400
-    # if 'name' not in body:
-    #     return jsonify({'msg': 'El campo name es obligatorio'}), 400
-    # if 'last_name' not in body:
-    #     return jsonify({'msg': 'El campo last_name es obligatorio'}), 400
-    # if 'phone' not in body:
-    #     return jsonify({'msg': 'El campo phone es obligatorio'}), 400
-    # if 'location' not in body:
-    #     return jsonify({'msg': 'El campo location es obligatorio'}), 400
-    # if 'identity_number' not in body:
-    #     return jsonify({'msg': 'El campo identity_number es obligatorio'}), 400
-    # if 'profession' not in body:
-    #     return jsonify({'msg': 'El campo profession es obligatorio'}), 400
-    # if 'experience' not in body:
-    #     return jsonify({'msg': 'El campo experience es obligatorio'}), 400
-    # if 'description' not in body:
-    #     return jsonify({'msg': 'El campo description es obligatorio'}), 400
+    if body is None:
+        return jsonify({'msg': 'Debes enviar información en el body'}), 400
+    if 'name' not in body:
+        return jsonify({'msg': 'El campo name es obligatorio'}), 400
+    if 'last_name' not in body:
+        return jsonify({'msg': 'El campo last_name es obligatorio'}), 400
+    if 'phone' not in body:
+        return jsonify({'msg': 'El campo phone es obligatorio'}), 400
+    if 'location' not in body:
+        return jsonify({'msg': 'El campo location es obligatorio'}), 400
+    if 'identity_number' not in body:
+        return jsonify({'msg': 'El campo identity_number es obligatorio'}), 400
+    if 'profession' not in body:
+        return jsonify({'msg': 'El campo profession es obligatorio'}), 400
+    if 'experience' not in body:
+        return jsonify({'msg': 'El campo experience es obligatorio'}), 400
+    if 'description' not in body:
+        return jsonify({'msg': 'El campo description es obligatorio'}), 400
     
     new_provider = Providers()
     new_provider.user_id = body['user_id']
@@ -239,14 +240,13 @@ def new_provider():
     new_provider.description = body['description']
     new_provider.number_company = body['number_company']
     new_provider.company = body['company']
-    new_provider.valoration = body['valoration']
-    
     print("se imprime body",body['user_id'])
     db.session.add(new_provider)
     db.session.commit()
     print("se imprime body",body['user_id'])
     return jsonify({'msg': 'Nuevo provider creado',
                     'data': new_provider.serialize()}), 201
+
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
