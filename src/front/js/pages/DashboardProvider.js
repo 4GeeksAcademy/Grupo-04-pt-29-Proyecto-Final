@@ -4,6 +4,7 @@ import rigoImage from "../../img/rigo-baby.jpg";
 import MyProfileProvider from "../component/myProfileProvider";
 import EditProvider from "../component/editProvider";
 import AddNewAd from "../component/addNewAd";
+import MyAds from "../component/myAds";
 
 const DashboardProvider = () => {
   const { store } = useContext(Context);
@@ -31,12 +32,11 @@ const DashboardProvider = () => {
               </div>
 
               <div className="card-body">
-                <h5>
-                  <p>Username: {store.user.username}</p>
+                <h5>Username:  {store.user.username}
                 </h5>
-                <p>Email:{store.user.email}</p>
-                <p>Location:{store.user.location}</p>
-                <p>Valoration:{store.user.location}</p>
+                <p>Email: {store.user.email}</p>
+                <p>Location: {store.user.location}</p>
+                <p>Valoration: {store.user.location}</p>
               </div>
             </div>
           </div>
@@ -143,7 +143,7 @@ const DashboardProvider = () => {
               aria-labelledby="myAds-tab"
               tabIndex={0}
             >
-              Mis Anuncios
+              <MyAds />
             </div>
             <div
               className="tab-pane fade"
