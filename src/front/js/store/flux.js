@@ -4,7 +4,9 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
 
-      user:{}
+      user:{},
+      provider: [],
+      providersCategory: []
 
     },
     actions: {
@@ -87,25 +89,43 @@ const getState = ({ getStore, getActions, setStore }) => {
       logout:()=> {
 				let store= getStore()
 				setStore({...store,user:{}})
-			}
-    },
-
-    getSingleProvider: (id) => {
-      fetch(process.env.BACKEND_URL + `api/priveder${id}`, {
-        method: "GET"
-      })
-        .then((response) => {
-          console.log(response.status);
-          return response.json()
-
+			},
+      getSingleProvider: (id) => {
+        fetch(process.env.BACKEND_URL + `api/provider/${id}`, {
+          method: "GET"
         })
-        .then((data) => {
-          console.log(data);
-          setStore({ provider: data.provider })
+          .then((response) => {
+           console.log(response.status);
+            return response.json()
+  
+          })
+          .then((data) => {
+          
+            setStore({ provider: data })
+  
+          })
+          .catch((error) => { error })
+      },
 
+      getCategorySearchBar: () => {
+        fetch(process.env.BACKEND_URL + "api/providers", {
+          method: "GET"
         })
-        .catch((error) => { error })
+          .then((response) => {
+            console.log(response.status);
+            return response.json()
+  
+          })
+          .then((data) => {
+           setStore({providersCategory: data.data})
+            console.log(data);
+  
+          })
+          .catch((error) => { error })
+      }
     }
+
+    
   };
 };
 
