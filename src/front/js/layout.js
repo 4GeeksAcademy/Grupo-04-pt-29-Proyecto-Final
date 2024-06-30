@@ -16,6 +16,7 @@ import Login from "./pages/login";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import DashboardClient from "./pages/DashboardClient";
 import DashboardProvider from "./pages/DashboardProvider";
+import DetallePrimeraParte from "./component/detallePrimeraParte";
 
 //create your first component
 const Layout = () => {
@@ -39,6 +40,7 @@ const Layout = () => {
             <Route element={<DashboardProvider />} path="/provider" />
             <Route element={<Demo />} path="/demo" />
             <Route element={<ProductsPage />} path="/productspage" />
+            <Route element={<DetallePrimeraParte />} path="/singleprovider/:idProvider" />
 
             <Route element={<PrivateRoutes/>}>
               {/* Aqui van todas las rutas que quiero Proteger *(las Rutas Privadas) */}
