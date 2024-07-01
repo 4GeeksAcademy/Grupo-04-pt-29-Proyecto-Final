@@ -10,6 +10,7 @@ from api.models import db,User,Client,Orders,Providers,Reviews,RoleEnum,OrderFav
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
@@ -25,6 +26,7 @@ static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "https://laughing-space-carnival-q77xrw6gg74xcxr4w-3000.app.github.dev/"}})
 CORS(app)
 
 bcrypt = Bcrypt(app)
@@ -145,14 +147,15 @@ def login():
     return jsonify (response_body), 200
 
 #endpoint pruba proveedores - traer servicios de forma general
-@app.route('/api/providers', methods=['GET'])
+@cross_origin()
+@app.route("/api/providers", methods=['GET'])
 def get_providers():
     all_providers = Providers.query.all()
     providers_serialized=[]
     for providers  in all_providers:
         providers_serialized.append(providers.serialize())
-    print(providers_serialized)
-    return jsonify({"data":providers_serialized}), 200
+
+    return jsonify({"data":providers_serialized}), 200, {'Access-Control-Allow-Origin':'*'}
 
 
 #endpoint para escoger cada proovedor con un id

@@ -48,6 +48,7 @@
 }
 
 .precio-listaServ {
+    text-align: right;
     color:rgba(102, 102, 236, 0.918);
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
@@ -68,4 +69,8 @@
     color:rgba(102, 102, 236, 0.918);
     cursor:pointer;
     font-size: 20px;
+}
+
+.favorito-listaServ {
+    text-align: right;
 }

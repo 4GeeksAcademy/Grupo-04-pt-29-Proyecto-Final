@@ -11,15 +11,15 @@ import Serviciospopulares from "../component/serviciosPopulares";
 
 
 
+
 export const Home = () => {
 	const { store, actions } = useContext(Context);
-
 	return (
 		<div>
 			<Hero/>
 			<Category/>
 			<UneteSection/>
-			<SobreNosotros/>
+			<SobreNosotros />
 			<Serviciospopulares />
 			<Suscribete />
 		</div>

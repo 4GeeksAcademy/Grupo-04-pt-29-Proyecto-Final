@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/nabvar.css";
 import { isLoggedIn } from "../utils/isLoggedIn";
+// import { HashLink as Link} from "react-router-hash-link";
+
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -49,9 +51,9 @@ export const Navbar = () => {
           {!isLoggedIn() ? (
             <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 menu">
               <li>
-                <a href="/" className=" px-3">
+                  <a  href="#nosotros" className="px-3">
                   Sobre Nosotros
-                </a>
+                  </a>
               </li>
               <li>
                 <a href="/signup" className=" px-3">

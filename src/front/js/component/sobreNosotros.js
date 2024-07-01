@@ -5,9 +5,11 @@ import "../../styles/sobreNosotros.css";
 
 export const SobreNosotros = () => {
     return (
-        <div>
-            <div className=" titulo-aboutUs p-3">
-                <p><strong>Sobre la Empresa</strong></p>
+        <div id="nosotros">
+            <div className="contenedor-titulo-aboutUs">
+            <div className=" titulo-aboutUs">
+                <p className="titulo-seccion-aboutUs"><strong>Sobre la Empresa</strong></p>
+            </div>
             </div>
             <div className="container-aboutUs">
                 <div className="row align-items-center">

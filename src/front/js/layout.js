@@ -39,13 +39,11 @@ const Layout = () => {
             <Route element={<DashboardClient />} path="/client" />
             <Route element={<DashboardProvider />} path="/provider" />
             <Route element={<Demo />} path="/demo" />
-            <Route element={<ProductsPage />} path="/productspage" />
             <Route element={<DetallePrimeraParte />} path="/singleprovider/:idProvider" />
-
             <Route element={<PrivateRoutes/>}>
               {/* Aqui van todas las rutas que quiero Proteger *(las Rutas Privadas) */}
-
             </Route>
+            <Route element={<ProductsPage />} path="/productspage" />
             <Route element={<Login />} path="/login" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
