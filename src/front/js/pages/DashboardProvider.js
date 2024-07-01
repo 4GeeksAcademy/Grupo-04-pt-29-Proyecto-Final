@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import rigoImage from "../../img/rigo-baby.jpg";
+import MyProfileProvider from "../component/myProfileProvider";
 import EditProvider from "../component/editProvider";
 import AddNewAd from "../component/addNewAd";
+import MyAds from "../component/myAds";
 
 const DashboardProvider = () => {
   const { store } = useContext(Context);
@@ -30,12 +32,11 @@ const DashboardProvider = () => {
               </div>
 
               <div className="card-body">
-                <h5>
-                  <p>Username: {store.user.username}</p>
+                <h5>Username:  {store.user.username}
                 </h5>
-                <p>Email:{store.user.email}</p>
-                <p>Location:{store.user.location}</p>
-                <p>Valoration:{store.user.location}</p>
+                <p>Email: {store.user.email}</p>
+                <p>Location: {store.user.location}</p>
+                <p>Valoration: {store.user.location}</p>
               </div>
             </div>
           </div>
@@ -55,18 +56,32 @@ const DashboardProvider = () => {
                 aria-controls="home-tab-pane"
                 aria-selected="true"
               >
+                My Profile
+              </button>
+            </li>
+            <li className="nav-item" role="presentation">
+              <button
+                className="nav-link"
+                id="edit-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#edit-tab-pane"
+                type="button"
+                role="tab"
+                aria-controls="edit-tab-pane"
+                aria-selected="false"
+              >
                 Edit Profile
               </button>
             </li>
             <li className="nav-item" role="presentation">
               <button
                 className="nav-link"
-                id="profile-tab"
+                id="myAds-tab"
                 data-bs-toggle="tab"
-                data-bs-target="#profile-tab-pane"
+                data-bs-target="#myAds-tab-pane"
                 type="button"
                 role="tab"
-                aria-controls="profile-tab-pane"
+                aria-controls="myAds-tab-pane"
                 aria-selected="false"
               >
                 mis Anuncios
@@ -75,15 +90,15 @@ const DashboardProvider = () => {
             <li className="nav-item" role="presentation">
               <button
                 className="nav-link"
-                id="contact-tab"
+                id="myNewAds-tab"
                 data-bs-toggle="tab"
-                data-bs-target="#contact-tab-pane"
+                data-bs-target="#myNewAds-tab-pane"
                 type="button"
                 role="tab"
-                aria-controls="contact-tab-pane"
+                aria-controls="myNewAds-tab-pane"
                 aria-selected="false"
               >
-                Nuevo Anuncio 
+                Nuevo Anuncio
               </button>
             </li>
             <li className="nav-item" role="presentation">
@@ -110,25 +125,34 @@ const DashboardProvider = () => {
               aria-labelledby="home-tab"
               tabIndex={0}
             >
-              <EditProvider/>
+              <MyProfileProvider />
             </div>
             <div
               className="tab-pane fade"
-              id="profile-tab-pane"
+              id="edit-tab-pane"
               role="tabpanel"
-              aria-labelledby="profile-tab"
+              aria-labelledby="edit-tab"
               tabIndex={0}
             >
-              Mis Anuncios
+              <EditProvider />
             </div>
             <div
               className="tab-pane fade"
-              id="contact-tab-pane"
+              id="myAds-tab-pane"
               role="tabpanel"
-              aria-labelledby="contact-tab"
+              aria-labelledby="myAds-tab"
               tabIndex={0}
             >
-              <AddNewAd/>
+              <MyAds />
+            </div>
+            <div
+              className="tab-pane fade"
+              id="myNewAds-tab-pane"
+              role="tabpanel"
+              aria-labelledby="myNewAds-tab"
+              tabIndex={0}
+            >
+              <AddNewAd />
             </div>
             <div
               className="tab-pane fade"
@@ -137,7 +161,7 @@ const DashboardProvider = () => {
               aria-labelledby="disabled-tab"
               tabIndex={0}
             >
-             Cerrar seccion
+              Cerrar seccion
             </div>
           </div>
         </>
