@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
-from api.models import db,User,Client,Orders,Providers,Reviews,RoleEnum,OrderFavorite
+from api.models import db,User,Client,Orders,Providers,Reviews,RoleEnum, Services
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
@@ -168,18 +168,6 @@ def get_single_provider(id):
     print(single_provider.serialize())
     return jsonify({"data": single_provider.serialize()}, 200)
 
-#endpoint para obtener las Ordenes Favoritas del Cliente
-
-@app.route('/api/client/<int:client_id>/favorites', methods=["GET"])
-def client_favorites(client_id):
-
-    favorites = OrderFavorite.query.filter_by(client_id=client_id).all()
-    if len(favorites) == 0:
-        raise APIException('El cliente aún no tiene favoritos', status_code=404)
-    favorites = list(map(lambda item: item.serialize(), favorites))
-        
-    return jsonify (favorites), 200
-
 #endpoint para actualizar proveedor
 @app.route('/api/edit/provider/<int:id>', methods=["PUT"])
 def update_provider(id):
@@ -249,6 +237,26 @@ def new_provider():
     print("se imprime body",body['user_id'])
     return jsonify({'msg': 'Nuevo provider creado',
                     'data': new_provider.serialize()}), 201
+
+@app.route('/api/favorites/<int:client_id>', methods=['GET'])
+def get_user_favorite(client_id):
+    client = Client.query.get(client_id)
+    if client is None:
+        return jsonify({"msg": f"El id {client_id} del usuario no existe"}), 404
+    favorites = [service.title for service in client.favorites]
+    return jsonify({"msg": favorites})
+
+
+@app.route('/api/favorite/<int:client_id>/<int:service_id>', methods=['POST'])
+def add_favorite_provider(client_id, service_id):
+    client = Client.query.get(client_id)
+    service = Services.query.get(service_id)
+
+    if client and service:
+        client.favorites.append(service)
+        db.session.commit()
+        return jsonify({"msg": f"Servicio {service.title} agregado a favoritos del cliente {client.name}"}), 201
+    return jsonify({"msg": "Cliente o servicio no encontrado"}), 404
 
 
 # this only runs if `$ python src/main.py` is executed
