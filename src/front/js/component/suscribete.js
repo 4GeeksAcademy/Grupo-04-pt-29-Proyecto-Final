@@ -9,15 +9,12 @@ const Suscribete = () => {
         <>
 
             <section className="suscribete">
-                <div className="fondo-gradiente d-flex mt-auto mp-auto">
-                    <div className="container d-flex flex-column align-items-center">
-                        <div className="m-auto text-center">
-                            <h1 className="h1-suscribete">Suscríbete</h1>
-                            <div className="title-parrafo">recibe las nuevas actualizaciones, ofertas y <br /> tips para mejorar tu experiencia</div>
+                <div className="fondo-gradiente">
+                        <div className="container d-flex flex-column align-items-center pt-5" style={{ "height": "400px" }}>
+                            <h1 className="h1-suscribete mt-5">Suscríbete</h1>
+                            <div className="row title-parrafo">recibe las nuevas actualizaciones, ofertas y <br /> tips para mejorar tu experiencia</div>
                             <button className="button-style mt-4">Tu Email</button>
                         </div>
-
-                    </div>
                 </div>
             </section >
 
