@@ -1,12 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
+import { useParams } from "react-router-dom";
 import rigoImage from "../../img/rigo-baby.jpg";
 import EditClient from "../component/editClient";
 import MyProfileClient from "../component/myProfileClient";
 
 const DashboardClient = () => {
-  const { store } = useContext(Context);
-  console.log(store.user);
+  const { store, actions } = useContext(Context);
+  const {id}=useParams()
+
+  useEffect(()=>{
+    actions.getProfileClient(id)
+  })
+
 
   return (
     <div className="Dash-Client d-flex justify-content-center">

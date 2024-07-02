@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import os
-from flask import Flask, request, jsonify, url_for, send_from_directory
+from flask import Flask, request, jsonify, url_for, send_from_directory,render_template
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
@@ -18,6 +18,7 @@ from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 from datetime import timedelta  
 from flask_cors import CORS
+from flask_mail import Mail,Message
 
 # from models import Person
 
@@ -25,7 +26,20 @@ ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
 
-app = Flask(__name__)
+
+
+           
+app = Flask(__name__) 
+app.config['MAIL_SERVER']="smtp.gmail.com"
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = "serviexpert.dev@gmail.com"
+app.config['MAIL_PASSWORD'] = "qsnztblbzoghhbzo"
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+mail= Mail(app)
+
+
+
 cors = CORS(app, resources={r"/*": {"origins": "https://laughing-space-carnival-q77xrw6gg74xcxr4w-3000.app.github.dev/"}})
 CORS(app)
 
@@ -92,6 +106,24 @@ def serve_any_other_file(path):
 
 # Inicio de los endpoints
 
+def send_verification_email(email,username):
+    try:
+        verify_token= create_access_token(identity=email)
+        msg = Message('Hola , bienvenido a ServiExpert',
+                      sender="serviexpert.dev@gmail.com",
+                      recipients=[email]) 
+        
+        verify_url= f" https://probable-space-spoon-jx6qq9rwq4g3vjw-3000.app.github.dev/verify?verify_token={verify_token}"
+        html= render_template("verify_email.html",username=username,verify_url=verify_url)
+        msg.html=html
+        mail.send(msg)
+        return jsonify({'msg':'Correo enviado correctamente'}), 200
+    except Exception as e:
+        print(str(e))
+        return jsonify({'msg':'no se pudo enviar el Correo!'}), 500
+
+
+
 # 1. Sistema de Auntenticacion
 
 #Sign Up o Registro
@@ -120,6 +152,7 @@ def signup():
     )
     db.session.add(new_user)
     db.session.commit()
+    send_verification_email(body["email"],body["username"])
     return jsonify ({'msg':'Usuario Creado .'}), 200
 
 
@@ -177,17 +210,22 @@ def get_client():
 @app.route('/api/client/<int:id>', methods=['GET'])
 def get_single_client(id):
     single_client = Client.query.get(id)
-    if single_client is None:
-        return jsonify({"msg": f"El Cliente con le ID: {id} no existe"}), 400
-    print(single_client.serialize())
-    return jsonify({"data": single_client.serialize()}, 200)
+    if not single_client: 
+        return jsonify({"msg": f"El Cliente con el ID: {id} no existe"}), 400
+    serialized= single_client.serialize()
+    print(serialized)
+    return jsonify({"data": serialized}, 200)
 
 #endpoint para Agregar informacion del Cliente
 @app.route('/api/add/client', methods=['POST'])
 @jwt_required()
 def new_client():
     email= get_jwt_identity()
+    if not email:
+        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
     user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'msg':'el usuario no existe'}), 400
     user_id=user.id
     body = request.get_json(silent=True)
     if body is None:
@@ -276,6 +314,25 @@ def get_providers():
         providers_serialized.append(providers.serialize())
     print(providers_serialized)
     return jsonify({"data":providers_serialized}), 200
+
+
+#endpoint de Prueba
+##@app.route('/api/provider', methods=['GET'])
+##def get_providers():
+    body = request.get_json(silent=True)
+    if body is None:   
+        all_providers = Providers.query.all()
+        providers_serialized=[]
+        for providers  in all_providers:
+            providers_serialized.append(providers.serialize())
+        print(providers_serialized)
+        return jsonify({"data":providers_serialized}), 200
+    else:
+        provider=Providers.query.filter_by(user_id=body["id"]).first()
+        print(provider)
+        return jsonify(provider.serialize()),200
+
+
 
 #endpoint para escoger cada proovedor con un id
 @app.route('/api/provider/<int:id>', methods=['GET'])
@@ -447,7 +504,35 @@ def delete_service(service_id,user_id):
     return jsonify({"msg":"El servicio esta Eliminado"}), 200
 
 
-
+@app.route('/api/send-mail', methods=['GET'])
+def send_mail():
+    try:
+        msg = Message('Hello from Flask',
+                      sender="serviexpert.dev@gmail.com",
+                      recipients=['josea.tovarp.blue7@gmail.com']) 
+        msg.body = 'This is a test email sent from a Flask web application.'
+        mail.send(msg)
+        return jsonify({'msg':'Correo enviado correctamente'}), 200
+    except Exception as e:
+        print(str(e))
+        return jsonify({'msg':'no se pudo enviar el Correo!'}), 500
+    
+@app.route('/api/verify', methods=['GET'])
+@jwt_required()
+def verify_token():
+    try:
+        email=get_jwt_identity()
+        user=User.query.filter_by(email=email).first()
+        if user.is_verified:
+            return jsonify({'msg':'el Usuario ya se encuantra Verificado!'}), 400
+        else:
+            user.is_verified=True
+            db.session.add(user)
+            db.session.commit()
+            return jsonify({'msg':'su cuenta ha sido verificada'}), 200
+    except Exception as error:
+        print(str(error))
+        return jsonify({'msg':'ocurrio un error al verificar la cuenta'}), 500
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

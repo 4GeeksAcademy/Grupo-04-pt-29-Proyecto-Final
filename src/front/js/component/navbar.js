@@ -17,15 +17,17 @@ export const Navbar = () => {
   };
   const handleProfile = () => {
     if (store.user?.role === "Client") {
-      navigate("/client");
+      let url="/client/"+store.user?.id
+      navigate(url);
     } else if (store.user?.role === "Provider") {
-      navigate("/provider");
+      let url="/provider/"+store.user?.id
+      navigate(url);
     } else {
       // Handle the case where the user role is not found or invalid
       console.warn("Invalid user role:", store.user?.role);
     };
   };
-  console.log(store.user)
+  //console.log(store.user)
   
   const handleHome = () => {
     navigate("/productspage");
