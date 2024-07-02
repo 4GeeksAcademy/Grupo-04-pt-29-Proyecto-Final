@@ -150,16 +150,6 @@ def login():
         
     return jsonify (response_body), 200
 
-#endpoint pruba proveedores - traer servicios de forma general
-
-@app.route("/api/providers", methods=['GET'])
-def get_providers():
-    all_providers = Providers.query.all()
-    providers_serialized=[]
-    for providers  in all_providers:
-        providers_serialized.append(providers.serialize())
-
-    return jsonify({"data":providers_serialized}), 200, {'Access-Control-Allow-Origin':'*'}
 
 # Endpoint para los Usuarios Funciona
 
@@ -170,8 +160,6 @@ def get_user_by_id(user_id):
     if user is None:
         return jsonify({"msg":"el Usuario no existe" }), 404
     return jsonify(user.serialize()),200
-
-
 
 # Endpoint para los CLIENTES
 
@@ -254,9 +242,6 @@ def update_client(id):
     db.session.commit()
     return jsonify({"data": update_client.serialize()})
 
-#endpoint para actualizar proveedor
-@app.route('/api/edit/provider/<int:id>', methods=["PUT"])
-def update_provider(id):
     update_provider = Providers.query.get(id)
     body = request.get_json()
     if update_provider is None:
