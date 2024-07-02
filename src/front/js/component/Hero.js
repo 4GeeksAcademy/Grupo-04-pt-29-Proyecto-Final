@@ -11,7 +11,8 @@ const Hero = () => {
   const { store, actions } = useContext(Context)
 
   useEffect(() => {
-    actions.getCategorySearchBar()
+    console.log(JSON.stringify())
+    actions?.getCategorySearchBar()
   }, [input]);
 
 

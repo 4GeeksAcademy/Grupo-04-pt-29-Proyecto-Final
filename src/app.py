@@ -147,7 +147,7 @@ def login():
     return jsonify (response_body), 200
 
 #endpoint pruba proveedores - traer servicios de forma general
-@cross_origin()
+
 @app.route("/api/providers", methods=['GET'])
 def get_providers():
     all_providers = Providers.query.all()

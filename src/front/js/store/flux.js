@@ -43,7 +43,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       register: async (username, email, password,role) => {
         try {
           const response = await fetch(
-            process.env.BACKEND_URL + "api/signup",
+            process.env.BACKEND_URL + "/api/signup",
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -109,8 +109,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(data.data);
 				})
 				.catch((error) => {error})
-			}
-    },
+			},
 
       logout:()=> {
 				let store= getStore()
@@ -151,10 +150,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => { error })
       }
     }
-
-    
+  }
   };
-};
+
 
 
 
