@@ -25,18 +25,20 @@ export const BarraCategorias = () => {
                 <li className="li-barraCat">
                   <input type="search" className="form-control buscarbarra" placeholder="Buscar..." />
                 </li>
-                {store.listProviders && store.listProviders.map((value, index) => {
+                {store.listProviders && store.listProviders.flatMap((provider, index) => {
+                  return provider.services.map((service, serviceIndex) => {
                 return (
-                <li key={index} className="li-barraCat">
+                <li key={`${index}+ ${serviceIndex}`} className="li-barraCat">
                   <button type="button" className="btn btn-link categoria-bc">
                     <label className="d-flex">
                       <input type="checkbox" className="categoria-checkbox-bc" />
-                      {value.services[0].category}
+                      {service.category}
                     </label>
                   </button>
                   <h6 className="disponibleCategoria-bc">15</h6>
                 </li>
                  )
+                  })
                 })}
               </ul>
             </div>
@@ -54,18 +56,20 @@ export const BarraCategorias = () => {
                 <li className="li-barraCat">
                   <input type="search" className="form-control buscarbarra" placeholder="Buscar..." />
                 </li>
-                {store.listProviders && store.listProviders.map((value, index) => {
+                {store.listProviders && store.listProviders.flatMap((provider, index) => {
+                  return provider.services.map((service, serviceIndex) => {
                 return (
-                <li key={index} className="li-barraCat">
+                <li key={`${index}+ ${serviceIndex}`} className="li-barraCat">
                   <button type="button" className="btn btn-link categoria-bc">
                     <label className="d-flex">
                       <input type="checkbox" className="categoria-checkbox-bc" />
-                      {value.services[0].price}
+                      {service.price}
                     </label>
                   </button>
                   <h6 className="disponibleCategoria-bc">4</h6>
                 </li>
                 )
+              })
               })}
               </ul>
             </div>
