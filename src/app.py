@@ -87,8 +87,12 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0  # avoid cache memory
     return response
 
-# INicio de los endpoints
 
+
+
+# Inicio de los endpoints
+
+# 1. Sistema de Auntenticacion
 
 #Sign Up o Registro
 
@@ -157,16 +161,98 @@ def get_providers():
 
     return jsonify({"data":providers_serialized}), 200, {'Access-Control-Allow-Origin':'*'}
 
+# Endpoint para los Usuarios Funciona
 
-#endpoint para escoger cada proovedor con un id
-@app.route('/api/provider/<int:id>', methods=['GET'])
-def get_single_provider(id):
-    single_provider = Providers.query.get(id)
+# Enpoint para Traer un Usuario por Id
+@app.route('/api/profile/<int:user_id>', methods=['GET'])
+def get_user_by_id(user_id):
+    user = User.query.get(user_id)
+    if user is None:
+        return jsonify({"msg":"el Usuario no existe" }), 404
+    return jsonify(user.serialize()),200
 
-    if single_provider is None:
-        return jsonify({"msg": f"El usuario ccon le ID: {id} no existe"}), 400
-    print(single_provider.serialize())
-    return jsonify({"data": single_provider.serialize()}, 200)
+
+
+# Endpoint para los CLIENTES
+
+#endpoint prueba - traer los Clientes de forma general
+@app.route('/api/client', methods=['GET'])
+def get_client():
+    all_clients = Client.query.all()
+    clients_serialized=[]
+    for clients  in all_clients:
+        clients_serialized.append(clients.serialize())
+    print(clients_serialized)
+    return jsonify({"data":clients_serialized}), 200
+
+#endpoint para escoger cada Cliente con un id
+@app.route('/api/client/<int:id>', methods=['GET'])
+def get_single_client(id):
+    single_client = Client.query.get(id)
+    if single_client is None:
+        return jsonify({"msg": f"El Cliente con le ID: {id} no existe"}), 400
+    print(single_client.serialize())
+    return jsonify({"data": single_client.serialize()}, 200)
+
+#endpoint para Agregar informacion del Cliente
+@app.route('/api/add/client', methods=['POST'])
+@jwt_required()
+def new_client():
+    email= get_jwt_identity()
+    user = User.query.filter_by(email=email).first()
+    user_id=user.id
+    body = request.get_json(silent=True)
+    if body is None:
+        return jsonify({'msg': 'Debes enviar información en el body'}), 400
+    if 'name' not in body:
+        return jsonify({'msg': 'El campo name es obligatorio'}), 400
+    if 'last_name' not in body:
+        return jsonify({'msg': 'El campo last_name es obligatorio'}), 400
+    if 'phone' not in body:
+        return jsonify({'msg': 'El campo phone es obligatorio'}), 400
+    if 'location' not in body:
+        return jsonify({'msg': 'El campo location es obligatorio'}), 400
+    if 'bio' not in body:
+        return jsonify({'msg': 'El campo biografia es obligatorio'}), 400
+    if 'url_image' not in body:
+        return jsonify({'msg': 'El campo imagen es obligatorio'}), 400
+    
+    new_client = Client()
+    new_client.user_id = user_id
+    new_client.name = body['name']
+    new_client.last_name = body['last_name']
+    new_client.phone = body['phone']
+    new_client.location = body['location']
+    new_client.bio = body['bio']
+    new_client.url_image = body['url_image']
+    db.session.add(new_client)
+    db.session.commit()
+    return jsonify({'msg': 'Nuevo Cliente creado','data': new_client.serialize()}), 201
+
+#endpoint para editar los datos del Cliente
+@app.route('/api/edit/client/<int:id>', methods=["PUT"])
+@jwt_required()
+def update_client(id):
+    email= get_jwt_identity()
+    user = User.query.filter_by(email=email).first()
+    user_id=user.id
+    
+    update_client = Client.query.get(id)
+    body = request.get_json()
+    if update_client is None:
+        return jsonify({"msg": f"El id {id} Cliente no fue encontrado"}), 400
+    if "name" in body:
+        update_client.name = body["name"]
+    if "last_name" in body:
+        update_client.last_name = body["last_name"]
+    if "phone" in body:
+        update_client.phone = body["phone"]
+    if "location" in body:
+        update_client.location = body["location"]
+    if "description" in body:
+        update_client.description = body["description"]
+    db.session.commit()
+    return jsonify({"data": update_client.serialize()})
 
 #endpoint para actualizar proveedor
 @app.route('/api/edit/provider/<int:id>', methods=["PUT"])
@@ -194,9 +280,29 @@ def update_provider(id):
     db.session.commit()
     return jsonify({"data": update_provider.serialize()})
 
+# Endpoint para los PROVEEDORES
 
+#endpoint pruba proveedores - traer servicios de forma general
+@app.route('/api/provider', methods=['GET'])
+def get_providers():
+    all_providers = Providers.query.all()
+    providers_serialized=[]
+    for providers  in all_providers:
+        providers_serialized.append(providers.serialize())
+    print(providers_serialized)
+    return jsonify({"data":providers_serialized}), 200
 
-#endpoint para crear informacion de proveedor
+#endpoint para escoger cada proovedor con un id
+@app.route('/api/provider/<int:id>', methods=['GET'])
+def get_single_provider(id):
+    single_provider = Providers.query.get(id)
+
+    if single_provider is None:
+        return jsonify({"msg": f"El Proveedor con le ID: {id} no existe"}), 400
+    print(single_provider.serialize())
+    return jsonify({"data": single_provider.serialize()}, 200)
+
+#endpoint para Agregar informacion de proveedor
 @app.route('/api/add/provider', methods=['POST'])
 def new_provider():
     body = request.get_json(silent=True)
@@ -257,6 +363,105 @@ def add_favorite_provider(client_id, service_id):
         db.session.commit()
         return jsonify({"msg": f"Servicio {service.title} agregado a favoritos del cliente {client.name}"}), 201
     return jsonify({"msg": "Cliente o servicio no encontrado"}), 404
+
+
+
+#endpoint para actualizar proveedor
+@app.route('/api/edit/provider/<int:id>', methods=["PUT"])
+def update_provider(id):
+    update_provider = Providers.query.get(id)
+    body = request.get_json()
+    if update_provider is None:
+        return jsonify({"msg": f"El id {id} provider no fue encontrado"}), 400
+    if "name" in body:
+        update_provider.name = body["name"]
+    if "last_name" in body:
+        update_provider.last_name = body["last_name"]
+    if "phone" in body:
+        update_provider.phone = body["phone"]
+    if "location" in body:
+        update_provider.location = body["location"]
+    if "identity_number" in body:
+        update_provider.identity_number = body["identity_number"]
+    if "profession" in body:
+        update_provider.profession = body["profession"]
+    if "experience" in body:
+        update_provider.experience = body["experience"]
+    if "description" in body:
+        update_provider.description = body["description"]
+    db.session.commit()
+    return jsonify({"data": update_provider.serialize()})
+
+# Endpoint para los SERVICIOS
+
+@app.route('/api/services', methods=['GET'])
+def get_all_services():
+    services = Services.query.all()
+    result = list(map(lambda x: x.serialize(),services))
+    return jsonify(result),200
+
+## Ruta para obtener un Servicio por ID del proveedor
+
+@app.route('/api/services/<int:provider_id>', methods=['GET'])
+def get_all_services_provider(provider_id,):
+    services = Services.query.filter_by(provider_id=provider_id).all()
+    result = list(map(lambda x: x.serialize(),services))
+    return jsonify(result),200
+
+#endpoint para crear un servicio
+@app.route('/api/add/service', methods=['POST'])
+def new_services():
+    body = request.get_json(silent=True)
+    if body is None:
+        return jsonify({'msg': 'Debes enviar información en el body'}), 400
+    if 'title' not in body:
+        return jsonify({'msg': 'El Titulo es obligatorio'}), 400
+    if 'category' not in body:
+        return jsonify({'msg': 'La Categoria es obligatoria'}), 400
+    if 'price' not in body:
+        return jsonify({'msg': 'La Tarifa es obligatoria'}), 400
+    if 'description' not in body:
+        return jsonify({'msg': 'La description es obligatoria'}), 400
+    
+    new_services = Services()
+    new_services.user_id = body['user_id']
+    new_services.title = body['title']
+    new_services.category = body['category']
+    new_services.price = body['price']
+    new_services.description = body['description']
+    db.session.add(new_services)
+    db.session.commit()
+    return jsonify({'msg': 'Nuevo Servicio creado','data': new_services.serialize()}), 201
+
+#endpoint para Editar un Servicio
+@app.route('/api/edit/service/<int:id>', methods=["PUT"])
+def update_service(id):
+    update_service = Providers.query.get(id)
+    body = request.get_json()
+    if update_service is None:
+        return jsonify({"msg": f"El id {id} provider no fue encontrado"}), 400
+    if "title" in body:
+        update_service.title = body["title"]
+    if "category" in body:
+        update_service.category = body["category"]
+    if "price" in body:
+        update_service.price = body["price"]
+    if "description" in body:
+        update_service.description = body["description"]
+    db.session.commit()
+    return jsonify({"data": update_service.serialize()})
+
+## Ruta para Eliminar un Servicio
+@app.route('/api/services/<int:character_id>/user/<int:user_id>', methods=['DELETE'])
+def delete_service(service_id,user_id):
+    service = Services.query.filter_by(service_id=service_id,user_id=user_id).first()
+    if service is None:
+        return jsonify({"msg":"el servicio favorito no existe" }), 404
+    db.session.delete(service)
+    db.session.commit()
+    return jsonify({"msg":"El servicio esta Eliminado"}), 200
+
+
 
 
 # this only runs if `$ python src/main.py` is executed
