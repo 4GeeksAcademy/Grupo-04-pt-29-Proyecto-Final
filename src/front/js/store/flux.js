@@ -148,6 +148,25 @@ const getState = ({ getStore, getActions, setStore }) => {
   
           })
           .catch((error) => { error })
+      },
+
+      getProfileProvider:async (id) =>{ 
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/profile/provider/${id}`)
+          const data = await response.json()
+          setStore({user:data})
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      getProfileClient:async (id) =>{ 
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/profile/client/${id}`)
+          const data = await response.json()
+          setStore({user:data})
+        } catch (error) {
+          console.log(error)
+        }
       }
     }
   }

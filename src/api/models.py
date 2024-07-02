@@ -40,6 +40,8 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     create_at=db.Column(db.Date, unique=False, nullable=False, default=date.today) 
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+    is_verified = db.Column(db.Boolean(),default=False)
+ 
  
     def __repr__(self):
         return f'User {self.id}  {self.username} {self.email} {self.role} {self.create_at} {self.is_active}'
