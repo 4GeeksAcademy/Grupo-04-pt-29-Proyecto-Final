@@ -7,11 +7,16 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
+import { ProductsPage } from "./pages/productsPage";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Signup } from "./pages/signup";
 import Login from "./pages/login";
+import PrivateRoutes from "./utils/PrivateRoutes";
+import DashboardClient from "./pages/DashboardClient";
+import DashboardProvider from "./pages/DashboardProvider";
+import DetallePrimeraParte from "./component/detallePrimeraParte";
 
 //create your first component
 const Layout = () => {
@@ -21,7 +26,6 @@ const Layout = () => {
 
   if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "")
     return <BackendURL />;
-
   return (
     <div>
       <BrowserRouter basename={basename}>
@@ -29,11 +33,18 @@ const Layout = () => {
           <Navbar />
           <Routes>
             <Route element={<Home />} path="/" />
-            <Route element={<Demo />} path="/demo" />
             <Route element={<Signup />} path="/signup" />
-            <Route element={<Login />} path="/login" />
-
             <Route element={<Single />} path="/single/:theid" />
+            <Route element={<Demo />} path="/demo" />
+            <Route element={<DashboardClient />} path="/client" />
+            <Route element={<DashboardProvider />} path="/provider" />
+            <Route element={<Demo />} path="/demo" />
+            <Route element={<DetallePrimeraParte />} path="/singleprovider/:idProvider" />
+            <Route element={<PrivateRoutes/>}>
+              {/* Aqui van todas las rutas que quiero Proteger *(las Rutas Privadas) */}
+            </Route>
+            <Route element={<ProductsPage />} path="/productspage" />
+            <Route element={<Login />} path="/login" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />

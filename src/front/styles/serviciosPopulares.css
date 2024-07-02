@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.valor-card {
+    color: #508DF7;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    margin: 12px 0px;
+}
+
+.h5-descripcion {
+    color: black;
+    font-weight: 700;
+}
+
+.btn-minfo {
+    width: 100%;
+    height: auto;
+    border-radius: 7px;
+    background-color: #508DF7;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.color-card {
+    background-color: #f6f6f6;
+}
+
+.row-content{
+    width:100%;
+}
+
+/* .linea{
+    position: relative;
+    left: 8.5%;
+} */

@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+
+
+.border-label {
+    border-color: #C6DBFB;
+}
+
+.title-signup{
+    font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+    font-size: 37px;
+}
+
+.p-signup {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: #000000;
+    font-size: 15px;
+}
+
+.title-label{
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-variation-settings:
+      "slnt" 0;
+      font-size: 16px;
+}
+
+.button-style-signup {
+    background-color: #508CF6;
+    color: #ffffff;
+    border: none
+}
+
+.image-style-signup {
+    background-image: url('https://res.cloudinary.com/dq3mxxidu/image/upload/v1718738658/bussinesman_y2laao.jpg');
+    height: 638px;
+    width: 582px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: 50px;
+}

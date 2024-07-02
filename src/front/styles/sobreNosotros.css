@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap");
+
+.container-aboutUs {
+    justify-content: space-between; /* Esto separa los elementos hijo */
+  }
+  
+  .texto-aboutUs {
+    text-align: justify; /* Esto justifica el texto dentro del contenedor */
+    padding: 60px; /* Ajusta la separación entre el texto y la imagen */
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    
+  }
+
+  .contenedor-titulo-aboutUs {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+  }
+  
+
+  .titulo-aboutUs {
+    display:flex;
+    text-align:center;
+    align-items: center;
+    padding: 20px;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-variation-settings:"slnt" 0;
+    font-size: 32px;
+  }
+  
+  .imagen-aboutUs img {
+    max-width: 100%;
+    height: auto; /* Esto hace que la imagen sea responsive */
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }

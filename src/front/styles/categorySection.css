@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+
+
+
+
+
+ /*Responsive mobile*/
+ @media (min-width: 375px) { 
+  hr {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+    width: 20%;
+}
+
+.size-category:nth-child(n+4) {
+  display: none; /* Oculta los items 4 y 5 en pantallas móviles */
+}
+
+.size-category {
+    height: 128px;
+    width: 160px;
+    background-color: #EDEDED;
+    border: none;
+    border-radius: 8px;
+    flex: 1 0 33.33%;
+    
+    
+}
+
+.p-text {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: #000000;
+    font-size: 18px;
+}
+
+.line {
+    width: 5%;                 /* Ajusta el ancho de la línea */
+    height: 5px;                /* Ajusta el grosor de la línea */
+    background-color: #508DF7;     /* Color de la línea */
+   
+  }
+
+  .title-category {
+    font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+    font-size: 24px;
+    color: #000000;
+  }
+}
+
+
+/*Responsive tablet*/
+@media (min-width: 768px) { 
+
+}
+
+  /*Responsive computador*/
+ @media (min-width: 1200px) { 
+hr {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+    width: 100%;
+}
+
+.container-categories{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.size-category:nth-child(n+4) {
+  display: block; /* Oculta los items 4 y 5 en pantallas móviles */
+}
+
+.size-category {
+    height: 128px;
+    width: 160px;
+    background-color: #EDEDED;
+    border: none;
+    border-radius: 8px;
+    flex: 1 0 16.66%; /* Para mostrar 6 items en escritorio (100% / 6 = 16.66%) */
+    box-sizing: border-box;
+    padding: 10px;;
+    
+}
+
+.p-text {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: #000000;
+    font-size: 18px;
+}
+
+.line {
+    width: 5%;                 /* Ajusta el ancho de la línea */
+    height: 5px;                /* Ajusta el grosor de la línea */
+    background-color: #508DF7;     /* Color de la línea */
+   
+  }
+
+  .title-category {
+    font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+    font-size: 24px;
+    color: #000000;
+  }
+  
+ }
+
+
+
