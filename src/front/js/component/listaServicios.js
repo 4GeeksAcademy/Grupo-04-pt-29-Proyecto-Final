@@ -23,7 +23,7 @@ export const ListaServicios = () => {
                     <div className="col-md-8">
                         <div className="card-body">
                             <div className="d-flex justify-content-between">
-                                <h5 className="card-title titulo-listaServ">Servicio de {service.category}</h5>
+                                <h5 className="card-title titulo-listaServ">{service.title}</h5>
                                 <p className="precio-listaServ">
                                     <i className="fa-solid fa-dollar-sign icono-listaServ">
                                     </i>{service.price}</p>
