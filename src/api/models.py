@@ -122,7 +122,6 @@ class Providers(db.Model):
             "location":self.location,
             "profession": self.profession,
             "experience":self.experience,
-            "valoration":self.valoration,
             "url_image":self.url_image,
             "reviews":[review.serialize() for review in self.reviews],
             "services":[service.serialize() for service in self.services],
