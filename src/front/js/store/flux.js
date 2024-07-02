@@ -5,7 +5,10 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
 
       user:{},
-      listProviders:[]
+      
+      listProviders:[],
+      provider: [],
+      providersCategory: []
 
     },
     actions: {
@@ -56,7 +59,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (!response.ok) {
             throw new Error("Error al Registrarte");
           }
-          console.log(data);
+          console.log(data);comm
           return true;
         } catch (error) {
           alert(error);
@@ -78,7 +81,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("Error al hacer Login")
 					} 
 					localStorage.setItem("token",data.access_token )
-					console.log(data)
+					console.log(data.user)
 					setStore({user:data.user})
 					return true
 				} catch (error) {
@@ -106,31 +109,50 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(data.data);
 				})
 				.catch((error) => {error})
-			}
-    },
+			},
 
-    logout:()=> {
-      let store= getStore()
-      setStore({...store,user:{}})},
-
-    getSingleProvider: (id) => {
-      fetch(process.env.BACKEND_URL + `api/priveder${id}`, {
-        method: "GET"
-      })
-        .then((response) => {
-          console.log(response.status);
-          return response.json()
+      logout:()=> {
+				let store= getStore()
+				setStore({...store,user:{}})
+			},
+      getSingleProvider: (id) => {
+        fetch(process.env.BACKEND_URL + `api/provider/${id}`, {
+          method: "GET"
 
         })
-        .then((data) => {
-          console.log(data);
-          setStore({ provider: data.provider })
+          .then((response) => {
+           console.log(response.status);
+            return response.json()
+  
+          })
+          .then((data) => {
+          
+            setStore({ provider: data })
+  
+          })
+          .catch((error) => { error })
+      },
 
+      getCategorySearchBar: () => {
+        fetch(process.env.BACKEND_URL + "api/providers", {
+          method: "GET"
         })
-        .catch((error) => { error })
+          .then((response) => {
+            console.log(response.status);
+            return response.json()
+  
+          })
+          .then((data) => {
+           setStore({providersCategory: data.data})
+            console.log(data);
+  
+          })
+          .catch((error) => { error })
+      }
     }
+  }
   };
-};
+
 
 
 

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import rigoImage from "../../img/rigo-baby.jpg";
 import EditClient from "../component/editClient";
+import MyProfileClient from "../component/myProfileClient";
 
 const DashboardClient = () => {
   const { store } = useContext(Context);
@@ -54,18 +55,32 @@ const DashboardClient = () => {
                 aria-controls="home-tab-pane"
                 aria-selected="true"
               >
+                My Profile
+              </button>
+            </li>
+            <li className="nav-item" role="presentation">
+              <button
+                className="nav-link"
+                id="edit-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#edit-tab-pane"
+                type="button"
+                role="tab"
+                aria-controls="edit-tab-pane"
+                aria-selected="false"
+              >
                 Edit Profile
               </button>
             </li>
             <li className="nav-item" role="presentation">
               <button
                 className="nav-link"
-                id="profile-tab"
+                id="favorite-tab"
                 data-bs-toggle="tab"
-                data-bs-target="#profile-tab-pane"
+                data-bs-target="#favorite-tab-pane"
                 type="button"
                 role="tab"
-                aria-controls="profile-tab-pane"
+                aria-controls="favorite-tab-pane"
                 aria-selected="false"
               >
                 Favoritos
@@ -88,20 +103,29 @@ const DashboardClient = () => {
             </li>
           </ul>
           <div className="tab-content" id="myTabContent">
-            <div
+          <div
               className="tab-pane fade show active"
               id="home-tab-pane"
               role="tabpanel"
               aria-labelledby="home-tab"
               tabIndex={0}
             >
-				<EditClient/>
+              <MyProfileClient />
             </div>
             <div
               className="tab-pane fade"
-              id="profile-tab-pane"
+              id="edit-tab-pane"
               role="tabpanel"
-              aria-labelledby="profile-tab"
+              aria-labelledby="edit-tab"
+              tabIndex={0}
+            >
+				      <EditClient/>
+            </div>
+            <div
+              className="tab-pane fade"
+              id="favorite-tab-pane"
+              role="tabpanel"
+              aria-labelledby="favorite-tab"
               tabIndex={0}
             >
               Mis Anuncios
