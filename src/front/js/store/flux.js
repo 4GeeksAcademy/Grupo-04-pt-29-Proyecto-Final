@@ -59,7 +59,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (!response.ok) {
             throw new Error("Error al Registrarte");
           }
-          console.log(data);comm
+          console.log(data);
           return true;
         } catch (error) {
           alert(error);
@@ -91,7 +91,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       getProviders: ()=>{
         console.log("funciona")
-				fetch("https://laughing-space-carnival-q77xrw6gg74xcxr4w-3001.app.github.dev/api/providers" 
+				fetch(process.env.BACKEND_URL + "/api/providers"
           // {
 	        // 'mode': 'no-cors',
 	        // 'headers': {
@@ -116,7 +116,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({...store,user:{}})
 			},
       getSingleProvider: (id) => {
-        fetch(process.env.BACKEND_URL + `api/provider/${id}`, {
+        fetch(process.env.BACKEND_URL + `/api/provider/${id}`, {
           method: "GET"
 
         })
@@ -134,7 +134,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getCategorySearchBar: () => {
-        fetch(process.env.BACKEND_URL + "api/providers", {
+        fetch(process.env.BACKEND_URL + "/api/providers", {
           method: "GET"
         })
           .then((response) => {

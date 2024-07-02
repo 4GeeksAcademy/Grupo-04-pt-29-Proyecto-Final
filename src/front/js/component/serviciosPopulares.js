@@ -10,7 +10,7 @@ const Serviciospopulares = () => {
 
     useEffect(() => {
 
-        fetch(`${process.env.BACKEND_URL}providers`)
+        fetch(`${process.env.BACKEND_URL}/api/providers`)
             .then(response => response.json())
             .then(data => {
                 console.log("data", data)
