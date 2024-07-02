@@ -23,6 +23,13 @@ class CategoryEnum(str,enum.Enum):
     REFORMAS_INTEGRALES = "Reformas Integrales"
 
 
+favorite_services = db.Table("favorite_services",
+                             db.Column("client_id", db.Integer, db.ForeignKey('client.id'), primary_key=True),
+                             db.Column("service_id", db.Integer, db.ForeignKey('services.id'), primary_key=True)
+                             )
+   
+   
+
 
 class User(db.Model):
     __tablename__='user'
@@ -62,6 +69,7 @@ class Client(db.Model):
     bio=db.Column(db.String(50),nullable=False)
     orders=db.relationship("Orders", backref="client", lazy=True)
     reviews=db.relationship("Reviews", backref="client", lazy=True, uselist=True)
+    favorites = db.relationship("Services", secondary=favorite_services, back_populates="favorite_by")
     
 
 
@@ -103,6 +111,8 @@ class Providers(db.Model):
     reviews=db.relationship("Reviews", backref="providers", lazy=True, uselist=True)
     services=db.relationship("Services", backref="providers", lazy=True, uselist=True)
     orders=db.relationship("Orders", backref="providers", lazy=True, uselist=True)
+    
+
      
     def __repr__(self):
         return f'Providers {self.user_id} {self.profession}  {self.location} {self.name} {self.last_name} {self.phone} {self.company} {self.number_company} {self.identity_number} {self.experience} {self.valoration}'
@@ -129,12 +139,15 @@ class Providers(db.Model):
 class Services(db.Model):
     __tablename__='services'
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(20),nullable=True)
     provider_id=db.Column(db.Integer,db.ForeignKey('providers.id'),nullable=False)
     price=db.Column(db.Float, unique=True, nullable=False)
     description=db.Column(db.String(150),nullable=False)
     url_image = db.Column(db.String(100), nullable=False)
     category=db.Column(db.Enum(CategoryEnum),nullable=False)
     orders=db.relationship("Orders", backref="services", lazy=True, uselist=True)
+    favorite_by = db.relationship("Client",secondary=favorite_services, back_populates="favorites")
+    
 
     def serialize(self):
         return {
@@ -198,3 +211,7 @@ class Reviews(db.Model):
         }
         
 
+
+
+
+    
