@@ -109,8 +109,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(data.data);
 				})
 				.catch((error) => {error})
-			}
-    },
+			},
 
       logout:()=> {
 				let store= getStore()
@@ -151,10 +150,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => { error })
       }
     }
-
-    
+  }
   };
-};
+
 
 
 

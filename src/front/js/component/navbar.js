@@ -82,9 +82,9 @@ export const Navbar = () => {
                 {" "}
                 <i className="px-3 fa-regular fa-heart"></i>
               </button>
-			        <div class="dropdown">
+			        <div className="dropdown">
                 <button
-                  class="btn dropdown-toggle"
+                  className="btn dropdown-toggle"
                   type="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
@@ -93,7 +93,7 @@ export const Navbar = () => {
                   <i className="fa-solid fa-user"></i>
                 </button>
                 <ul
-                  class="dropdown-menu"
+                  className="dropdown-menu"
                   style={{ backgroundColor: "transparent" }}
                 >
                    <li className="p-1" onClick={handleProfile}>
