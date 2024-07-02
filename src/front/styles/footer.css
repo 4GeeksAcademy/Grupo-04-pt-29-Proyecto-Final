@@ -6,98 +6,20 @@
 
 .footer-app {
     background-color: black;
-    height:500px;
+    height:auto;
     color: white;
 
 }
 
-.container{
-    margin-top: 60px;
-}
-
-
-.columna-1,.columna-2,.columna-3{
-    font-family: "Montserrat", sans-serif;
-    text-align: left;
-    margin:0;
-    
-
-}
-
-.text-principal{
-    font-weight: bold;
-}
-
-h5{
-    color:#508DF7;
+.elemento{
     font-family: "Inter", sans-serif;
-
-
 }
 
-p{
-    width: 400px;
+.linea{
+    width: 90%;
+    height: 1px;
+    background-color:#508DF7 ;
 }
 
-.iconos-footer{
-    width:200px;
-}
-
-.columna-2 ul li {
- margin-bottom: 11px;
-}
-
-.columna-3 ul li {
-    margin-bottom: 11px;
-   }
-
-   @media(min-width:775px) and (max-width:993px){
-    p{
-        width: 300px;
-        text-align: left;
-        height:auto;
-    }
-
-    .footer-app {
-        height:auto;
-    }
 
 
-   }
-
-   @media(max-width:774px){
-    p{
-        width: auto;
-        text-align: center;
-        height:auto;
-    }
-
-    .footer-app {
-        height:auto;
-    }
-
-    .columna-1,.columna-2,.columna-3{
-        
-        text-align: center; 
-    
-    }
-
-    .footer-class {
-        width: 100%;
-        display:flex;
-        justify-content: center;
-        
-
-    }
-
-    .iconos-footer{
-        margin-top: 30px;
-        margin-bottom: 30px;
-        position:relative;
-        width: 40%;
-        display:flex; 
-        justify-content: space-around;
-    }
-   
-
-   }

@@ -39,32 +39,5 @@
 
 .title-parrafo{
     color:white;
+    text-align: center;
 }
-
-/* .title-unete{
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-style: normal;
-    font-variation-settings:
-      "slnt" 0;
-      font-size: 32px;
-    color: #FFFFFF;
-} */
-
-/* @media(min-width:775px) and (max-width:1105px){
-
-    .container-text{
-        left: 30%;
-    }
-}
-
-@media(max-width:774px){
-    .container-text{
-        left: 15%;
-        top:30%;
-    }
-    .container-text > h1{
-        font-size: 50px;
-    }
-} */
