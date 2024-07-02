@@ -99,7 +99,7 @@ class Providers(db.Model):
     location=db.Column(db.String(30),nullable=False)
     profession=db.Column(db.String(30),nullable=False)
     experience=db.Column(db.Integer, nullable=False)
-    valoration= db.Column(db.Integer, nullable=False)
+    valoration= db.Column(db.Integer, nullable=True)
     url_image=db.Column(db.String(200),nullable=True)
     description=db.Column(db.String(500),nullable=True)
     reviews=db.relationship("Reviews", backref="providers", lazy=True, uselist=True)
@@ -107,7 +107,7 @@ class Providers(db.Model):
     orders=db.relationship("Orders", backref="providers", lazy=True, uselist=True)
      
     def __repr__(self):
-        return f'Providers {self.user_id} {self.name} {self.last_name} {self.identity_number} {self.company} {self.number_company} {self.phone} {self.location} {self.profession} {self.experience} {self.valoration} {self.url_image}'
+        return f'Providers {self.user_id} {self.name} {self.last_name} {self.identity_number} {self.company} {self.number_company} {self.phone} {self.location} {self.profession} {self.experience} {self.valoration} {self.url_image} {self.description}'
 
     def serialize(self):
         return {
@@ -134,6 +134,7 @@ class Services(db.Model):
     __tablename__='services'
     id = db.Column(db.Integer, primary_key=True)
     provider_id=db.Column(db.Integer,db.ForeignKey('providers.id'),nullable=False)
+    title=db.Column(db.String(20),nullable=True)
     price=db.Column(db.Float, unique=True, nullable=False)
     description=db.Column(db.String(150),nullable=False)
     url_image = db.Column(db.String(200), nullable=False)
@@ -141,14 +142,18 @@ class Services(db.Model):
     orders=db.relationship("Orders", backref="services", lazy=True, uselist=True)
     reviews=db.relationship("Reviews", backref="services", lazy=True)
 
+    def __repr__(self):
+        return f'Providers {self.provider_id} {self.title} {self.category} {self.price} {self.description} {self.url_image}'
+
     def serialize(self):
         return {
             "id": self.id,
             "provider_id": self.provider_id,
+            "title": self.title,
+            "category": self.category,
             "price": self.price,
             "description": self.description,
             "url_image": self.url_image,
-            "category": self.category,
             "orders":[order.serialize() for order in self.orders]
             }
         
@@ -209,12 +214,12 @@ class Reviews(db.Model):
     provider_id=db.Column(db.Integer,db.ForeignKey('providers.id'),nullable=False)
 
     def __repr__(self):
-        return f'Reviews {self.id}  {self.order_id}  {self.rating} {self.comment} {self.created_at}'
+        return f'Reviews {self.id}  {self.services_id}  {self.rating} {self.comment} {self.created_at}'
 
     def serialize(self):
         return {
             "id": self.id,
-            "order_id":self.order_id,
+            "services_id":self.services_id,
             "rating": self.rating,
             "comment":self.comment,
             "created_at":self.created_at          
