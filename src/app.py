@@ -123,7 +123,7 @@ def signup():
     return jsonify ({'msg':'Usuario Creado .'}), 200
 
 
-# Log In o Iniciar Seccion  
+# Log In o Iniciar Sesion  
 
 @app.route('/api/login', methods=["POST"])
 def login():
