@@ -86,7 +86,7 @@ def serve_any_other_file(path):
 
 
 #endpoint pruba proveedores - traer servicios de forma general
-@cross_origin()
+
 @app.route("/api/providers", methods=['GET'])
 def get_providers():
     all_providers = Providers.query.all()
