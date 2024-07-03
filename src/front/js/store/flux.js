@@ -218,7 +218,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       // FETCH EDIT CLIENT ID
-      editClient: function (name,last_name,phone,location, bio, url_image) {
+      editClient: function (id,name,last_name,phone,location, bio, url_image) {
         fetch(process.env.BACKEND_URL + `/api/edit/client/${id}`, {
           method: "PUT",
           headers: {
@@ -246,7 +246,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH DELETE CLIENT ID (OJO)
       deleteClient: function (id) {
-        fetch(process.env.BACKEND_URL +`/api/client/<int:client_id>/user/<int:user_id${id}`, {
+        fetch(process.env.BACKEND_URL +`/api/client/<int:id>/user/<int:user_id${id}`, {
           method: "DELETE",
         })
           .then(response => {
@@ -290,7 +290,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH ADD PROVIDER 
       createProvider: function (name,last_name,identity_number,company,number_company,phone,location,profession,experience, description, url_image) {
-        fetch(process.env.BACKEND_URL + '/api/add/service', {
+        fetch(process.env.BACKEND_URL + '/api/add/provider', {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -357,7 +357,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH DELETE PROVIDER ID (OJO)
       deleteProvider: function (id) {
-        fetch(process.env.BACKEND_URL +`/api/provider/<int:provider_id>/user/<int:user_id>${id}`, {
+        fetch(process.env.BACKEND_URL +`/api/provider/<int:id>/user/<int:user_id>${id}`, {
           method: "DELETE",
         })
           .then(response => {
