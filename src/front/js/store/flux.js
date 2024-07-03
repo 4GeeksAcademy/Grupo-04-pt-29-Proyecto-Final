@@ -245,7 +245,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       // FETCH DELETE CLIENT ID (OJO)
-      deleteService: function (id) {
+      deleteClient: function (id) {
         fetch(process.env.BACKEND_URL +`/api/client/<int:client_id>/user/<int:user_id${id}`, {
           method: "DELETE",
         })
@@ -371,7 +371,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
 
-      
+
       // FETCH SERVICES
 
       // FETCH GET ALL SERVICES
