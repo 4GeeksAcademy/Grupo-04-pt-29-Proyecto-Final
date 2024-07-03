@@ -168,9 +168,9 @@ img{
     width: 200px;
     height: 50px;
 }
-img{
+.img-detalleprimeraparte{
     height: 316px;
-    width: 336;
+    width: 336px;
 }
 }
 
@@ -248,8 +248,9 @@ img{
     width: 200px;
     height: 50px;
 }
-img{
-    height: 536px;
-    width: 516;
+.img-detalleprimeraparte{
+    height: 516px;
+    width: 536px;
+    background-size: cover;
 }
  }
