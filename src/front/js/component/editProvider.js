@@ -1,7 +1,37 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
+import { Context } from "../store/appContext";
 
-const EditProvider= () => {
-  
+const EditProvider = () => {
+
+  const { actions, store } = useContext(Context);
+  const { id } = useParams();
+  const [name, setName] = useState("");
+  const [last_name, setLast_name] = useState("");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
+  const [url_image, setUrl_image] = useState("");
+  const [description, setDescription] = useState("");
+
+  const providerEdit = store.Provider.find(provider => provider.id === parseInt(id));
+
+  useEffect(() => {
+    if (providerEdit) {
+      setName(providerEdit.name);
+      setLast_name(providerEdit.last_name);
+      setPhone(providerEdit.phone);
+      setLocation(providerEdit.location);
+      setUrl_image(providerEdit.url_image);
+      setDescription(providerEdit.description);
+    }
+  }, [providerEdit]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    actions.editClient(id, name, last_name, phone, location, url_image, description);
+  };
+
+
   return (
     <div className="EditUser container ">
       <form className="Forms container" >

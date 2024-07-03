@@ -3,18 +3,15 @@ import { SignUp } from "../pages/signup";
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
-      
+
       // Jose Antonio
       user: {},
       Clients: [],
-      ClientId: [],
       Providers: [],
-      ProviderID: [],
       Services: [],
-      ServicesId: [],
       Favorite: [],
 
-    
+
       //Luis
       listProviders: [],
       provider: [],
@@ -145,7 +142,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           let store = getStore();
           setStore({ ...store, User: data.results });
         } catch (error) {
-          console.error("Error fetching User", error);
+          console.error("Error fetching Users", error);
         }
       },
 
@@ -158,7 +155,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           let store = getStore();
           setStore({ ...store, UserID: data });
         } catch (error) {
-          console.error("Error fetching characters:", error);
+          console.error("Error fetching User:", error);
         }
       },
 
@@ -184,10 +181,83 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await response.json();
           console.log(data);
           let store = getStore();
-          setStore({ ...store, ClientId: data });
+          setStore({ ...store, Clients: data });
         } catch (error) {
           console.error("Error fetching Client:", error);
         }
+      },
+
+      // FETCH ADD CLIENT 
+      createClient: function (name,last_name,phone,location, bio, url_image) {
+        fetch(process.env.BACKEND_URL + '/api/add/client', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: name,
+            last_name: last_name,
+            phone: phone,
+            location: location,
+            bio: bio,
+            url_image: url_image
+          })
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log("Tu Perfil ha sido Actualizado:", data);
+          })
+          .catch(error => {
+            console.error('Hubo un problema con la solicitud:', error);
+          });
+      },
+
+      // FETCH EDIT CLIENT ID
+      editClient: function (name,last_name,phone,location, bio, url_image) {
+        fetch(process.env.BACKEND_URL + `/api/edit/client/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: name,
+            last_name: last_name,
+            phone: phone,
+            location: location,
+            bio: bio,
+            url_image: url_image
+          })
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            console.log("Tu Perfil ha sido Actualizado", data);
+          })
+          .catch(error => {
+            console.error('Hubo un problema con la solicitud:', error);
+          });
+      },
+
+      // FETCH DELETE CLIENT ID (OJO)
+      deleteService: function (id) {
+        fetch(process.env.BACKEND_URL +`/api/client/<int:client_id>/user/<int:user_id${id}`, {
+          method: "DELETE",
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            console.log("Tus Datos del Perfil han sido Eliminado");
+          })
+          .catch(error => {
+            console.error('Hubo un problema con la solicitud:', error);
+          });
       },
 
       // FETCH PROVIDER
@@ -206,45 +276,203 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       // FETCH GET PROVIDER ID
-
-      getClientID: async (id) => {
+      getProviderID: async (id) => {
         try {
           const response = await fetch(process.env.BACKEND_URL + `/api/provider'/${id}`);
           const data = await response.json();
           console.log(data);
           let store = getStore();
-          setStore({ ...store, ProviderId: data });
+          setStore({ ...store, Providers: data });
         } catch (error) {
-          console.error("Error fetching Client:", error);
+          console.error("Error fetching Provider:", error);
         }
       },
 
+      // FETCH ADD PROVIDER 
+      createProvider: function (name,last_name,identity_number,company,number_company,phone,location,profession,experience, description, url_image) {
+        fetch(process.env.BACKEND_URL + '/api/add/service', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: name,
+            last_name: last_name,
+            identity_number:identity_number,
+            company:company,
+            number_company:number_company,
+            phone: phone,
+            location: location,
+            profession:profession,
+            experience:experience,
+            description: description,
+            url_image: url_image
+          })
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log("Tu Perfil ha sido Actualizado:", data);
+          })
+          .catch(error => {
+            console.error('Hubo un problema con la solicitud:', error);
+          });
+      },
+
+      // FETCH EDIT PROVIDER ID
+      editProvider: function (id, name,last_name,identity_number,company,number_company,phone,location,profession,experience, description, url_image) {
+        fetch(process.env.BACKEND_URL + `/api/edit/provider/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: name,
+            last_name: last_name,
+            identity_number:identity_number,
+            company:company,
+            number_company:number_company,
+            phone: phone,
+            location: location,
+            profession:profession,
+            experience:experience,
+            description: description,
+            url_image: url_image
+          })
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            console.log("Tu Perfil ha sido Actualizado:", data);
+          })
+          .catch(error => {
+            console.error('Hubo un problema con la solicitud:', error);
+          });
+      },
+
+      // FETCH DELETE PROVIDER ID (OJO)
+      deleteProvider: function (id) {
+        fetch(process.env.BACKEND_URL +`/api/provider/<int:provider_id>/user/<int:user_id>${id}`, {
+          method: "DELETE",
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            console.log("Tus Datos del Perfil han sido Eliminado");
+          })
+          .catch(error => {
+            console.error('Hubo un problema con la solicitud:', error);
+          });
+      },
+
+      
       // FETCH SERVICES
 
       // FETCH GET ALL SERVICES
-      getProviders: async () => {
+      getServices: async () => {
         try {
           const response = await fetch(process.env.BACKEND_URL + '/api/services');
           const data = await response.json();
           console.log(data);
           let store = getStore();
-          setStore({ ...store, Providers: data.results });
+          setStore({ ...store, Services: data.results });
         } catch (error) {
-          console.error("Error fetching Providers:", error);
+          console.error("Error fetching Services:", error);
         }
       },
+
       // FETCH GET SERVICES ID
-      getClientID: async (id) => {
+      getServiceID: async (id) => {
         try {
           const response = await fetch(process.env.BACKEND_URL + `/api/services/${id}`);
           const data = await response.json();
           console.log(data);
           let store = getStore();
-          setStore({ ...store, ProviderId: data });
+          setStore({ ...store, Services: data });
         } catch (error) {
-          console.error("Error fetching Client:", error);
+          console.error("Error fetching Service:", error);
         }
       },
+
+      // FETCH ADD SERVICES 
+      createService: function (title, category, price, description, url_image) {
+        fetch(process.env.BACKEND_URL + '/api/add/service', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            title: title,
+            category: category,
+            price: price,
+            description: description,
+            url_image: url_image
+          })
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log("El Servicio ha sido creado:", data);
+          })
+          .catch(error => {
+            console.error('Hubo un problema con la solicitud:', error);
+          });
+      },
+
+      // FETCH EDIT SERVICES ID
+      editService: function (id, title, category, price, description, url_image) {
+        fetch(process.env.BACKEND_URL + `/api/edit/service/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            title: title,
+            category: category,
+            price: price,
+            description: description,
+            url_image: url_image
+          })
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            console.log("El servicio ha sido Editado:", data);
+          })
+          .catch(error => {
+            console.error('Hubo un problema con la solicitud:', error);
+          });
+      },
+
+      // FETCH DELETE SERVICES ID (OJO)
+      deleteService: function (id) {
+        fetch(process.env.BACKEND_URL +`/api/services/${id}`, {
+          method: "DELETE",
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            console.log("El Servicio ha sido eliminado correctamente");
+          })
+          .catch(error => {
+            console.error('Hubo un problema con la solicitud:', error);
+          });
+      },
+
+
+
       // FETCH ALL PROVIDER (LUIS)
       getProviders: () => {
         console.log("funciona")
