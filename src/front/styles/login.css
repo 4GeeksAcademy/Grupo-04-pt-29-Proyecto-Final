@@ -1,51 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
 
+/*Responsive mobile*/
+@media (min-width: 375px) { 
+    .border-label-login {
+        border-color: #C6DBFB;
+    }
+    
+    .title-login{
+        font-family: "Inter", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 700;
+      font-style: normal;
+      font-variation-settings:
+        "slnt" 0;
+        font-size: 37px;
+    }
+    
+    .p-login {
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        color: #000000;
+        font-size: 15px;
+    }
+    
+    .title-label-login{
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 700;
+        font-style: normal;
+        font-variation-settings:
+          "slnt" 0;
+          font-size: 16px;
+    }
+    
+    .button-style-login {
+        background-color: #508CF6;
+        color: #ffffff;
+        border: none
+    }
+   
+    
+    .image-style-login {
+        background-image: url('https://res.cloudinary.com/dq3mxxidu/image/upload/v1718738658/login-image_rolyrd.jpg');
+        height: 438px;
+        width: 382px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-top: 50px;
 
+    }
 
-.border-label-login {
-    border-color: #C6DBFB;
+    .body-login{
+        display: block;
+       
+    }
+    .body-secondary-body{
+        width: 100%;
+        
+    }
+    .mobile-center{
+        display: flex;
+        justify-content: center;
+    }
+    
 }
 
-.title-login{
-    font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: normal;
-  font-variation-settings:
-    "slnt" 0;
-    font-size: 37px;
+
+
+/*Responsive tablet*/
+@media (min-width: 768px) { 
+    .border-label-login {
+        border-color: #C6DBFB;
+    }
+    
+    .title-login{
+        font-family: "Inter", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 700;
+      font-style: normal;
+      font-variation-settings:
+        "slnt" 0;
+        font-size: 37px;
+    }
+    
+    .p-login {
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        color: #000000;
+        font-size: 15px;
+    }
+    
+    .title-label-login{
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 700;
+        font-style: normal;
+        font-variation-settings:
+          "slnt" 0;
+          font-size: 16px;
+    }
+    
+    .button-style-login {
+        background-color: #508CF6;
+        color: #ffffff;
+        border: none
+    }
+    
+    .image-style-login {
+        background-image: url('https://res.cloudinary.com/dq3mxxidu/image/upload/v1718738658/login-image_rolyrd.jpg');
+        height: 438px;
+        width: 382px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-top: 0;
+        margin-left: 50px;
+    }
+    .body-login{
+        display: flex;
+        justify-content: center;
+        padding: 50px;
+    }
+    .body-secondary-body{
+        width: 450px;
+    }
 }
 
-.p-login {
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    color: #000000;
-    font-size: 15px;
-}
-
-.title-label-login{
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-style: normal;
-    font-variation-settings:
-      "slnt" 0;
-      font-size: 16px;
-}
-
-.button-style-login {
-    background-color: #508CF6;
-    color: #ffffff;
-    border: none
-}
-
-.image-style-login {
-    background-image: url('https://res.cloudinary.com/dq3mxxidu/image/upload/v1718738658/login-image_rolyrd.jpg');
-    height: 538px;
-    width: 482px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin-left: 50px;
+/*Responsive computador*/
+@media (min-width: 1200px) { 
+    .border-label-login {
+        border-color: #C6DBFB;
+    }
+    
+    .title-login{
+        font-family: "Inter", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 700;
+      font-style: normal;
+      font-variation-settings:
+        "slnt" 0;
+        font-size: 37px;
+    }
+    
+    .p-login {
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        color: #000000;
+        font-size: 15px;
+    }
+    
+    .title-label-login{
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 700;
+        font-style: normal;
+        font-variation-settings:
+          "slnt" 0;
+          font-size: 16px;
+    }
+    
+    .button-style-login {
+        background-color: #508CF6;
+        color: #ffffff;
+        border: none
+    }
+    
+    .image-style-login {
+        background-image: url('https://res.cloudinary.com/dq3mxxidu/image/upload/v1718738658/login-image_rolyrd.jpg');
+        height: 538px;
+        width: 482px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-top: 0;
+        margin-left: 50px;
+    }
+    .body-login{
+        display: flex;
+        justify-content: center;
+    }
+    .Login{
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
 }

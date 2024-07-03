@@ -1,22 +1,128 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 
-.nav a{
-    color: #b4b3b3;
-    text-decoration: none;
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: normal;
-    transition: .3s;
+
+
+/*Responsive mobile*/
+@media (min-width: 375px) { 
+    .nav a{
+        color: #b4b3b3;
+        text-decoration: none;
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 800;
+        font-style: normal;
+        transition: .3s;
+        font-size: 14px;
+    }
+    
+    .nav a:hover,
+    .nav a.active{
+        color: #508df7;
+    }
+    
+    .Navbar{
+        padding-left:10px ;
+        padding-right: 10px ;
+        z-index: 1000;
+        height: 180px;
+        background-color: white;
+    }
+    .menu{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .img-body-nabvar{
+        height: 51px;
+        width: 250px;
+    }
 }
 
-.nav a:hover,
-.nav a.active{
-    color: #508df7;
+
+/*Responsive tablet*/
+@media (min-width: 768px) { 
+    .nav a{
+        color: #b4b3b3;
+        text-decoration: none;
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 800;
+        font-style: normal;
+        transition: .3s;
+        font-size: 16px;
+    }
+    
+    .nav a:hover,
+    .nav a.active{
+        color: #508df7;
+    }
+    
+    .Navbar{
+        padding-left:30px ;
+        padding-right: 0 ;
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        top: 0;
+      
+        z-index: 1000;
+        height: 90px;
+    }
+    .menu{
+        width: 70%;
+        display: flex;
+        margin-left: 20px;
+        justify-content: center;
+    }
+    .img-body-nabvar {
+        width: 10%;
+    }
+    .img-body-nabvar{
+        height: 51px;
+        width: 250px;
+    }
 }
 
-.Navbar{
-    padding-left:100px ;
-    padding-right: 100px ;
+
+/*Responsive computador*/
+@media (min-width: 1200px) { 
+    .nav a{
+        color: #b4b3b3;
+        text-decoration: none;
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 800;
+        font-style: normal;
+        transition: .3s;
+        font-size: 18px;
+    }
+    
+    .nav a:hover,
+    .nav a.active{
+        color: #508df7;
+    }
+    
+    .Navbar{
+        padding-left:100px ;
+        padding-right: 100px ;
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        height: 90px;
+        background-color: white;
+        width: 100%;
+    }
+    .img-body-nabvar{
+        height: 51px;
+        width: 250px;
+    }
+    .menu{
+        display: flex;
+        justify-content: end;
+    }
+
 }
+
+
+
