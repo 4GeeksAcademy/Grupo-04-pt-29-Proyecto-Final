@@ -25,10 +25,7 @@ from flask_mail import Mail,Message
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
-
-
-
-           
+   
 app = Flask(__name__) 
 app.config['MAIL_SERVER']="smtp.gmail.com"
 app.config['MAIL_PORT'] = 587
@@ -37,8 +34,6 @@ app.config['MAIL_PASSWORD'] = "qsnztblbzoghhbzo"
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 mail= Mail(app)
-
-
 
 cors = CORS(app, resources={r"/*": {"origins": "https://laughing-space-carnival-q77xrw6gg74xcxr4w-3000.app.github.dev/"}})
 CORS(app)
@@ -82,8 +77,6 @@ def handle_invalid_usage(error):
     return jsonify(error.to_dict()), error.status_code
 
 # generate sitemap with all your endpoints
-
-
 @app.route('/')
 def sitemap():
     if ENV == "development":
@@ -91,8 +84,6 @@ def sitemap():
     return send_from_directory(static_file_dir, 'index.html')
 
 # any other endpoint will try to serve it like a static file
-
-
 @app.route('/<path:path>', methods=['GET'])
 def serve_any_other_file(path):
     if not os.path.isfile(os.path.join(static_file_dir, path)):
@@ -102,10 +93,10 @@ def serve_any_other_file(path):
     return response
 
 
+# ININICO DE LOS ENDPOIT
 
 
-# Inicio de los endpoints
-
+# FUNCIO DE VERIFICACION DEL EMAIL 
 def send_verification_email(email,username):
     try:
         verify_token= create_access_token(identity=email)
@@ -123,11 +114,9 @@ def send_verification_email(email,username):
         return jsonify({'msg':'no se pudo enviar el Correo!'}), 500
 
 
+# 1. Sistema de Auntenticacion (FUNCIONA TODOS)
 
-# 1. Sistema de Auntenticacion
-
-#Sign Up o Registro
-
+#Sign Up o Registro (FUNCIONA)
 @app.route('/api/signup', methods=["POST"])
 def signup():
     body = request.get_json(silent=True)
@@ -156,8 +145,7 @@ def signup():
     return jsonify ({'msg':'Usuario Creado .'}), 200
 
 
-# Log In o Iniciar Seccion  
-
+# Log In o Iniciar Seccion  (FUNCIONA)
 @app.route('/api/login', methods=["POST"])
 def login():
     body = request.get_json(silent=True)
@@ -184,21 +172,47 @@ def login():
     return jsonify (response_body), 200
 
 
-# Endpoint para los Usuarios Funciona
+# Endpoint para los USUARIO (FUNCIONA TODOS)
 
-# Enpoint para Traer un Usuario por Id
+# Enpoint para Todos los Usuario (FUNCIONA)
+@app.route('/api/profile', methods=['GET'])
+def get_user():
+    all_users= User.query.all()
+    users_serialized=[]
+    for users  in all_users:
+        users_serialized.append(users.serialize())
+    print(users_serialized)
+    return jsonify({"data":users_serialized}), 200
+
+# Enpoint para Traer un Usuario por Id (FUNCIONA)
 @app.route('/api/profile/<int:user_id>', methods=['GET'])
+@jwt_required()
 def get_user_by_id(user_id):
+    email= get_jwt_identity()
+    if not email:
+        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'msg':'el usuario no existe'}), 400
     user = User.query.get(user_id)
     if user is None:
         return jsonify({"msg":"el Usuario no existe" }), 404
     return jsonify(user.serialize()),200
 
-# Endpoint para los CLIENTES
 
-#endpoint prueba - traer los Clientes de forma general
+
+# Endpoint para los CLIENTES (FUNCIONA TODOS)
+
+#endpoint prueba - traer los CLIENTES de forma GENERAL(FUNCIONA)
 @app.route('/api/client', methods=['GET'])
+@jwt_required()
 def get_client():
+    email= get_jwt_identity()
+    if not email:
+        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'msg':'el usuario no existe'}), 400
     all_clients = Client.query.all()
     clients_serialized=[]
     for clients  in all_clients:
@@ -206,9 +220,16 @@ def get_client():
     print(clients_serialized)
     return jsonify({"data":clients_serialized}), 200
 
-#endpoint para escoger cada Cliente con un id
+#endpoint para escoger cada CLIENTE con un ID (FUNCIONA)
 @app.route('/api/client/<int:id>', methods=['GET'])
+@jwt_required()
 def get_single_client(id):
+    email= get_jwt_identity()
+    if not email:
+        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'msg':'el usuario no existe'}), 400
     single_client = Client.query.get(id)
     if not single_client: 
         return jsonify({"msg": f"El Cliente con el ID: {id} no existe"}), 400
@@ -216,7 +237,7 @@ def get_single_client(id):
     print(serialized)
     return jsonify({"data": serialized}, 200)
 
-#endpoint para Agregar informacion del Cliente
+#endpoint para AGREGAR informacion del CLIENTE(FUNCIONA)
 @app.route('/api/add/client', methods=['POST'])
 @jwt_required()
 def new_client():
@@ -255,14 +276,16 @@ def new_client():
     db.session.commit()
     return jsonify({'msg': 'Nuevo Cliente creado','data': new_client.serialize()}), 201
 
-#endpoint para editar los datos del Cliente
+#endpoint para EDITAR los datos del CLIENTE (FUNCIONA)
 @app.route('/api/edit/client/<int:id>', methods=["PUT"])
 @jwt_required()
 def update_client(id):
     email= get_jwt_identity()
+    if not email:
+        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
     user = User.query.filter_by(email=email).first()
-    user_id=user.id
-    
+    if not user:
+        return jsonify({'msg':'el usuario no existe'}), 400
     update_client = Client.query.get(id)
     body = request.get_json()
     if update_client is None:
@@ -275,39 +298,27 @@ def update_client(id):
         update_client.phone = body["phone"]
     if "location" in body:
         update_client.location = body["location"]
-    if "description" in body:
-        update_client.description = body["description"]
+    if "url_image" in body:
+        update_client.url_image = body["url_image"]
+    if "bio" in body:
+        update_client.bio = body["bio"]
     db.session.commit()
     return jsonify({"data": update_client.serialize()})
 
-    update_provider = Providers.query.get(id)
-    body = request.get_json()
-    if update_provider is None:
-        return jsonify({"msg": f"El id {id} provider no fue encontrado"}), 400
-    if "name" in body:
-        update_provider.name = body["name"]
-    if "last_name" in body:
-        update_provider.last_name = body["last_name"]
-    if "phone" in body:
-        update_provider.phone = body["phone"]
-    if "location" in body:
-        update_provider.location = body["location"]
-    if "identity_number" in body:
-        update_provider.identity_number = body["identity_number"]
-    if "profession" in body:
-        update_provider.profession = body["profession"]
-    if "experience" in body:
-        update_provider.experience = body["experience"]
-    if "description" in body:
-        update_provider.description = body["description"]
-    db.session.commit()
-    return jsonify({"data": update_provider.serialize()})
 
-# Endpoint para los PROVEEDORES
 
-#endpoint pruba proveedores - traer servicios de forma general
+# Endpoint para los PROVEEDORES (FUNCIONA TODOS)
+
+# Enpoint para TODOS los PROVEEDORES (FUNCIONA)
 @app.route('/api/provider', methods=['GET'])
+@jwt_required()
 def get_providers():
+    email= get_jwt_identity()
+    if not email:
+        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'msg':'el usuario no existe'}), 400
     all_providers = Providers.query.all()
     providers_serialized=[]
     for providers  in all_providers:
@@ -332,9 +343,7 @@ def get_providers():
         print(provider)
         return jsonify(provider.serialize()),200
 
-
-
-#endpoint para escoger cada proovedor con un id
+#endpoint para escoger cada PROVEEDOR con un ID (FUNCIONA)
 @app.route('/api/provider/<int:id>', methods=['GET'])
 def get_single_provider(id):
     single_provider = Providers.query.get(id)
@@ -344,9 +353,17 @@ def get_single_provider(id):
     print(single_provider.serialize())
     return jsonify({"data": single_provider.serialize()}, 200)
 
-#endpoint para Agregar informacion de proveedor
+#endpoint para AGREGAR informacion de PROVEEDOR (FUNCIONA)
 @app.route('/api/add/provider', methods=['POST'])
+@jwt_required()
 def new_provider():
+    email= get_jwt_identity()
+    if not email:
+        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'msg':'el usuario no existe'}), 400
+    user_id=user.id
     body = request.get_json(silent=True)
     if body is None:
         return jsonify({'msg': 'Debes enviar información en el body'}), 400
@@ -368,7 +385,7 @@ def new_provider():
         return jsonify({'msg': 'El campo description es obligatorio'}), 400
     
     new_provider = Providers()
-    new_provider.user_id = body['user_id']
+    new_provider.user_id = user_id
     new_provider.name = body['name']
     new_provider.last_name = body['last_name']
     new_provider.phone = body['phone']
@@ -386,31 +403,16 @@ def new_provider():
     return jsonify({'msg': 'Nuevo provider creado',
                     'data': new_provider.serialize()}), 201
 
-@app.route('/api/favorites/<int:client_id>', methods=['GET'])
-def get_user_favorite(client_id):
-    client = Client.query.get(client_id)
-    if client is None:
-        return jsonify({"msg": f"El id {client_id} del usuario no existe"}), 404
-    favorites = [service.title for service in client.favorites]
-    return jsonify({"msg": favorites})
-
-
-@app.route('/api/favorite/<int:client_id>/<int:service_id>', methods=['POST'])
-def add_favorite_provider(client_id, service_id):
-    client = Client.query.get(client_id)
-    service = Services.query.get(service_id)
-
-    if client and service:
-        client.favorites.append(service)
-        db.session.commit()
-        return jsonify({"msg": f"Servicio {service.title} agregado a favoritos del cliente {client.name}"}), 201
-    return jsonify({"msg": "Cliente o servicio no encontrado"}), 404
-
-
-
-#endpoint para actualizar proveedor
+#endpoint para EDITAR informacion del PROVEEDOR (FUNCIONA)
 @app.route('/api/edit/provider/<int:id>', methods=["PUT"])
+@jwt_required()
 def update_provider(id):
+    email= get_jwt_identity()
+    if not email:
+        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'msg':'el usuario no existe'}), 400
     update_provider = Providers.query.get(id)
     body = request.get_json()
     if update_provider is None:
@@ -434,25 +436,50 @@ def update_provider(id):
     db.session.commit()
     return jsonify({"data": update_provider.serialize()})
 
+
 # Endpoint para los SERVICIOS
 
+# Enpoint para TODOS los SERVICIOS (FUNCIONA)
 @app.route('/api/services', methods=['GET'])
+@jwt_required()
 def get_all_services():
+    email= get_jwt_identity()
+    if not email:
+        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'msg':'el usuario no existe'}), 400
     services = Services.query.all()
     result = list(map(lambda x: x.serialize(),services))
     return jsonify(result),200
 
-## Ruta para obtener un Servicio por ID del proveedor
-
+## Ruta para obtener un SERVICIOS por ID del PROVEEDOR (FUNCIONA)
 @app.route('/api/services/<int:provider_id>', methods=['GET'])
+@jwt_required()
 def get_all_services_provider(provider_id,):
+    email= get_jwt_identity()
+    if not email:
+        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'msg':'el usuario no existe'}), 400
     services = Services.query.filter_by(provider_id=provider_id).all()
     result = list(map(lambda x: x.serialize(),services))
     return jsonify(result),200
 
-#endpoint para crear un servicio
+#endpoint para CREAR un SERVICIO (OJO)
 @app.route('/api/add/service', methods=['POST'])
+@jwt_required()
 def new_services():
+    email= get_jwt_identity()
+    if not email:
+        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
+    provider = Providers.query.filter_by(provider_id=provider_id).first()
+    if not provider:
+        return jsonify({'msg':'el proveedor no existe'}), 400
+    provider_id=provider.id
+
+
     body = request.get_json(silent=True)
     if body is None:
         return jsonify({'msg': 'Debes enviar información en el body'}), 400
@@ -466,16 +493,17 @@ def new_services():
         return jsonify({'msg': 'La description es obligatoria'}), 400
     
     new_services = Services()
-    new_services.user_id = body['user_id']
+    new_services.user_id = provider_id
     new_services.title = body['title']
     new_services.category = body['category']
     new_services.price = body['price']
     new_services.description = body['description']
+    new_services.url_image = body['url_image']
     db.session.add(new_services)
     db.session.commit()
     return jsonify({'msg': 'Nuevo Servicio creado','data': new_services.serialize()}), 201
 
-#endpoint para Editar un Servicio
+#endpoint para EDITAR un SERVICIO (OJO)
 @app.route('/api/edit/service/<int:id>', methods=["PUT"])
 def update_service(id):
     update_service = Providers.query.get(id)
@@ -493,7 +521,7 @@ def update_service(id):
     db.session.commit()
     return jsonify({"data": update_service.serialize()})
 
-## Ruta para Eliminar un Servicio
+## Ruta para ELIMINAR un SERVICIO (OJO)
 @app.route('/api/services/<int:character_id>/user/<int:user_id>', methods=['DELETE'])
 def delete_service(service_id,user_id):
     service = Services.query.filter_by(service_id=service_id,user_id=user_id).first()
@@ -504,6 +532,29 @@ def delete_service(service_id,user_id):
     return jsonify({"msg":"El servicio esta Eliminado"}), 200
 
 
+#endpoint para OBTENER los FAVORITOS del CLIENTE
+@app.route('/api/favorites/<int:client_id>', methods=['GET'])
+def get_user_favorite(client_id):
+    client = Client.query.get(client_id)
+    if client is None:
+        return jsonify({"msg": f"El id {client_id} del usuario no existe"}), 404
+    favorites = [service.title for service in client.favorites]
+    return jsonify({"msg": favorites})
+
+
+#endpoint para AGREGAR un SERVICIO FAVORITO a un CLIEENTE por ID
+@app.route('/api/favorite/<int:client_id>/<int:service_id>', methods=['POST'])
+def add_favorite_service(client_id, service_id):
+    client = Client.query.get(client_id)
+    service = Services.query.get(service_id)
+
+    if client and service:
+        client.favorites.append(service)
+        db.session.commit()
+        return jsonify({"msg": f"Servicio {service.title} agregado a favoritos del cliente {client.name}"}), 201
+    return jsonify({"msg": "Cliente o servicio no encontrado"}), 404
+
+#endpoint para ENVIAR un EMAIL al USUARIO ()
 @app.route('/api/send-mail', methods=['GET'])
 def send_mail():
     try:
@@ -516,7 +567,8 @@ def send_mail():
     except Exception as e:
         print(str(e))
         return jsonify({'msg':'no se pudo enviar el Correo!'}), 500
-    
+
+#endpoint para VERIFICAR un USUARIO () 
 @app.route('/api/verify', methods=['GET'])
 @jwt_required()
 def verify_token():
