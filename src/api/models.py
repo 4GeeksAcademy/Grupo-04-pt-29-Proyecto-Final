@@ -136,6 +136,10 @@ class Providers(db.Model):
             "url_image":self.url_image,
             "reviews":[review.serialize() for review in self.reviews],
             "services":[service.serialize() for service in self.services],
+
+            "description":self.description,
+            "valoration":self.valoration
+
             # do not serialize the password, its a security breach
         }  
     

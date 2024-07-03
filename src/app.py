@@ -318,8 +318,6 @@ def delete_client(id,user_id):
 
 
 
-# Endpoint para los PROVEEDORES (FUNCIONA TODOS)
-
 # Enpoint para TODOS los PROVEEDORES (FUNCIONA)
 @app.route('/api/provider', methods=['GET'])
 @jwt_required()

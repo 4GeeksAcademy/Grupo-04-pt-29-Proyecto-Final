@@ -9,7 +9,7 @@ export const ProductsPage = () => {
 
 	return (
 		<div className="container"> 
-			<div className="pt-3 pb-3"> Inicio - Categoria - Limpieza </div> 
+			<div className="pt-3 pb-3"> Inicio - Servicios Disponibles </div> 
 			<div className="d-flex">
 				<div className="m-3">
 					<BarraCategorias />
