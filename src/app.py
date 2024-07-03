@@ -95,7 +95,6 @@ def serve_any_other_file(path):
 
 # ININICO DE LOS ENDPOIT
 
-
 # FUNCIO DE VERIFICACION DEL EMAIL 
 def send_verification_email(email,username):
     try:
@@ -112,6 +111,7 @@ def send_verification_email(email,username):
     except Exception as e:
         print(str(e))
         return jsonify({'msg':'no se pudo enviar el Correo!'}), 500
+
 
 
 # 1. Sistema de Auntenticacion (FUNCIONA TODOS)
@@ -146,7 +146,6 @@ def signup():
 
   
 # Log In o Iniciar Seccion  (FUNCIONA)
-
 @app.route('/api/login', methods=["POST"])
 def login():
     body = request.get_json(silent=True)
@@ -173,6 +172,7 @@ def login():
     return jsonify (response_body), 200
 
 
+
 # Endpoint para los USUARIO (FUNCIONA TODOS)
 
 # Enpoint para Todos los Usuario (FUNCIONA)
@@ -185,7 +185,7 @@ def get_user():
     print(users_serialized)
     return jsonify({"data":users_serialized}), 200
 
-# Enpoint para Traer un Usuario por Id (FUNCIONA)
+# Enpoint para Traer un Usuario por su Id (FUNCIONA)
 @app.route('/api/profile/<int:user_id>', methods=['GET'])
 @jwt_required()
 def get_user_by_id(user_id):
@@ -204,7 +204,7 @@ def get_user_by_id(user_id):
 
 # Endpoint para los CLIENTES (FUNCIONA TODOS)
 
-#endpoint prueba - traer los CLIENTES de forma GENERAL(FUNCIONA)
+#endpoint para traer los CLIENTES de forma GENERAL(FUNCIONA)
 @app.route('/api/client', methods=['GET'])
 @jwt_required()
 def get_client():
@@ -221,7 +221,7 @@ def get_client():
     print(clients_serialized)
     return jsonify({"data":clients_serialized}), 200
 
-#endpoint para escoger cada CLIENTE con un ID (FUNCIONA)
+#endpoint para escoger cada CLIENTE por su ID (FUNCIONA)
 @app.route('/api/client/<int:id>', methods=['GET'])
 @jwt_required()
 def get_single_client(id):
@@ -306,6 +306,16 @@ def update_client(id):
     db.session.commit()
     return jsonify({"data": update_client.serialize()})
 
+# Ruta para ELIMINAR DATOS de un CLIENTE (OJO)
+@app.route('/api/client/<int:client_id>/user/<int:user_id>', methods=['DELETE'])
+def delete_client(client_id,user_id):
+    client = Client.query.filter_by(client_id=client_id,user_id=user_id).first()
+    if client is None:
+        return jsonify({"msg":"el Cliente no existe" }), 404
+    db.session.delete(client)
+    db.session.commit()
+    return jsonify({"msg":"Tus Datos del Perfil han sido Eliminado"}), 200
+
 
 
 # Endpoint para los PROVEEDORES (FUNCIONA TODOS)
@@ -327,24 +337,7 @@ def get_providers():
     print(providers_serialized)
     return jsonify({"data":providers_serialized}), 200
 
-
-#endpoint de Prueba
-##@app.route('/api/provider', methods=['GET'])
-##def get_providers():
-    body = request.get_json(silent=True)
-    if body is None:   
-        all_providers = Providers.query.all()
-        providers_serialized=[]
-        for providers  in all_providers:
-            providers_serialized.append(providers.serialize())
-        print(providers_serialized)
-        return jsonify({"data":providers_serialized}), 200
-    else:
-        provider=Providers.query.filter_by(user_id=body["id"]).first()
-        print(provider)
-        return jsonify(provider.serialize()),200
-
-#endpoint para escoger cada PROVEEDOR con un ID (FUNCIONA)
+#endpoint para escoger cada PROVEEDOR por su ID (FUNCIONA)
 @app.route('/api/provider/<int:id>', methods=['GET'])
 def get_single_provider(id):
     single_provider = Providers.query.get(id)
@@ -354,7 +347,7 @@ def get_single_provider(id):
     print(single_provider.serialize())
     return jsonify({"data": single_provider.serialize()}, 200)
 
-#endpoint para AGREGAR informacion de PROVEEDOR (FUNCIONA)
+#endpoint para AGREGAR informacion del PROVEEDOR (FUNCIONA)
 @app.route('/api/add/provider', methods=['POST'])
 @jwt_required()
 def new_provider():
@@ -436,6 +429,17 @@ def update_provider(id):
         update_provider.description = body["description"]
     db.session.commit()
     return jsonify({"data": update_provider.serialize()})
+
+## Ruta para ELIMINAR DATOS del PROVEEDOR (OJO)
+@app.route('/api/provider/<int:provider_id>/user/<int:user_id>', methods=['DELETE'])
+def delete_provider(provider_id,user_id):
+    provider = Providers.query.filter_by(provider_id=provider_id,user_id=user_id).first()
+    if provider is None:
+        return jsonify({"msg":"" }), 404
+    db.session.delete(provider)
+    db.session.commit()
+    return jsonify({"msg":"Tus Datos del Perfil han sido Eliminado"}), 200
+
 
 
 # Endpoint para los SERVICIOS
@@ -523,15 +527,18 @@ def update_service(id):
     return jsonify({"data": update_service.serialize()})
 
 ## Ruta para ELIMINAR un SERVICIO (OJO)
-@app.route('/api/services/<int:character_id>/user/<int:user_id>', methods=['DELETE'])
-def delete_service(service_id,user_id):
-    service = Services.query.filter_by(service_id=service_id,user_id=user_id).first()
+@app.route('/api/services/<int:Services_id>/provider/<int:providers_id>', methods=['DELETE'])
+def delete_service(service_id,provider_id):
+    service = Services.query.filter_by(service_id=service_id,provider_id=provider_id).first()
     if service is None:
-        return jsonify({"msg":"el servicio favorito no existe" }), 404
+        return jsonify({"msg":"el servicio no existe" }), 404
     db.session.delete(service)
     db.session.commit()
-    return jsonify({"msg":"El servicio esta Eliminado"}), 200
+    return jsonify({"msg":"El servicio ha sido Eliminado"}), 200
 
+
+
+# Endpoint para los FAVORITOS
 
 #endpoint para OBTENER los FAVORITOS del CLIENTE
 @app.route('/api/favorites/<int:client_id>', methods=['GET'])
@@ -554,6 +561,10 @@ def add_favorite_service(client_id, service_id):
         db.session.commit()
         return jsonify({"msg": f"Servicio {service.title} agregado a favoritos del cliente {client.name}"}), 201
     return jsonify({"msg": "Cliente o servicio no encontrado"}), 404
+
+
+
+# Endpoint para los SERVICIOS
 
 #endpoint para ENVIAR un EMAIL al USUARIO ()
 @app.route('/api/send-mail', methods=['GET'])
