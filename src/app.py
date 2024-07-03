@@ -268,7 +268,7 @@ def update_client(id):
 # Endpoint para los PROVEEDORES
 
 #endpoint pruba proveedores - traer servicios de forma general
-@app.route('/api/provider', methods=['GET'])
+@app.route('/api/providers', methods=['GET'])
 def get_providers():
     all_providers = Providers.query.all()
     providers_serialized=[]
