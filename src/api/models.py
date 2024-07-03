@@ -161,9 +161,8 @@ class Services(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "title":self.title,
             "provider_id": self.provider_id,
-            "title": self.title,
+            "title":self.title,
             "category": self.category,
             "price": self.price,
             "description": self.description,
