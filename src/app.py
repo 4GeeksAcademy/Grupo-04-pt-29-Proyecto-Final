@@ -144,8 +144,9 @@ def signup():
     send_verification_email(body["email"],body["username"])
     return jsonify ({'msg':'Usuario Creado .'}), 200
 
-
+  
 # Log In o Iniciar Seccion  (FUNCIONA)
+
 @app.route('/api/login', methods=["POST"])
 def login():
     body = request.get_json(silent=True)

@@ -10,9 +10,10 @@ const Serviciospopulares = () => {
 
     useEffect(() => {
 
-        fetch(`${process.env.BACKEND_URL}/api/providers`)
+        fetch(`${process.env.BACKEND_URL}/api/provider`)
             .then(response => response.json())
             .then(data => {
+                console.log("url para revision",process.env.BACKEND_URL)
                 console.log("data", data)
                 setProviders(data.data)
             })
@@ -22,7 +23,7 @@ const Serviciospopulares = () => {
     }, [])
 
     return (
-        <div className="container">
+        <div className="container mt-5 mb-5">
             <div className="content-header text-center">
                 <h3>Servicios Populares</h3>
             </div>
@@ -31,12 +32,12 @@ const Serviciospopulares = () => {
                 <div className="row row-content m-auto">
                     {providers.map((value, index) => {
                         return (
-                            <div className="col">
+                            <div className="col contenedor-card">
                                 <div key={index} className="card mb-5" style={{ "width": "15rem" }}>
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdx38W42k6ujIXAghZNamkWwcMPEXWZbb8CA&s" className="card-img-top" alt="..." />
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdx38W42k6ujIXAghZNamkWwcMPEXWZbb8CA&s" className="img-fluid card-img-top" alt="..." />
                                     <div className="color-card card-body text-center">
                                         <h5 className="h5-descripcion card-title text-center font-weight-bold">{value.profession}</h5>
-                                        <h2 className="valor-card card-title text-center ">${value.price}</h2>
+                                        <h2 className="valor-card card-title text-center ">${value.experience}</h2>
                                         <a href="#" className="btn-minfo btn">Más Información</a>
                                     </div>
                                 </div>
