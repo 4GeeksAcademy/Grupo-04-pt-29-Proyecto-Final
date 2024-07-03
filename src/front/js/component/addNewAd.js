@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 const AddNewAd = () => {
@@ -12,7 +11,7 @@ const AddNewAd = () => {
   const [url_image, setUrl_image] = useState("");
 
   const handleSaveService = async () => {
-    await actions.createContact(title, category, price, description, url_image);
+    await actions.createService(title, category, price, description, url_image);
     actions.getServices();
   };
   return (
@@ -91,4 +90,4 @@ const AddNewAd = () => {
     </div>
   );
 };
-export default AddNewAd;
+export default AddN;

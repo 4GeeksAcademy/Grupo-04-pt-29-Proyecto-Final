@@ -306,10 +306,10 @@ def update_client(id):
     db.session.commit()
     return jsonify({"data": update_client.serialize()})
 
-# Ruta para ELIMINAR DATOS de un CLIENTE (OJO)
-@app.route('/api/client/<int:client_id>/user/<int:user_id>', methods=['DELETE'])
-def delete_client(client_id,user_id):
-    client = Client.query.filter_by(client_id=client_id,user_id=user_id).first()
+# Ruta para ELIMINAR DATOS de un CLIENTE (FUNCIONA)
+@app.route('/api/client/<int:id>/user/<int:user_id>', methods=['DELETE'])
+def delete_client(id,user_id):
+    client = Client.query.filter_by(id=id,user_id=user_id).first()
     if client is None:
         return jsonify({"msg":"el Cliente no existe" }), 404
     db.session.delete(client)
@@ -430,10 +430,10 @@ def update_provider(id):
     db.session.commit()
     return jsonify({"data": update_provider.serialize()})
 
-## Ruta para ELIMINAR DATOS del PROVEEDOR (OJO)
-@app.route('/api/provider/<int:provider_id>/user/<int:user_id>', methods=['DELETE'])
-def delete_provider(provider_id,user_id):
-    provider = Providers.query.filter_by(provider_id=provider_id,user_id=user_id).first()
+## Ruta para ELIMINAR DATOS del PROVEEDOR (FUNCIONA)
+@app.route('/api/provider/<int:id>/user/<int:user_id>', methods=['DELETE'])
+def delete_provider(id,user_id):
+    provider = Providers.query.filter_by(id=id,user_id=user_id).first()
     if provider is None:
         return jsonify({"msg":"" }), 404
     db.session.delete(provider)
@@ -442,7 +442,7 @@ def delete_provider(provider_id,user_id):
 
 
 
-# Endpoint para los SERVICIOS
+# Endpoint para los SERVICIOS (FALTA AGREGAR Y EDITAR)
 
 # Enpoint para TODOS los SERVICIOS (FUNCIONA)
 @app.route('/api/services', methods=['GET'])
@@ -479,12 +479,12 @@ def new_services():
     email= get_jwt_identity()
     if not email:
         return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
-    provider = Providers.query.filter_by(provider_id=provider_id).first()
+    service = Services.query.filter_by(id=id).first()
+    provider = Providers.query.filter_by(id=id).first()
+
+
     if not provider:
-        return jsonify({'msg':'el proveedor no existe'}), 400
-    provider_id=provider.id
-
-
+        return jsonify({'msg':'el Servicio no existe'}), 400
     body = request.get_json(silent=True)
     if body is None:
         return jsonify({'msg': 'Debes enviar información en el body'}), 400
@@ -526,10 +526,10 @@ def update_service(id):
     db.session.commit()
     return jsonify({"data": update_service.serialize()})
 
-## Ruta para ELIMINAR un SERVICIO (OJO)
-@app.route('/api/services/<int:Services_id>/provider/<int:providers_id>', methods=['DELETE'])
-def delete_service(service_id,provider_id):
-    service = Services.query.filter_by(service_id=service_id,provider_id=provider_id).first()
+## Ruta para ELIMINAR un SERVICIO (FUNCIONA)
+@app.route('/api/services/<int:id>/provider/<int:providers_id>', methods=['DELETE'])
+def delete_service(id,provider_id):
+    service = Services.query.filter_by(id=id,provider_id=provider_id).first()
     if service is None:
         return jsonify({"msg":"el servicio no existe" }), 404
     db.session.delete(service)
@@ -562,9 +562,17 @@ def add_favorite_service(client_id, service_id):
         return jsonify({"msg": f"Servicio {service.title} agregado a favoritos del cliente {client.name}"}), 201
     return jsonify({"msg": "Cliente o servicio no encontrado"}), 404
 
+# Ruta para ELIMINAR un FAVORITO (FUNCIONA)
+@app.route('/api/favorite/<int:id>/client/<int:client_id>', methods=['DELETE'])
+def delete_service(id,client_id):
+    service = Services.query.filter_by(id=id,client_id=client_id).first()
+    if service is None:
+        return jsonify({"msg":"el Favorito no existe" }), 404
+    db.session.delete(service)
+    db.session.commit()
+    return jsonify({"msg":"El Favorito ha sido Eliminado"}), 200
 
-
-# Endpoint para los SERVICIOS
+# Endpoint para la VERIFICACION (FUNCIONA)
 
 #endpoint para ENVIAR un EMAIL al USUARIO ()
 @app.route('/api/send-mail', methods=['GET'])

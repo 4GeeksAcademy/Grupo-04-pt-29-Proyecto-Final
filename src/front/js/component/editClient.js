@@ -33,7 +33,7 @@ const EditClient = () => {
 
  
   return (
-    <div className="EditUser container ">
+    <div className="EditClient container ">
       <form className="Forms container"onSubmit={handleSubmit} >
         <div className="form-group input-container">
           <label htmlFor="name">Nombre:</label>
