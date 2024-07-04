@@ -6,13 +6,15 @@ import MyProfileProvider from "../component/myProfileProvider";
 import EditProvider from "../component/editProvider";
 import AddNewAd from "../component/addNewAd";
 import MyAds from "../component/myAds";
+import AddProvider from "../component/addProvider"
+
 
 const DashboardProvider = () => {
   const { store, actions } = useContext(Context);
   const {id}=useParams()
 
   useEffect(()=>{
-    actions.getProfileProvider(id)
+     actions.getProfileProvider(id)
   })
 
   return (
@@ -37,9 +39,9 @@ const DashboardProvider = () => {
               </div>
 
               <div className="card-body">
-                <h5>Username:  {store.user.username}
+                <h5>Usuario:  {store.user.username}
                 </h5>
-                <p>Email: {store.user.email}</p>
+                <p>Correo: {store.user.email}</p>
                 
               </div>
             </div>
@@ -60,7 +62,21 @@ const DashboardProvider = () => {
                 aria-controls="home-tab-pane"
                 aria-selected="true"
               >
-                My Profile
+                Mi Perfil
+              </button>
+            </li>
+            <li className="nav-item" role="presentation">
+              <button
+                className="nav-link"
+                id="add-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#add-tab-pane"
+                type="button"
+                role="tab"
+                aria-controls="add-tab-pane"
+                aria-selected="false"
+              >
+                Agregar Datos
               </button>
             </li>
             <li className="nav-item" role="presentation">
@@ -74,7 +90,7 @@ const DashboardProvider = () => {
                 aria-controls="edit-tab-pane"
                 aria-selected="false"
               >
-                Edit Profile
+                Editar Datos
               </button>
             </li>
             <li className="nav-item" role="presentation">
@@ -88,7 +104,7 @@ const DashboardProvider = () => {
                 aria-controls="myAds-tab-pane"
                 aria-selected="false"
               >
-                mis Anuncios
+                Mis Servicios
               </button>
             </li>
             <li className="nav-item" role="presentation">
@@ -102,22 +118,7 @@ const DashboardProvider = () => {
                 aria-controls="myNewAds-tab-pane"
                 aria-selected="false"
               >
-                Nuevo Anuncio
-              </button>
-            </li>
-            <li className="nav-item" role="presentation">
-              <button
-                className="nav-link"
-                id="disabled-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#disabled-tab-pane"
-                type="button"
-                role="tab"
-                aria-controls="disabled-tab-pane"
-                aria-selected="false"
-                disabled=""
-              >
-                Cerrar Seccion
+                Nuevo Servicio
               </button>
             </li>
           </ul>
@@ -130,6 +131,15 @@ const DashboardProvider = () => {
               tabIndex={0}
             >
               <MyProfileProvider />
+            </div>
+            <div
+              className="tab-pane fade"
+              id="add-tab-pane"
+              role="tabpanel"
+              aria-labelledby="add-tab"
+              tabIndex={0}
+            >
+              <AddProvider />
             </div>
             <div
               className="tab-pane fade"
@@ -157,15 +167,6 @@ const DashboardProvider = () => {
               tabIndex={0}
             >
               <AddNewAd />
-            </div>
-            <div
-              className="tab-pane fade"
-              id="disabled-tab-pane"
-              role="tabpanel"
-              aria-labelledby="disabled-tab"
-              tabIndex={0}
-            >
-              Cerrar seccion
             </div>
           </div>
         </>

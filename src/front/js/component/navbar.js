@@ -100,10 +100,10 @@ export const Navbar = () => {
                   style={{ backgroundColor: "transparent" }}
                 >
                   <li className="p-1" onClick={handleProfile}>
-                    <button className="btn btn-outline-primary"> profile </button>
+                    <button className="btn btn-outline-primary"> Mi Perfil </button>
                   </li>
                   <li className="p-1" onClick={handlerOut}>
-                    <button className="btn btn-outline-primary"> log out </button>
+                    <button className="btn btn-outline-primary"> Cerrar Sesion</button>
                   </li>
                 </ul>
               </div>

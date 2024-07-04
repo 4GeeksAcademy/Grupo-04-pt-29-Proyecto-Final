@@ -10,7 +10,7 @@ const DashboardClient = () => {
   const {id}=useParams()
 
   useEffect(()=>{
-    actions.getProfileClient(id)
+    actions.getClientByUserID(id)
   })
 
 
@@ -39,9 +39,10 @@ const DashboardClient = () => {
                 <h5>
                   <p>Username {store.user.username}</p>
                 </h5>
+                <p>{store.client.name} {store.client.last_name} </p>
                 <p>Email:{store.user.email}</p>
-                <p>Location{store.user.location}</p>
-                <p>Valoration{store.user.location}</p>
+                <p>Telefono:{store.client.phone}</p>
+                <p>Ubicacion:{store.client.location}</p>
               </div>
             </div>
           </div>
@@ -61,7 +62,7 @@ const DashboardClient = () => {
                 aria-controls="home-tab-pane"
                 aria-selected="true"
               >
-                My Profile
+                Agregar Datos
               </button>
             </li>
             <li className="nav-item" role="presentation">
@@ -75,7 +76,7 @@ const DashboardClient = () => {
                 aria-controls="edit-tab-pane"
                 aria-selected="false"
               >
-                Edit Profile
+                Editar Datos
               </button>
             </li>
             <li className="nav-item" role="presentation">
@@ -89,22 +90,7 @@ const DashboardClient = () => {
                 aria-controls="favorite-tab-pane"
                 aria-selected="false"
               >
-                Favoritos
-              </button>
-            </li>
-            <li className="nav-item" role="presentation">
-              <button
-                className="nav-link"
-                id="disabled-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#disabled-tab-pane"
-                type="button"
-                role="tab"
-                aria-controls="disabled-tab-pane"
-                aria-selected="false"
-                disabled=""
-              >
-                Cerrar Seccion
+                Mis Favoritos
               </button>
             </li>
           </ul>
@@ -134,16 +120,7 @@ const DashboardClient = () => {
               aria-labelledby="favorite-tab"
               tabIndex={0}
             >
-              Mis Anuncios
-            </div>
-            <div
-              className="tab-pane fade"
-              id="disabled-tab-pane"
-              role="tabpanel"
-              aria-labelledby="disabled-tab"
-              tabIndex={0}
-            >
-              Cerrar seccion
+              Mis Favoritos
             </div>
           </div>
         </>

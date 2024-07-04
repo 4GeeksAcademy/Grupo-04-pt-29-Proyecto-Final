@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { Context } from "../store/appContext";
+import { useParams } from "react-router-dom";
+import AddClient from "../component/addClient.js"
 
 const MyProfileClient = () => {
+
   return (
     <div className="ProfileClient container ">
-      <h1>My Profile</h1>
+      <AddClient />
     </div>
   );
 };
