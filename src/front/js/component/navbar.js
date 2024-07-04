@@ -17,10 +17,10 @@ export const Navbar = () => {
   };
   const handleProfile = () => {
     if (store.user?.role === "Client") {
-      let url="/client/"+store.user?.id
+      let url = "/client/" + store.user?.id
       navigate(url);
     } else if (store.user?.role === "Provider") {
-      let url="/provider/"+store.user?.id
+      let url = "/provider/" + store.user?.id
       navigate(url);
     } else {
       // Handle the case where the user role is not found or invalid
@@ -28,35 +28,35 @@ export const Navbar = () => {
     };
   };
   //console.log(store.user)
-  
+
   const handleHome = () => {
     navigate("/productspage");
   };
-  
+
   return (
     <div className=" Navbar">
       <div className="" >
         <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2">
           <div className="col-md-3 mb-2 mb-md-0">
-            <a
-              href="/"
+            <Link
+              to="/"
               className="d-inline-flex link-body-emphasis text-decoration-none"
             >
               <img
                 className="mt-3 img-body-nabvar"
                 src="https://res.cloudinary.com/dq3mxxidu/image/upload/v1719006034/logo_ecy7em.jpg"
-                
+
               />
-            </a>
+            </Link>
           </div>
 
           {!isLoggedIn() ? (
-            
+
             <ul className="nav col-12 col-md-auto mb-2  mb-md-0 menu">
               <li>
-                  <a  href="#nosotros" className="px-3">
+                <a href="#nosotros" className="px-3">
                   Sobre Nosotros
-                  </a>
+                </a>
               </li>
               <li>
                 <a href="/signup" className=" px-3">
@@ -76,22 +76,22 @@ export const Navbar = () => {
           {isLoggedIn() ? (
             <div className="col-md-2  d-flex text-end ">
               <button className="btn" style={{ fontSize: "22px" }}
-              onClick={handleHome}>
+                onClick={handleHome}>
                 {" "}
-                <>home</>
+                <i class="fa-solid fa-house-user fa-lg"></i>           
               </button>
 
               <button className="btn" style={{ fontSize: "22px" }}>
                 {" "}
                 <i className="px-3 fa-regular fa-heart"></i>
               </button>
-			        <div className="dropdown">
+              <div className="dropdown">
                 <button
                   className="btn dropdown-toggle"
                   type="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-				          style={{ fontSize: "22px" }}
+                  style={{ fontSize: "22px" }}
                 >
                   <i className="fa-solid fa-user"></i>
                 </button>
@@ -99,7 +99,7 @@ export const Navbar = () => {
                   className="dropdown-menu"
                   style={{ backgroundColor: "transparent" }}
                 >
-                   <li className="p-1" onClick={handleProfile}>
+                  <li className="p-1" onClick={handleProfile}>
                     <button className="btn btn-outline-primary"> profile </button>
                   </li>
                   <li className="p-1" onClick={handlerOut}>

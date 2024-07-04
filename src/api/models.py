@@ -28,8 +28,6 @@ favorite_services = db.Table("favorite_services",
                              db.Column("service_id", db.Integer, db.ForeignKey('services.id'), primary_key=True)
                              )
    
-   
-
 
 class User(db.Model):
     __tablename__='user'
@@ -67,8 +65,8 @@ class Client(db.Model):
     last_name=db.Column(db.String(30),nullable=False)
     phone=db.Column(db.String(20), unique=True, nullable=False)
     location=db.Column(db.String(30),nullable=False)
-    url_image = db.Column(db.String(200), nullable=False)
-    bio=db.Column(db.String(500),nullable=False)
+    url_image = db.Column(db.String(200), nullable=True)
+    bio=db.Column(db.String(500),nullable=True)
     orders=db.relationship("Orders", backref="client", lazy=True)
     reviews=db.relationship("Reviews", backref="client", lazy=True, uselist=True)
     favorites = db.relationship("Services", secondary=favorite_services, back_populates="favorite_by")
@@ -102,12 +100,12 @@ class Providers(db.Model):
     name=db.Column(db.String(30), nullable=False)
     last_name=db.Column(db.String(30), nullable=False)
     identity_number=db.Column(db.String(20), unique=True,nullable=False)
-    company=db.Column(db.String(30), nullable=False)
-    number_company=db.Column(db.String(20), unique=True, nullable=False)
+    company=db.Column(db.String(30), nullable=True)
+    number_company=db.Column(db.String(20), unique=True, nullable=True)
     phone=db.Column(db.String(20), unique=True, nullable=False)
     location=db.Column(db.String(30),nullable=False)
-    profession=db.Column(db.String(30),nullable=False)
-    experience=db.Column(db.Integer, nullable=False)
+    profession=db.Column(db.String(30),nullable=True)
+    experience=db.Column(db.Integer, nullable=True)
     url_image=db.Column(db.String(200),nullable=True)
     description=db.Column(db.String(500),nullable=True)
     reviews=db.relationship("Reviews", backref="providers", lazy=True, uselist=True)
@@ -149,9 +147,9 @@ class Services(db.Model):
     title = db.Column(db.String(20),nullable=True)
     provider_id=db.Column(db.Integer,db.ForeignKey('providers.id'),nullable=False)
     title=db.Column(db.String(20),nullable=True)
-    price=db.Column(db.Float, unique=True, nullable=False)
+    price=db.Column(db.Float, nullable=False)
     description=db.Column(db.String(150),nullable=False)
-    url_image = db.Column(db.String(200), nullable=False)
+    url_image = db.Column(db.String(200), nullable=True)
     category=db.Column(db.Enum(CategoryEnum),nullable=False)
     orders=db.relationship("Orders", backref="services", lazy=True, uselist=True)
     reviews=db.relationship("Reviews", backref="services", lazy=True)
@@ -183,7 +181,6 @@ class Orders(db.Model):
     status=db.Column(db.String(30),nullable=False)
     order_date=db.Column(db.Date, unique=False, nullable=False)
     completion_date=db.Column(db.Date, unique=False, nullable=False)
-    order_favorite=db.relationship("OrderFavorite", backref="orders", lazy=True)
 
 
     def __repr__(self):
@@ -199,25 +196,6 @@ class Orders(db.Model):
             "completion_date":self.completion_date             
             # do not serialize the password, its a security breach
         } 
-
-class OrderFavorite(db.Model):
-    __tablename__='order_favorite'
-    id = db.Column(db.Integer, primary_key=True)
-    order_id=db.Column(db.Integer,db.ForeignKey('orders.id'),nullable=False)
-    client_id=db.Column(db.Integer,db.ForeignKey('client.id'),nullable=False)
-    
-    def __repr__(self):
-        return f'OrderFavorite {self.id}  {self.order_id}  {self.client_id}'
-
-    def serialize(self):
-        order = Orders.query.get(self.order_id)
-        # client = Client.query.get(self.client_id)
-        return {
-            "id": self.id,
-            "order":order.serialize(),
-            # "client":client.serialize(),
-        }
-
 
 class Reviews(db.Model):
     __tablename__='reviews'

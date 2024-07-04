@@ -18,7 +18,7 @@ const EditProvider = () => {
   const [url_image, setUrl_image] = useState("");
   const [description, setDescription] = useState("");
 
-  const editProvider = store.Provider.find(provider => provider.id === parseInt(id));
+  const editProvider = store.Providers.find(provider => provider.id === parseInt(id));
 
   useEffect(() => {
     if (editProvider) {
