@@ -4,10 +4,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // Jose Antonio
       user: {},
-      Clients: [],
-      Providers: [],
-      Services: [],
-      Favorite: [],
+      clients: [],
+      client:{},
+      providers: [],
+      provider:{},
+      services: [],
+      service:{},
+      favorite: [],
+      
+
 
 
       // Luis
@@ -165,8 +170,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const response = await fetch(process.env.BACKEND_URL + '/api/client');
           const data = await response.json();
           console.log(data);
-          let store = getStore();
-          setStore({ ...store, Clients: data.results });
+          setStore({ clients: data.results });
         } catch (error) {
           console.error("Error fetching Clients:", error);
         }
@@ -179,10 +183,21 @@ const getState = ({ getStore, getActions, setStore }) => {
           const response = await fetch(process.env.BACKEND_URL + `/api/client/${id}`);
           const data = await response.json();
           console.log(data);
-          let store = getStore();
-          setStore({ ...store, Clients: data });
+          setStore({clients: data });
         } catch (error) {
           console.error("Error fetching Client:", error);
+        }
+      },
+
+      // FETCH GET PROVIDER BY USER ID
+      getClientByUserID: async (user_id) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/client/byuser/${user_id}`);
+          const data = await response.json();
+          console.log(data);
+          setStore({client: data });
+        } catch (error) {
+          console.error("Error fetching provider:", error);
         }
       },
 
@@ -271,8 +286,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const response = await fetch(process.env.BACKEND_URL + '/api/provider');
           const data = await response.json();
           console.log(data);
-          let store = getStore();
-          setStore({ ...store, Providers: data.results });
+          setStore({ providers: data.results });
         } catch (error) {
           console.error("Error fetching Providers:", error);
         }
@@ -281,13 +295,24 @@ const getState = ({ getStore, getActions, setStore }) => {
       // FETCH GET PROVIDER ID
       getProviderID: async (id) => {
         try {
-          const response = await fetch(process.env.BACKEND_URL + `/api/provider'/${id}`);
+          const response = await fetch(process.env.BACKEND_URL + `/api/provider/${id}`);
           const data = await response.json();
           console.log(data);
-          let store = getStore();
-          setStore({ ...store, Providers: data });
+          setStore({providers: data });
         } catch (error) {
           console.error("Error fetching Provider:", error);
+        }
+      },
+
+      // FETCH GET PROVIDER BY USER ID
+      getProviderByUserID: async (user_id) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/provider/byuser/${user_id}`);
+          const data = await response.json();
+          console.log(data);
+          setStore({provider: data });
+        } catch (error) {
+          console.error("Error fetching provider:", error);
         }
       },
 
@@ -387,7 +412,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await response.json();
           console.log(data);
           let store = getStore();
-          setStore({ ...store, Services: data.results });
+          setStore({services: data.results });
         } catch (error) {
           console.error("Error fetching Services:", error);
         }
@@ -400,7 +425,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await response.json();
           console.log(data);
           let store = getStore();
-          setStore({ ...store, Services: data });
+          setStore({services: data });
         } catch (error) {
           console.error("Error fetching Service:", error);
         }

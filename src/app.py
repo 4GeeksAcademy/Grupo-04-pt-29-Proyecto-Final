@@ -208,12 +208,7 @@ def get_user_by_id(user_id):
 
 #endpoint para traer los CLIENTES de forma GENERAL(FUNCIONA)
 @app.route('/api/client', methods=['GET'])
-@jwt_required()
 def get_client():
-    email= get_jwt_identity()
-    if not email:
-        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
-    user = User.query.filter_by(email=email).first()
     if not user:
         return jsonify({'msg':'el usuario no existe'}), 400
     all_clients = Client.query.all()
@@ -225,12 +220,7 @@ def get_client():
 
 #endpoint para escoger cada CLIENTE por su ID (FUNCIONA)
 @app.route('/api/client/<int:id>', methods=['GET'])
-@jwt_required()
 def get_single_client(id):
-    email= get_jwt_identity()
-    if not email:
-        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
-    user = User.query.filter_by(email=email).first()
     if not user:
         return jsonify({'msg':'el usuario no existe'}), 400
     single_client = Client.query.get(id)
@@ -239,6 +229,16 @@ def get_single_client(id):
     serialized= single_client.serialize()
     print(serialized)
     return jsonify({"data": serialized}, 200)
+
+#endpoint para escoger cada Cliente por UserID (FUNCIONA)
+@app.route('/api/client/byuser/<int:user_id>/', methods=['GET'])
+def get_client_by_user(user_id):
+    client_by_user = Client.query.filter_by(user_id=user_id).first()
+    if client_by_user is None:
+        return jsonify({"msg": f"El Cliente con le ID: {user_id} no existe"}), 400
+    # print(client_by_user.serialize())
+    return jsonify(client_by_user.serialize()), 200
+
 
 #endpoint para AGREGAR informacion del CLIENTE(FUNCIONA)
 @app.route('/api/add/client', methods=['POST'])
@@ -331,7 +331,7 @@ def get_providers():
     return jsonify({"data":providers_serialized}), 200
 
 #endpoint para escoger cada PROVEEDOR por su ID (FUNCIONA)
-@app.route('/api/provider/<int:id>', methods=['GET'])
+@app.route('/api/provider/<int:id>/', methods=['GET'])
 def get_single_provider(id):
     single_provider = Providers.query.get(id)
 
@@ -339,6 +339,15 @@ def get_single_provider(id):
         return jsonify({"msg": f"El Proveedor con le ID: {id} no existe"}), 400
     print(single_provider.serialize())
     return jsonify({"data": single_provider.serialize()}, 200)
+
+#endpoint para escoger cada PROVEEDOR por UserID (FUNCIONA)
+@app.route('/api/provider/byuser/<int:user_id>/', methods=['GET'])
+def get_provider_by_user(user_id):
+    provider_by_user = Providers.query.filter_by(user_id=user_id).first()
+    if provider_by_user is None:
+        return jsonify({"msg": f"El Proveedor con le ID: {user_id} no existe"}), 400
+    # print(provider_by_user.serialize())
+    return jsonify(provider_by_user.serialize()), 200
 
 #endpoint para AGREGAR informacion del PROVEEDOR (FUNCIONA)
 @app.route('/api/add/provider', methods=['POST'])
