@@ -90,4 +90,4 @@ const AddNewAd = () => {
     </div>
   );
 };
-export default AddN;
+export default AddNewAd;

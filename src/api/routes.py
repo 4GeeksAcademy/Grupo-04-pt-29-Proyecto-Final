@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint, current_app
-from api.models import db, User, Client,Orders,Providers,Reviews,RoleEnum,OrderFavorite
+from api.models import db, User, Client,Orders,Providers,Reviews,RoleEnum
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
@@ -25,15 +25,4 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
-
-@api.route('/client/<int:client_id>/favorites', methods=["GET"])
-def client_favorites(client_id):
-
-    favorites = OrderFavorite.query.filter_by(client_id=client_id).all()
-    if len(favorites) == 0:
-        raise APIException('El cliente aún no tiene favoritos', status_code=404)
-    favorites = list(map(lambda item: item.serialize(), favorites))
-        
-    return jsonify (favorites), 200
-
 

@@ -98,12 +98,15 @@ def serve_any_other_file(path):
 # FUNCIO DE VERIFICACION DEL EMAIL 
 def send_verification_email(email,username):
     try:
+        backend_url = os.environ.get('BACKEND_URL')
+        if not backend_url:
+            raise ValueError("Missing BACKEND_URL environment variable")
         verify_token= create_access_token(identity=email)
         msg = Message('Hola , bienvenido a ServiExpert',
                       sender="serviexpert.dev@gmail.com",
                       recipients=[email]) 
         
-        verify_url= f" https://probable-space-spoon-jx6qq9rwq4g3vjw-3000.app.github.dev/verify?verify_token={verify_token}"
+        verify_url = f"{backend_url}/verify?verify_token={verify_token}"
         html= render_template("verify_email.html",username=username,verify_url=verify_url)
         msg.html=html
         mail.send(msg)
@@ -144,7 +147,6 @@ def signup():
     send_verification_email(body["email"],body["username"])
     return jsonify ({'msg':'Usuario Creado .'}), 200
 
-  
 # Log In o Iniciar Seccion  (FUNCIONA)
 @app.route('/api/login', methods=["POST"])
 def login():
@@ -320,14 +322,7 @@ def delete_client(id,user_id):
 
 # Enpoint para TODOS los PROVEEDORES (FUNCIONA)
 @app.route('/api/provider', methods=['GET'])
-@jwt_required()
 def get_providers():
-    email= get_jwt_identity()
-    if not email:
-        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
-    user = User.query.filter_by(email=email).first()
-    if not user:
-        return jsonify({'msg':'el usuario no existe'}), 400
     all_providers = Providers.query.all()
     providers_serialized=[]
     for providers  in all_providers:
@@ -470,17 +465,19 @@ def get_all_services_provider(provider_id,):
     result = list(map(lambda x: x.serialize(),services))
     return jsonify(result),200
 
-#endpoint para CREAR un SERVICIO (OJO)
+#endpoint para CREAR un SERVICIO (FUNCIONA)
 @app.route('/api/add/service', methods=['POST'])
 @jwt_required()
 def new_services():
     email= get_jwt_identity()
     if not email:
         return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
-    service = Services.query.filter_by(id=id).first()
-    provider = Providers.query.filter_by(id=id).first()
-
-
+    user= User.query.filter_by(email=email).first()
+    print(user.id)
+    provider = Providers.query.filter_by(user_id=user.id).first()
+    if not provider:
+        return jsonify({'msg':'el usuario no existe'}), 400
+    provider_id=provider.id
     if not provider:
         return jsonify({'msg':'el Servicio no existe'}), 400
     body = request.get_json(silent=True)
@@ -496,7 +493,7 @@ def new_services():
         return jsonify({'msg': 'La description es obligatoria'}), 400
     
     new_services = Services()
-    new_services.user_id = provider_id
+    new_services.provider_id = provider_id
     new_services.title = body['title']
     new_services.category = body['category']
     new_services.price = body['price']
@@ -509,8 +506,14 @@ def new_services():
 #endpoint para EDITAR un SERVICIO (OJO)
 @app.route('/api/edit/service/<int:id>', methods=["PUT"])
 def update_service(id):
-    update_service = Providers.query.get(id)
-    body = request.get_json()
+    email= get_jwt_identity()
+    if not email:
+        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
+    user= User.query.filter_by(email=email).first()
+    print(user.id)
+    update_service = Providers.query.filter_by(user_id=user.id).first()
+    body = request.get_json() 
+
     if update_service is None:
         return jsonify({"msg": f"El id {id} provider no fue encontrado"}), 400
     if "title" in body:
@@ -525,8 +528,8 @@ def update_service(id):
     return jsonify({"data": update_service.serialize()})
 
 ## Ruta para ELIMINAR un SERVICIO (FUNCIONA)
-@app.route('/api/services/<int:id>/provider/<int:providers_id>', methods=['DELETE'])
-def delete_service(id,provider_id):
+#@app.route('/api/services/<int:id>/provider/<int:providers_id>', methods=['DELETE'])
+#def delete_service(id,provider_id):
     service = Services.query.filter_by(id=id,provider_id=provider_id).first()
     if service is None:
         return jsonify({"msg":"el servicio no existe" }), 404
@@ -561,8 +564,8 @@ def add_favorite_service(client_id, service_id):
     return jsonify({"msg": "Cliente o servicio no encontrado"}), 404
 
 # Ruta para ELIMINAR un FAVORITO (FUNCIONA)
-@app.route('/api/favorite/<int:id>/client/<int:client_id>', methods=['DELETE'])
-def delete_service(id,client_id):
+#@app.route('/api/favorite/<int:id>/client/<int:client_id>', methods=['DELETE'])
+#def delete_service(id,client_id):
     service = Services.query.filter_by(id=id,client_id=client_id).first()
     if service is None:
         return jsonify({"msg":"el Favorito no existe" }), 404

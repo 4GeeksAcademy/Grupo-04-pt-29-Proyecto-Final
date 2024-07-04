@@ -1,5 +1,3 @@
-import { SignUp } from "../pages/signup";
-
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
@@ -12,7 +10,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       Favorite: [],
 
 
-      //Luis
+      // Luis
       listProviders: [],
       provider: [],
       providersCategory: []
@@ -48,7 +46,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
 
-      //FETCH SISTEM OF AUTHENTICATION
+      // FETCH SISTEM OF AUTHENTICATION
 
       // FETCH REGISTRO
       register: async (username, email, password, role) => {
@@ -176,6 +174,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH GET CLIENT ID
       getClientID: async (id) => {
+        //const token= localStorage.getItem("token")
         try {
           const response = await fetch(process.env.BACKEND_URL + `/api/client/${id}`);
           const data = await response.json();
@@ -189,10 +188,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH ADD CLIENT 
       createClient: function (name,last_name,phone,location, bio, url_image) {
+        const token= localStorage.getItem("token")
         fetch(process.env.BACKEND_URL + '/api/add/client', {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization":"Bearer " + token
           },
           body: JSON.stringify({
             name: name,
@@ -219,10 +220,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH EDIT CLIENT ID
       editClient: function (id,name,last_name,phone,location, bio, url_image) {
+        const token= localStorage.getItem("token")
         fetch(process.env.BACKEND_URL + `/api/edit/client/${id}`, {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization":"Bearer " + token
           },
           body: JSON.stringify({
             name: name,
@@ -290,10 +293,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH ADD PROVIDER 
       createProvider: function (name,last_name,identity_number,company,number_company,phone,location,profession,experience, description, url_image) {
+        const token= localStorage.getItem("token")
         fetch(process.env.BACKEND_URL + '/api/add/provider', {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization":"Bearer " + token
           },
           body: JSON.stringify({
             name: name,
@@ -325,6 +330,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH EDIT PROVIDER ID
       editProvider: function (id, name,last_name,identity_number,company,number_company,phone,location,profession,experience, description, url_image) {
+        const token= localStorage.getItem("token")
         fetch(process.env.BACKEND_URL + `/api/edit/provider/${id}`, {
           method: "PUT",
           headers: {
@@ -402,10 +408,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH ADD SERVICES 
       createService: function (title, category, price, description, url_image) {
+        const token= localStorage.getItem("token")
         fetch(process.env.BACKEND_URL + '/api/add/service', {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization":"Bearer " + token
+            
           },
           body: JSON.stringify({
             title: title,
@@ -431,10 +440,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH EDIT SERVICES ID
       editService: function (id, title, category, price, description, url_image) {
+        const token= localStorage.getItem("token")
         fetch(process.env.BACKEND_URL + `/api/edit/service/${id}`, {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json","Authorization":"Bearer " + token
           },
           body: JSON.stringify({
             title: title,
@@ -476,7 +486,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       // FETCH ALL PROVIDER (LUIS)
       getProviders: () => {
         console.log("funciona")
-        fetch(process.env.BACKEND_URL + "/api/providers"
+        fetch(process.env.BACKEND_URL + "/api/provider"
           // {
           // 'mode': 'no-cors',
           // 'headers': {
@@ -514,11 +524,11 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => { error })
       },
 
-      //FETCH CATEGORY
+      // FETCH CATEGORY
 
       // FETCH GET CATEGORY BY SEARCH ()
       getCategorySearchBar: () => {
-        fetch(process.env.BACKEND_URL + "/api/providers", {
+        fetch(process.env.BACKEND_URL + "/api/provider", {
           method: "GET"
         })
           .then((response) => {
@@ -533,13 +543,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => { error })
       },
-
     }
-
   }
 };
-
-
-
 
 export default getState;

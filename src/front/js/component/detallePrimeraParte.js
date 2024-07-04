@@ -3,7 +3,7 @@ import "../../styles/detallePrimeraParte.css";
 import { useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
-
+import Serviciospopulares from "./serviciosPopulares";
 const DetallePrimeraParte = () => {
 
   const { store, actions } = useContext(Context)
@@ -18,6 +18,7 @@ const DetallePrimeraParte = () => {
 
 
   return (
+    <div>
     <>
       {store.provider.length != 0 ?
         <div className="container py-5 ">
@@ -62,8 +63,11 @@ const DetallePrimeraParte = () => {
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
-        </div>}
+        </div>
+        }
     </>
+    <Serviciospopulares />
+  </div>
   )
 }
 
