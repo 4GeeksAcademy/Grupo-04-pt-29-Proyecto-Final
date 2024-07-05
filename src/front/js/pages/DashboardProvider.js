@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
+import { useParams } from "react-router-dom";
 import rigoImage from "../../img/rigo-baby.jpg";
 import MyProfileProvider from "../component/myProfileProvider";
 import EditProvider from "../component/editProvider";
@@ -7,8 +8,12 @@ import AddNewAd from "../component/addNewAd";
 import MyAds from "../component/myAds";
 
 const DashboardProvider = () => {
-  const { store } = useContext(Context);
-  console.log(store.user);
+  const { store, actions } = useContext(Context);
+  const {id}=useParams()
+
+  useEffect(()=>{
+    actions.getProfileProvider(id)
+  })
 
   return (
     <div className="Dash-Provider d-flex justify-content-center">
@@ -35,8 +40,7 @@ const DashboardProvider = () => {
                 <h5>Username:  {store.user.username}
                 </h5>
                 <p>Email: {store.user.email}</p>
-                <p>Location: {store.user.location}</p>
-                <p>Valoration: {store.user.location}</p>
+                
               </div>
             </div>
           </div>

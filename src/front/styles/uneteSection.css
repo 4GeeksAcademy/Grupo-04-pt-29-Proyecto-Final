@@ -10,6 +10,9 @@
     background-repeat: no-repeat; /* evita que la imagen se repita */
     width: 100%;
     height: 400px;
+    padding-left: 40px;
+    padding-right: 40px;
+
 }
 
 .button-style-unete {

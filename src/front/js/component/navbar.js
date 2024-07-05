@@ -17,23 +17,25 @@ export const Navbar = () => {
   };
   const handleProfile = () => {
     if (store.user?.role === "Client") {
-      navigate("/client");
+      let url="/client/"+store.user?.id
+      navigate(url);
     } else if (store.user?.role === "Provider") {
-      navigate("/provider");
+      let url="/provider/"+store.user?.id
+      navigate(url);
     } else {
       // Handle the case where the user role is not found or invalid
       console.warn("Invalid user role:", store.user?.role);
     };
   };
-  console.log(store.user)
+  //console.log(store.user)
   
   const handleHome = () => {
     navigate("/productspage");
   };
   
   return (
-    <div className="bg-white">
-      <div className="Navbar">
+    <div className=" Navbar">
+      <div className="" >
         <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2">
           <div className="col-md-3 mb-2 mb-md-0">
             <a
@@ -41,15 +43,16 @@ export const Navbar = () => {
               className="d-inline-flex link-body-emphasis text-decoration-none"
             >
               <img
-                className="mt-3"
+                className="mt-3 img-body-nabvar"
                 src="https://res.cloudinary.com/dq3mxxidu/image/upload/v1719006034/logo_ecy7em.jpg"
-                style={{ height: "51px", width: "250px" }}
+                
               />
             </a>
           </div>
 
           {!isLoggedIn() ? (
-            <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 menu">
+            
+            <ul className="nav col-12 col-md-auto mb-2  mb-md-0 menu">
               <li>
                   <a  href="#nosotros" className="px-3">
                   Sobre Nosotros

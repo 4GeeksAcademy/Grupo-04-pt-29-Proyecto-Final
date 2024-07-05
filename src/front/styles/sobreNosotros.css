@@ -41,3 +41,17 @@
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   }
+
+.principal{
+  background-color: #fafafa;
+}
+.titulo-seccion-aboutUs{
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+    font-size: 24px;
+    color: #000000;
+}

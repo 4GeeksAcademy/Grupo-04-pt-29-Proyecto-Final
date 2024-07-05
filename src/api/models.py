@@ -40,6 +40,8 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     create_at=db.Column(db.Date, unique=False, nullable=False, default=date.today) 
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+    is_verified = db.Column(db.Boolean(),default=False)
+ 
  
     def __repr__(self):
         return f'User {self.id}  {self.username} {self.email} {self.role} {self.create_at} {self.is_active}'
@@ -106,7 +108,6 @@ class Providers(db.Model):
     location=db.Column(db.String(30),nullable=False)
     profession=db.Column(db.String(30),nullable=False)
     experience=db.Column(db.Integer, nullable=False)
-    valoration= db.Column(db.Integer, nullable=True)
     url_image=db.Column(db.String(200),nullable=True)
     description=db.Column(db.String(500),nullable=True)
     reviews=db.relationship("Reviews", backref="providers", lazy=True, uselist=True)
@@ -116,7 +117,7 @@ class Providers(db.Model):
 
      
     def __repr__(self):
-        return f'Providers {self.user_id} {self.name} {self.last_name} {self.identity_number} {self.company} {self.number_company} {self.phone} {self.location} {self.profession} {self.experience} {self.valoration} {self.url_image} {self.description}'
+        return f'Providers {self.user_id} {self.name} {self.last_name} {self.identity_number} {self.company} {self.number_company} {self.phone} {self.location} {self.profession} {self.experience}{self.url_image} {self.description}'
 
     def serialize(self):
         return {
@@ -131,11 +132,14 @@ class Providers(db.Model):
             "location":self.location,
             "profession": self.profession,
             "experience":self.experience,
+            "description":self.description,
             "url_image":self.url_image,
             "reviews":[review.serialize() for review in self.reviews],
             "services":[service.serialize() for service in self.services],
+
             "description":self.description,
             "valoration":self.valoration
+
             # do not serialize the password, its a security breach
         }  
     
@@ -160,9 +164,8 @@ class Services(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "title":self.title,
             "provider_id": self.provider_id,
-            "title": self.title,
+            "title":self.title,
             "category": self.category,
             "price": self.price,
             "description": self.description,

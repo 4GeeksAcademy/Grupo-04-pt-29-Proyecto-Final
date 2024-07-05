@@ -31,8 +31,8 @@ export const Signup = () => {
   };
 
   return (
-    <div className="container signup py-5 d-flex justify-content-center">
-      <div className=" d-flex shadow px-5 py-4 rounded " style={{width: "450px"}} >
+    <div className="container signup py-5 ">
+      <div className=" d-flex shadow px-5 py-4 rounded body-secondary-signup" >
       
         <div className=" col-12 ">
         <h1 className="title-signup">Regístrate</h1>
@@ -125,7 +125,7 @@ export const Signup = () => {
         </div>
        
       </div>
-      <div className="d-flex align-items-center "><div className="image-style-signup"></div></div>
+      <div className="d-flex align-items-center mobile-center"><div className="image-style-signup"></div></div>
     </div>
   );
 };

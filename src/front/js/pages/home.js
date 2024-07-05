@@ -19,8 +19,8 @@ export const Home = () => {
 			<Hero/>
 			<Category/>
 			<UneteSection/>
-			<SobreNosotros />
 			<Serviciospopulares />
+			<SobreNosotros />
 			<Suscribete />
 		</div>
 	);
