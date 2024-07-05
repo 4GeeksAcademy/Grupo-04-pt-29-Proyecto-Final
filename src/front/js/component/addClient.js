@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 
 const AddClient = () => {
@@ -15,6 +15,9 @@ const AddClient = () => {
         await actions.createClient(name, last_name, phone, location, bio, url_image);
         actions.getClients();
     };
+    useEffect(() => {
+
+    }, []);
     return (
         <div className="addClient container ">
             <form className="Forms container" >
@@ -91,7 +94,7 @@ const AddClient = () => {
                     />
                 </div>
                 <button
-                    type="submit"
+                    type="button"
                     className="btn btn-primary mt-4 btn-save"
                     onClick={handleSaveClient}>
                     Save

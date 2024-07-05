@@ -15,7 +15,7 @@ const DashboardProvider = () => {
 
   useEffect(()=>{
      actions.getProfileProvider(id)
-  })
+  },[]);
 
   return (
     <div className="Dash-Provider d-flex justify-content-center">

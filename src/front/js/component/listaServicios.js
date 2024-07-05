@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import "../../styles/listaServicios.css";
+import rigoImage from "../../img/rigo-baby.jpg";
 
 export const ListaServicios = ({ data, filters }) => {
     const filteredData = data.filter(item => {

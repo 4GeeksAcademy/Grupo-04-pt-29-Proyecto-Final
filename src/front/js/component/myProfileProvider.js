@@ -8,7 +8,7 @@ const MyProfileProvider = () => {
 
   useEffect(()=>{
     actions.getProviderByUserID(id)
-  })
+  },[])
 
   return (
     <div className="ProfileProvider container ">

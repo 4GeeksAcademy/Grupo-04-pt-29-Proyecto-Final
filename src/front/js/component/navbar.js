@@ -80,11 +80,6 @@ export const Navbar = () => {
                 {" "}
                 <i class="fa-solid fa-house-user fa-lg"></i>           
               </button>
-
-              <button className="btn" style={{ fontSize: "22px" }}>
-                {" "}
-                <i className="px-3 fa-regular fa-heart"></i>
-              </button>
               <div className="dropdown">
                 <button
                   className="btn dropdown-toggle"
