@@ -11,19 +11,20 @@ import AddProvider from "../component/addProvider"
 
 const DashboardProvider = () => {
   const { store, actions } = useContext(Context);
-  const {id}=useParams()
+  const { id } = useParams()
 
-  useEffect(()=>{
-     actions.getProfileProvider(id)
+  useEffect(() => {
+    actions.getProfileProvider(id)
+    actions.getProviderByUserID(id)
   })
 
   return (
-    <div className="Dash-Provider d-flex justify-content-center">
-      <div className="Provider-card">
+    <div className="Dash-Provider dashboard-responsive justify-content-center py-5">
+      <div className="Provider-card px-4 mb-5">
         <div className="profile justify-content-center">
           <div className="d-flex justify-content-center">
             <div
-              className="card d-flex justify-content-center"
+              className="card d-flex justify-content-center shadow "
               style={{ width: "20rem" }}
             >
               <div className="d-flex justify-content-center">
@@ -38,36 +39,29 @@ const DashboardProvider = () => {
                 />
               </div>
 
-              <div className="card-body">
-                <h5>Usuario:  {store.user.username}
-                </h5>
-                <p>Correo: {store.user.email}</p>
-                
+              <div className="card-body " >
+                <div className="d-flex">
+                  <h5 className="title-label-provider d-flex"><i class="fa-solid fa-user"></i>  <p className="p-provider ps-2">  {store.user.username} {store.provider.last_name}</p>
+                  </h5>
+                </div>
+                <h5 className="title-label-provider d-flex"><i class="fa-solid fa-envelope"></i> <p className="p-provider ps-2"> {store.user.email}</p></h5>
+                <h5 className="title-label-provider d-flex"><i class="fa-solid fa-phone"></i> <p className="p-provider ps-2">{store.provider.phone}  </p></h5>
+                <h5 className="title-label-provider d-flex"><i class="fa-solid fa-location-dot"></i><p className="p-provider ps-2">{store.provider.location}  </p></h5>
+                <h5 className="title-label-provider d-flex"><i class="fa-solid fa-briefcase"></i> <p className="p-provider ps-2">{store.provider.profession}  </p></h5>
+
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="Provider-Configurate">
+      <div className="Provider-Configurate mx-3">
         <>
-          <ul className="nav nav-tabs" id="myTab" role="tablist">
+        <div className="menu-provider-dashboard">
+          <ul className="nav nav-tabs " id="myTab" role="tablist">
+            
             <li className="nav-item" role="presentation">
               <button
-                className="nav-link active"
-                id="home-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#home-tab-pane"
-                type="button"
-                role="tab"
-                aria-controls="home-tab-pane"
-                aria-selected="true"
-              >
-                Mi Perfil
-              </button>
-            </li>
-            <li className="nav-item" role="presentation">
-              <button
-                className="nav-link"
+                className="nav-link title-buttons-provider title-label-provider "
                 id="add-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#add-tab-pane"
@@ -81,7 +75,7 @@ const DashboardProvider = () => {
             </li>
             <li className="nav-item" role="presentation">
               <button
-                className="nav-link"
+                className="nav-link title-buttons-provider title-label-provider"
                 id="edit-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#edit-tab-pane"
@@ -95,7 +89,7 @@ const DashboardProvider = () => {
             </li>
             <li className="nav-item" role="presentation">
               <button
-                className="nav-link"
+                className="nav-link title-buttons-provider title-label-provider"
                 id="myAds-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#myAds-tab-pane"
@@ -109,7 +103,7 @@ const DashboardProvider = () => {
             </li>
             <li className="nav-item" role="presentation">
               <button
-                className="nav-link"
+                className="nav-link title-buttons-provider title-label-provider"
                 id="myNewAds-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#myNewAds-tab-pane"
@@ -123,20 +117,12 @@ const DashboardProvider = () => {
             </li>
           </ul>
           <div className="tab-content" id="myTabContent">
+            
             <div
-              className="tab-pane fade show active"
-              id="home-tab-pane"
-              role="tabpanel"
-              aria-labelledby="home-tab"
-              tabIndex={0}
-            >
-              <MyProfileProvider />
-            </div>
-            <div
-              className="tab-pane fade"
+              className="tab-pane fade  show active"
               id="add-tab-pane"
               role="tabpanel"
-              aria-labelledby="add-tab"
+              aria-labelledby="home-tab"
               tabIndex={0}
             >
               <AddProvider />
@@ -168,6 +154,7 @@ const DashboardProvider = () => {
             >
               <AddNewAd />
             </div>
+          </div>
           </div>
         </>
       </div>

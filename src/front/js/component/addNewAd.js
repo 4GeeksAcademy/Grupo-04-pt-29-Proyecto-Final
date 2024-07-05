@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
+import "../../styles/editprovider.css";
 
 const AddNewAd = () => {
 
@@ -15,62 +16,66 @@ const AddNewAd = () => {
     actions.getServices();
   };
   return (
-    <div className="AddServices container ">
+    <div className="pb-5">
+    <div className="AddServices container shadow">
       <form className="Forms container">
+        <div className="row py-3">
+          <div className="form-group input-container col-lg-6 col-sm-12">
+            <label htmlFor="title" className="title-label-provider">Titulo:</label>
+            <input
+              type="text"
+              className="form-control border-label-provider"
+              id="title"
+              name="title "
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group input-container col-lg-6 col-sm-12" >
+            <label htmlFor="category" className="title-label-provider">Categoria:</label>
+            <select
+              className="form-select border-label-provider"
+              aria-label="Default select example"
+            >
+              <option selected=""></option>
+              <option>One</option>
+              <option>Two</option>
+              <option>Three</option>
+            </select>
+          </div>
+        </div>
+        <div className="row pb-3">
+          <div className="form-group input-container col-lg-6 col-sm-12">
+            <label htmlFor="address" className="title-label-provider">Precio</label>
+            <input
+              type="text"
+              className="form-control border-label-provider"
+              id="price"
+              name="price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group input-container col-lg-6 col-sm-12">
+            <label htmlFor="phone" className="title-label-provider"> Descripcion del Servicio :</label>
+            <input
+              type="text"
+              className="form-control border-label-provider"
+              id="description"
+              name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+          </div>
+        </div>
         <div className="form-group input-container">
-          <label htmlFor="title">Titulo:</label>
+          <label htmlFor="" className="title-label-provider">Portada del Servicio</label>
           <input
             type="text"
-            className="form-control"
-            id="title"
-            name="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group input-container" >
-          <label htmlFor="category">Categoria:</label>
-          <select
-            className="form-select"
-            aria-label="Default select example"
-          >
-            <option selected=""></option>
-            <option>One</option>
-            <option>Two</option>
-            <option>Three</option>
-          </select>
-        </div>
-
-        <div className="form-group input-container">
-          <label htmlFor="address">Precio</label>
-          <input
-            type="text"
-            className="form-control"
-            id="price"
-            name="price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group input-container">
-          <label htmlFor="phone"> Descripcion del Servicio :</label>
-          <input
-            type="text"
-            className="form-control"
-            id="description"
-            name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group input-container">
-          <label htmlFor="">Portada del Servicio</label>
-          <input
-            type="text"
-            className="form-control"
+            className="form-control border-label-provider"
             id="img"
             name="img"
             value={url_image}
@@ -80,13 +85,14 @@ const AddNewAd = () => {
         </div>
         <button
           type="submit"
-          className="btn btn-primary mt-4 btn-save"
+          className="button-style-provider title-label-provider mt-4 btn-save"
           onClick={handleSaveService}
         >
-          Save
+          Guardar
         </button>
       </form>
       <br />
+    </div>
     </div>
   );
 };

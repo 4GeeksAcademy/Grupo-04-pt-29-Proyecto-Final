@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+
+
+
+/*Responsive mobile*/
+@media (min-width: 375px) {
+    .input-container-body{
+        display: flex;
+    }
+    
+    .border-label-provider {
+        border-color: #C6DBFB;
+    }
+    
+    .title-label-provider{
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 700;
+        font-style: normal;
+        font-variation-settings:
+          "slnt" 0;
+          font-size: 16px;
+      
+    }
+    
+    .button-style-provider {
+        width: 200px;
+        height: 40px;
+        background-color: #508CF6;
+        color: #ffffff;
+        border: none
+    }
+    
+    .p-provider {
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        color: #000000;
+        font-size: 15px;
+    }
+    
+    .title-buttons-provider{
+        color: #508CF6;
+    }
+    .dashboard-responsive{
+        display: block;
+      
+    }
+
+    .menu-provider-dashboard{
+        text-align: center;
+    }
+ }
+
+/*Responsive tablet*/
+@media (min-width: 768px) {
+    .input-container-body{
+        display: flex;
+    }
+    
+    .border-label-provider {
+        border-color: #C6DBFB;
+    }
+    
+    .title-label-provider{
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 700;
+        font-style: normal;
+        font-variation-settings:
+          "slnt" 0;
+          font-size: 16px;
+      
+    }
+    
+    .button-style-provider {
+        width: 200px;
+        height: 40px;
+        background-color: #508CF6;
+        color: #ffffff;
+        border: none
+    }
+    
+    .p-provider {
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        color: #000000;
+        font-size: 15px;
+    }
+    
+    .title-buttons-provider{
+        color: #508CF6;
+    }
+    .dashboard-responsive{
+        display: flex;
+    }
+ }
+
+/*Responsive computador*/
+@media (min-width: 1200px) { 
+    .input-container-body{
+        display: flex;
+    }
+    
+    .border-label-provider {
+        border-color: #C6DBFB;
+    }
+    
+    .title-label-provider{
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 700;
+        font-style: normal;
+        font-variation-settings:
+          "slnt" 0;
+          font-size: 16px;
+      
+    }
+    
+    .button-style-provider {
+        width: 200px;
+        height: 40px;
+        background-color: #508CF6;
+        color: #ffffff;
+        border: none
+    }
+    
+    .p-provider {
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        color: #000000;
+        font-size: 15px;
+    }
+    
+    .title-buttons-provider{
+        color: #508CF6;
+    }
+    .dashboard-responsive{
+        display: flex;
+    }
+}
