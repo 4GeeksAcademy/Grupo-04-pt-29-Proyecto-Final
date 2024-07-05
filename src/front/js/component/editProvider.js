@@ -18,7 +18,7 @@ const EditProvider = () => {
   const [url_image, setUrl_image] = useState("");
   const [description, setDescription] = useState("");
 
-  const editProvider = store.Providers.find(provider => provider.id === parseInt(id));
+  const editProvider = store.providers.find(provider => provider.id === parseInt(id));
 
   useEffect(() => {
     if (editProvider) {
@@ -171,7 +171,7 @@ const EditProvider = () => {
             id="img"
             name="img"
             value={url_image}
-            onChange={(e) => setUrl_image(e.target.value)}
+            onChange={(event) => setUrl_image(event.target.value)}
             required
           />
         </div>

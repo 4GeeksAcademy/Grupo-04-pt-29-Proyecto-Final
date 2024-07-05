@@ -5,7 +5,6 @@ import { Context } from "../store/appContext";
 const EditClient = () => {
   const { actions, store } = useContext(Context);
   const { id } = useParams();
-
   const [name, setName] = useState("");
   const [last_name, setLast_name] = useState("");
   const [phone, setPhone] = useState("");
@@ -13,18 +12,18 @@ const EditClient = () => {
   const [url_image, setUrl_image] = useState("");
   const [bio, setBio] = useState("");
 
-  const clientEdit = store.Clients.find(client => client.id === parseInt(id));
+  const editClient = store.clients.find(client => client.id === parseInt(id));
 
   useEffect(() => {
-    if (clientEdit) {
-      setName(clientEdit.name);
-      setLast_name(clientEdit.last_name);
-      setPhone(clientEdit.phone);
-      setLocation(clientEdit.location);
-      setUrl_image(clientEdit.url_image);
-      setBio(clientEdit.Bio);
+    if (editClient) {
+      setName(editClient.name);
+      setLast_name(editClient.last_name);
+      setPhone(editClient.phone);
+      setLocation(editClient.location);
+      setUrl_image(editClient.url_image);
+      setBio(editClient.Bio);
     }
-  }, [clientEdit]);
+  }, [editClient]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,8 +32,8 @@ const EditClient = () => {
 
  
   return (
-    <div className="EditClient container ">
-      <form className="Forms container"onSubmit={handleSubmit} >
+    <div className="editClient container ">
+      <form className="Forms container"onSubmit={handleSubmit}>
         <div className="form-group input-container">
           <label htmlFor="name">Nombre:</label>
           <input
@@ -91,7 +90,7 @@ const EditClient = () => {
             id="description"
             name="description"
             value={bio}
-            onChange={(e) => setBio(e.target.value)}
+            onChange={(event) => setBio(event.target.value)}
             required
           />
         </div>
@@ -103,7 +102,7 @@ const EditClient = () => {
             id="img"
             name="img"
             value={url_image}
-            onChange={(e) => setUrl_image(e.target.value)}
+            onChange={(event) => setUrl_image(event.target.value)}
             required
           />
         </div>

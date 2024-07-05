@@ -156,7 +156,7 @@ const AddProvider = () => {
                     />
                 </div>
                 <button 
-                    type="submit"
+                    type="button"
                     className="btn btn-primary mt-4 btn-save"
                     onClick={handleSaveProvider}>
                     Save

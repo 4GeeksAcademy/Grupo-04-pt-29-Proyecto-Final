@@ -209,8 +209,6 @@ def get_user_by_id(user_id):
 #endpoint para traer los CLIENTES de forma GENERAL(FUNCIONA)
 @app.route('/api/client', methods=['GET'])
 def get_client():
-    if not user:
-        return jsonify({'msg':'el usuario no existe'}), 400
     all_clients = Client.query.all()
     clients_serialized=[]
     for clients  in all_clients:
@@ -221,8 +219,6 @@ def get_client():
 #endpoint para escoger cada CLIENTE por su ID (FUNCIONA)
 @app.route('/api/client/<int:id>', methods=['GET'])
 def get_single_client(id):
-    if not user:
-        return jsonify({'msg':'el usuario no existe'}), 400
     single_client = Client.query.get(id)
     if not single_client: 
         return jsonify({"msg": f"El Cliente con el ID: {id} no existe"}), 400
@@ -250,7 +246,6 @@ def new_client():
     user = User.query.filter_by(email=email).first()
     if not user:
         return jsonify({'msg':'el usuario no existe'}), 400
-    user_id=user.id
     body = request.get_json(silent=True)
     if body is None:
         return jsonify({'msg': 'Debes enviar información en el body'}), 400
@@ -268,7 +263,7 @@ def new_client():
         return jsonify({'msg': 'El campo imagen es obligatorio'}), 400
     
     new_client = Client()
-    new_client.user_id = user_id
+    new_client.user_id = user.id
     new_client.name = body['name']
     new_client.last_name = body['last_name']
     new_client.phone = body['phone']
@@ -286,11 +281,11 @@ def update_client(id):
     email= get_jwt_identity()
     if not email:
         return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(user_id=id).first()
     if not user:
         return jsonify({'msg':'el usuario no existe'}), 400
-    update_client = Client.query.get(id)
-    body = request.get_json()
+    update_client = Client.query.filter_by(user_id=id).first()
+    body = request.get_json(silent=True)
     if update_client is None:
         return jsonify({"msg": f"El id {id} Cliente no fue encontrado"}), 400
     if "name" in body:
@@ -334,7 +329,6 @@ def get_providers():
 @app.route('/api/provider/<int:id>/', methods=['GET'])
 def get_single_provider(id):
     single_provider = Providers.query.get(id)
-
     if single_provider is None:
         return jsonify({"msg": f"El Proveedor con le ID: {id} no existe"}), 400
     print(single_provider.serialize())
@@ -356,10 +350,9 @@ def new_provider():
     email= get_jwt_identity()
     if not email:
         return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(email=email).first()    
     if not user:
         return jsonify({'msg':'el usuario no existe'}), 400
-    user_id=user.id
     body = request.get_json(silent=True)
     if body is None:
         return jsonify({'msg': 'Debes enviar información en el body'}), 400
@@ -381,7 +374,7 @@ def new_provider():
         return jsonify({'msg': 'El campo description es obligatorio'}), 400
     
     new_provider = Providers()
-    new_provider.user_id = user_id
+    new_provider.user_id = user.id
     new_provider.name = body['name']
     new_provider.last_name = body['last_name']
     new_provider.phone = body['phone']
@@ -392,10 +385,8 @@ def new_provider():
     new_provider.description = body['description']
     new_provider.number_company = body['number_company']
     new_provider.company = body['company']
-    print("se imprime body",body['user_id'])
     db.session.add(new_provider)
     db.session.commit()
-    print("se imprime body",body['user_id'])
     return jsonify({'msg': 'Nuevo provider creado',
                     'data': new_provider.serialize()}), 201
 
@@ -409,8 +400,8 @@ def update_provider(id):
     user = User.query.filter_by(email=email).first()
     if not user:
         return jsonify({'msg':'el usuario no existe'}), 400
-    update_provider = Providers.query.get(id)
-    body = request.get_json()
+    update_provider = Providers.query.filter_by(user_id=id).first()
+    body = request.get_json(silent=True)
     if update_provider is None:
         return jsonify({"msg": f"El id {id} provider no fue encontrado"}), 400
     if "name" in body:
@@ -514,6 +505,7 @@ def new_services():
 
 #endpoint para EDITAR un SERVICIO (OJO)
 @app.route('/api/edit/service/<int:id>', methods=["PUT"])
+@jwt_required()
 def update_service(id):
     email= get_jwt_identity()
     if not email:
@@ -521,7 +513,7 @@ def update_service(id):
     user= User.query.filter_by(email=email).first()
     print(user.id)
     update_service = Providers.query.filter_by(user_id=user.id).first()
-    body = request.get_json() 
+    body = request.get_json(silent=True) 
 
     if update_service is None:
         return jsonify({"msg": f"El id {id} provider no fue encontrado"}), 400
@@ -537,8 +529,8 @@ def update_service(id):
     return jsonify({"data": update_service.serialize()})
 
 ## Ruta para ELIMINAR un SERVICIO (FUNCIONA)
-#@app.route('/api/services/<int:id>/provider/<int:providers_id>', methods=['DELETE'])
-#def delete_service(id,provider_id):
+##@app.route('/api/services/<int:id>/provider/<int:providers_id>', methods=['DELETE'])
+##def delete_service(id,provider_id):
     service = Services.query.filter_by(id=id,provider_id=provider_id).first()
     if service is None:
         return jsonify({"msg":"el servicio no existe" }), 404
