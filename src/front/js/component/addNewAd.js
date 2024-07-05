@@ -24,7 +24,7 @@ const AddNewAd = () => {
   const [description, setDescription] = useState("");
   const [url_image, setUrl_image] = useState("");
 
-  const handleSaveService = async () => {
+  const handleSaveService = async (e) => {
     await actions.createService(title, selectOption, price, description, url_image);
   };
 
@@ -37,7 +37,7 @@ const AddNewAd = () => {
   return (
     <div className="pb-5">
     <div className="AddServices container shadow">
-      <form className="Forms container">
+      <form className="Forms container" onSubmit={handleSaveService}>
         <div className="row py-3">
           <div className="form-group input-container col-lg-6 col-sm-12">
             <label htmlFor="title" className="title-label-provider">Título:</label>
@@ -117,8 +117,6 @@ const AddNewAd = () => {
 
           type="submit"
           className="button-style-provider title-label-provider mt-4 btn-save"
-
-          onClick={handleSaveService}
         >
           Guardar
         </button>
