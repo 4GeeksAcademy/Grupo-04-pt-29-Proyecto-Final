@@ -17,7 +17,7 @@ const DashboardProvider = () => {
   useEffect(() => {
     actions.getProfileProvider(id)
     actions.getProviderByUserID(id)
-  })
+  },[])
 
 
   return (
