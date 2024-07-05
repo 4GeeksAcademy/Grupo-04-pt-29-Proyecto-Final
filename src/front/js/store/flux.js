@@ -28,7 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           // fetching data from the backend
           const resp = await fetch(process.env.BACKEND_URL + "/api/hello");
           const data = await resp.json();
-          setStore({ message: data.message });
+          setStore({ ...getStore(),message: data.message });
           // don't forget to return something, that is how the async resolves
           return data;
         } catch (error) {
@@ -47,7 +47,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         });
 
         //reset the global store
-        setStore({ demo: demo });
+        setStore({ ...getStore(),demo: demo });
       },
 
 
@@ -97,7 +97,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
           localStorage.setItem("token", data.access_token)
           console.log(data.user)
-          setStore({ user: data.user })
+          setStore({ ...getStore(),user: data.user })
           return true
         } catch (error) {
           alert(error)
@@ -117,7 +117,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           const response = await fetch(process.env.BACKEND_URL + `/api/profile/provider/${id}`)
           const data = await response.json()
-          setStore({ user: data })
+          setStore({ ...getStore(),user: data })
         } catch (error) {
         }
       },
@@ -126,7 +126,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           const response = await fetch(process.env.BACKEND_URL + `/api/profile/client/${id}`)
           const data = await response.json()
-          setStore({ user: data })
+          setStore({ ...getStore(),user: data })
         } catch (error) {
         }
       },
@@ -168,7 +168,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const response = await fetch(process.env.BACKEND_URL + '/api/client');
           const data = await response.json();
           console.log(data);
-          setStore({ clients: data.results });
+          setStore({ ...getStore(),clients: data.results });
         } catch (error) {
           console.error("Error fetching Clients:", error);
         }
@@ -181,7 +181,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const response = await fetch(process.env.BACKEND_URL + `/api/client/${id}`);
           const data = await response.json();
           console.log(data);
-          setStore({ clients: data });
+          setStore({ ...getStore(),clients: data });
         } catch (error) {
           console.error("Error fetching Client:", error);
         }
@@ -193,7 +193,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const response = await fetch(process.env.BACKEND_URL + `/api/client/byuser/${user_id}`);
           const data = await response.json();
           console.log(data);
-          setStore({ client: data });
+          setStore({ ...getStore(),client: data });
         } catch (error) {
           console.error("Error fetching provider:", error);
         }
@@ -284,7 +284,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const response = await fetch(process.env.BACKEND_URL + '/api/provider');
           const data = await response.json();
           console.log(data);
-          setStore({ providers: data.results });
+          setStore({ ...getStore(),providers: data.results });
         } catch (error) {
           console.error("Error fetching Providers:", error);
         }
@@ -296,7 +296,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const response = await fetch(process.env.BACKEND_URL + `/api/provider/${id}`);
           const data = await response.json();
           console.log(data);
-          setStore({ providers: data });
+          setStore({ ...getStore(),providers: data });
         } catch (error) {
           console.error("Error fetching Provider:", error);
         }
@@ -307,7 +307,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           const response = await fetch(process.env.BACKEND_URL + `/api/provider/byuser/${user_id}`);
           const data = await response.json();
-          setStore({ provider: data });
+          setStore({ ...getStore(),provider: data });
         } catch (error) {
           console.error("Error fetching provider:", error);
         }
@@ -410,7 +410,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await response.json();
           console.log(data);
           let store = getStore();
-          setStore({ services: data.results });
+          setStore({...getStore(),services: data.results });
         } catch (error) {
           console.error("Error fetching Services:", error);
         }
@@ -429,7 +429,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
           const data = await response.json();
           console.log(data);
-          setStore({ services: data });
+          setStore({ ...getStore(),services: data });
         } catch (error) {
           console.error("Error fetching Service:", error);
         }
@@ -498,20 +498,20 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       // FETCH DELETE SERVICES ID (OJO)
-      deleteService: function (id) {
-        fetch(process.env.BACKEND_URL + `/api/services/${id}`, {
-          method: "DELETE",
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            console.log("El Servicio ha sido eliminado correctamente");
-          })
-          .catch(error => {
-            console.error('Hubo un problema con la solicitud:', error);
-          });
-      },
+      // deleteService: function (id) {
+      //   fetch(process.env.BACKEND_URL + `/api/services/${id}`, {
+      //     method: "DELETE",
+      //   })
+      //     .then(response => {
+      //       if (!response.ok) {
+      //         throw new Error('Network response was not ok');
+      //       }
+      //       console.log("El Servicio ha sido eliminado correctamente");
+      //     })
+      //     .catch(error => {
+      //       console.error('Hubo un problema con la solicitud:', error);
+      //     });
+      // },
 
 
 
@@ -532,7 +532,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             return response.json()
           })
           .then((data) => {
-            setStore({ listProviders: data.data })
+            setStore({ ...getStore(),listProviders: data.data })
             console.log(data.data);
           })
           .catch((error) => { error })
@@ -550,7 +550,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then((data) => {
 
-            setStore({ provider: data })
+            setStore({...getStore(), provider: data })
 
           })
           .catch((error) => { error })
@@ -569,7 +569,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           })
           .then((data) => {
-            setStore({ providersCategory: data.data })
+            setStore({...getStore(), providersCategory: data.data })
             console.log(data);
 
           })
