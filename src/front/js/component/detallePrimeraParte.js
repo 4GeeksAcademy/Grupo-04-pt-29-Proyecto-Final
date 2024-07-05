@@ -30,8 +30,8 @@ const DetallePrimeraParte = () => {
                 <div><p className="price-ddp">${store.provider[0].data.services[0].price}</p></div>
                 <div><p className="detalles-ddp">Detalles</p></div>
                 <div><p className="detalle-parrafo-ddp">{store.provider[0].data.services[0].description}.</p></div>
-                <div className="d-flex gap-3 pt-3">
-                  <button className="button-style-ddp">Guardar</button>
+                <div className="gap-3 pt-3">
+                 
 
                   <button type="button" class="button-style-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Contacto

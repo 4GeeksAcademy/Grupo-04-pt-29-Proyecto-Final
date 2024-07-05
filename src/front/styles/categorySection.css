@@ -99,6 +99,11 @@ hr {
     box-sizing: border-box;
     padding: 10px;;
     
+   
+    
+}
+.no-cursor{
+  cursor: default !important;
 }
 
 .p-text {

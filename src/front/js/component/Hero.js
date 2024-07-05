@@ -2,7 +2,8 @@ import React from "react";
 import "../../styles/hero.css";
 import { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const Hero = () => {
 
@@ -49,19 +50,10 @@ const Hero = () => {
 
 
 
-              <form className="d-flex" role="search">
-                <input list="browsers" name="browser" id="browser" className="search-style" onChange={(e) => { setInput(e.target.value) }}></input>
-                <datalist id="browsers">
-                  {store.providersCategory.length != 0 ? store.providersCategory.map((proveedor, index) => {
-                    return proveedor.services.map((service, index) => {
-                      console.log(service.category)
-                      return <option value={service.category} />
 
-                    })
-                  }) : "loading"}
-                </datalist>
-                <button className="btn button-search px-5 ms-3" type="button" onClick={() => { onSearch(input) }}> Search</button>
-              </form>
+              <Link to={'/productspage'}>
+                <button className="btn button-search px-5 " type="button"> Ver Servicios</button>
+              </Link>
 
 
             </div>

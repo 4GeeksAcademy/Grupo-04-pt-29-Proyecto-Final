@@ -85,7 +85,7 @@ const Login = () => {
           </div>
           <br />
           <div className="d-flex justify-content-end pb-2">
-            <button className="d-flex justify-content-center title-label" style={{ border: "none", backgroundColor: "#ffffff", color: "#508CF6" }}>¿Olvidaste la contraseña?</button>
+           
           </div>
           <div className="d-flex justify-content-center">
             <button className="button-style-signup p-2 title-label" style={{ width: "100%" }} onClick={(e) => iniciar(e)}>
