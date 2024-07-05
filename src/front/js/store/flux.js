@@ -5,13 +5,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       // Jose Antonio
       user: {},
       clients: [],
-      client:{},
+      client: {},
       providers: [],
-      provider:{},
+      provider: {},
       services: [],
-      service:{},
+      service: {},
       favorite: [],
-      
+
 
 
 
@@ -119,7 +119,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await response.json()
           setStore({ user: data })
         } catch (error) {
-          console.log(error)
         }
       },
       // FETCH GET PROFILE CLIENT
@@ -129,7 +128,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await response.json()
           setStore({ user: data })
         } catch (error) {
-          console.log(error)
         }
       },
 
@@ -183,7 +181,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const response = await fetch(process.env.BACKEND_URL + `/api/client/${id}`);
           const data = await response.json();
           console.log(data);
-          setStore({clients: data });
+          setStore({ clients: data });
         } catch (error) {
           console.error("Error fetching Client:", error);
         }
@@ -195,20 +193,20 @@ const getState = ({ getStore, getActions, setStore }) => {
           const response = await fetch(process.env.BACKEND_URL + `/api/client/byuser/${user_id}`);
           const data = await response.json();
           console.log(data);
-          setStore({client: data });
+          setStore({ client: data });
         } catch (error) {
           console.error("Error fetching provider:", error);
         }
       },
 
       // FETCH ADD CLIENT 
-      createClient: function (name,last_name,phone,location, bio, url_image) {
-        const token= localStorage.getItem("token")
+      createClient: function (name, last_name, phone, location, bio, url_image) {
+        const token = localStorage.getItem("token")
         fetch(process.env.BACKEND_URL + '/api/add/client', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization":"Bearer " + token
+            "Authorization": "Bearer " + token
           },
           body: JSON.stringify({
             name: name,
@@ -234,13 +232,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       // FETCH EDIT CLIENT ID
-      editClient: function (id,name,last_name,phone,location, bio, url_image) {
-        const token= localStorage.getItem("token")
+      editClient: function (id, name, last_name, phone, location, bio, url_image) {
+        const token = localStorage.getItem("token")
         fetch(process.env.BACKEND_URL + `/api/edit/client/${id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            "Authorization":"Bearer " + token
+            "Authorization": "Bearer " + token
           },
           body: JSON.stringify({
             name: name,
@@ -264,7 +262,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH DELETE CLIENT ID (OJO)
       deleteClient: function (id) {
-        fetch(process.env.BACKEND_URL +`/api/client/<int:id>/user/<int:user_id${id}`, {
+        fetch(process.env.BACKEND_URL + `/api/client/<int:id>/user/<int:user_id${id}`, {
           method: "DELETE",
         })
           .then(response => {
@@ -298,7 +296,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const response = await fetch(process.env.BACKEND_URL + `/api/provider/${id}`);
           const data = await response.json();
           console.log(data);
-          setStore({providers: data });
+          setStore({ providers: data });
         } catch (error) {
           console.error("Error fetching Provider:", error);
         }
@@ -309,32 +307,31 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           const response = await fetch(process.env.BACKEND_URL + `/api/provider/byuser/${user_id}`);
           const data = await response.json();
-          console.log(data);
-          setStore({provider: data });
+          setStore({ provider: data });
         } catch (error) {
           console.error("Error fetching provider:", error);
         }
       },
 
       // FETCH ADD PROVIDER 
-      createProvider: function (name,last_name,identity_number,company,number_company,phone,location,profession,experience, description, url_image) {
-        const token= localStorage.getItem("token")
+      createProvider: function (name, last_name, identity_number, company, number_company, phone, location, profession, experience, description, url_image) {
+        const token = localStorage.getItem("token")
         fetch(process.env.BACKEND_URL + '/api/add/provider', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization":"Bearer " + token
+            "Authorization": "Bearer " + token
           },
           body: JSON.stringify({
             name: name,
             last_name: last_name,
-            identity_number:identity_number,
-            company:company,
-            number_company:number_company,
+            identity_number: identity_number,
+            company: company,
+            number_company: number_company,
             phone: phone,
             location: location,
-            profession:profession,
-            experience:experience,
+            profession: profession,
+            experience: experience,
             description: description,
             url_image: url_image
           })
@@ -354,23 +351,24 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       // FETCH EDIT PROVIDER ID
-      editProvider: function (id, name,last_name,identity_number,company,number_company,phone,location,profession,experience, description, url_image) {
-        const token= localStorage.getItem("token")
+      editProvider: function (id, name, last_name, identity_number, company, number_company, phone, location, profession, experience, description, url_image) {
+        const token = localStorage.getItem("token")
         fetch(process.env.BACKEND_URL + `/api/edit/provider/${id}`, {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
           },
           body: JSON.stringify({
             name: name,
             last_name: last_name,
-            identity_number:identity_number,
-            company:company,
-            number_company:number_company,
+            identity_number: identity_number,
+            company: company,
+            number_company: number_company,
             phone: phone,
             location: location,
-            profession:profession,
-            experience:experience,
+            profession: profession,
+            experience: experience,
             description: description,
             url_image: url_image
           })
@@ -388,7 +386,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH DELETE PROVIDER ID (OJO)
       deleteProvider: function (id) {
-        fetch(process.env.BACKEND_URL +`/api/provider/<int:id>/user/<int:user_id>${id}`, {
+        fetch(process.env.BACKEND_URL + `/api/provider/<int:id>/user/<int:user_id>${id}`, {
           method: "DELETE",
         })
           .then(response => {
@@ -412,7 +410,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await response.json();
           console.log(data);
           let store = getStore();
-          setStore({services: data.results });
+          setStore({ services: data.results });
         } catch (error) {
           console.error("Error fetching Services:", error);
         }
@@ -420,26 +418,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH GET SERVICES ID
       getServiceID: async (id) => {
+        const token = localStorage.getItem("token")
         try {
-          const response = await fetch(process.env.BACKEND_URL + `/api/services/${id}`);
+          const response = await fetch(process.env.BACKEND_URL + `/api/services/${id}`, {
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + token
+            },
+
+          });
           const data = await response.json();
           console.log(data);
-          let store = getStore();
-          setStore({services: data });
+          setStore({ services: data });
         } catch (error) {
           console.error("Error fetching Service:", error);
         }
       },
 
+
+
       // FETCH ADD SERVICES 
       createService: function (title, category, price, description, url_image) {
-        const token= localStorage.getItem("token")
+        console.log(title, category, price, description, url_image)
+        const token = localStorage.getItem("token")
         fetch(process.env.BACKEND_URL + '/api/add/service', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization":"Bearer " + token
-            
+            "Authorization": "Bearer " + token
+
           },
           body: JSON.stringify({
             title: title,
@@ -465,11 +472,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH EDIT SERVICES ID
       editService: function (id, title, category, price, description, url_image) {
-        const token= localStorage.getItem("token")
+        const token = localStorage.getItem("token")
         fetch(process.env.BACKEND_URL + `/api/edit/service/${id}`, {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json","Authorization":"Bearer " + token
+            "Content-Type": "application/json", "Authorization": "Bearer " + token
           },
           body: JSON.stringify({
             title: title,
@@ -492,7 +499,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // FETCH DELETE SERVICES ID (OJO)
       deleteService: function (id) {
-        fetch(process.env.BACKEND_URL +`/api/services/${id}`, {
+        fetch(process.env.BACKEND_URL + `/api/services/${id}`, {
           method: "DELETE",
         })
           .then(response => {

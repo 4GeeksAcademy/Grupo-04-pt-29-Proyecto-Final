@@ -11,7 +11,7 @@ const DashboardClient = () => {
 
   useEffect(()=>{
     actions.getClientByUserID(id)
-  })
+  },[]);
 
 
   return (
@@ -79,20 +79,6 @@ const DashboardClient = () => {
                 Editar Datos
               </button>
             </li>
-            <li className="nav-item" role="presentation">
-              <button
-                className="nav-link"
-                id="favorite-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#favorite-tab-pane"
-                type="button"
-                role="tab"
-                aria-controls="favorite-tab-pane"
-                aria-selected="false"
-              >
-                Mis Favoritos
-              </button>
-            </li>
           </ul>
           <div className="tab-content" id="myTabContent">
           <div
@@ -112,15 +98,6 @@ const DashboardClient = () => {
               tabIndex={0}
             >
 				      <EditClient/>
-            </div>
-            <div
-              className="tab-pane fade"
-              id="favorite-tab-pane"
-              role="tabpanel"
-              aria-labelledby="favorite-tab"
-              tabIndex={0}
-            >
-              Mis Favoritos
             </div>
           </div>
         </>

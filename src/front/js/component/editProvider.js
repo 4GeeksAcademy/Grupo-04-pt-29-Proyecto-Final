@@ -184,7 +184,7 @@ const EditProvider = () => {
             id="img"
             name="img"
             value={url_image}
-            onChange={(e) => setUrl_image(e.target.value)}
+            onChange={(event) => setUrl_image(event.target.value)}
             required
           />
         </div>

@@ -1,20 +1,39 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/editprovider.css";
 
 const AddNewAd = () => {
-
-  const { actions } = useContext(Context);
+  const { actions, store } = useContext(Context);
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
+  const [selectOption, setSelectOption] = useState("");
+  const categories = [
+    "Plomería",
+    "Electricidad",
+    "Albañilería",
+    "Carpintería",
+    "Pintura y Decoración",
+    "Techos y Estructuras",
+    "Reformas de Interiores",
+    "Jardinería y Paisajismo",
+    "Limpieza y Mantenimiento",
+    "Reparaciones Generales",
+    "Sistemas de Seguridad",
+    "Reformas Integrales"
+  ];
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [url_image, setUrl_image] = useState("");
 
   const handleSaveService = async () => {
-    await actions.createService(title, category, price, description, url_image);
-    actions.getServices();
+    await actions.createService(title, selectOption, price, description, url_image);
   };
+
+  const handleSelect = (e) => {
+    setSelectOption(e.target.value)
+  }
+  useEffect(() => {
+
+  }, []);
   return (
     <div className="pb-5">
     <div className="AddServices container shadow">
@@ -33,18 +52,27 @@ const AddNewAd = () => {
             />
           </div>
           <div className="form-group input-container col-lg-6 col-sm-12" >
-            <label htmlFor="category" className="title-label-provider">Categoria:</label>
-            <select
-              className="form-select border-label-provider"
-              aria-label="Default select example"
-            >
-              <option selected=""></option>
-              <option>One</option>
-              <option>Two</option>
-              <option>Three</option>
-            </select>
-          </div>
+          <label htmlFor="category" className="title-label-provider">Categoria:</label>
+          <select
+            className="form-select border-label-provider"
+            aria-label="Default select example"
+            onChange={handleSelect}
+          >
+            <option selected=""></option>
+            {categories.map((categorie, index) => {
+
+              return <option key={index}
+                value={categorie}
+              >{categorie}</option>
+            })}
+
+          </select>
+
         </div>
+        </div>
+
+
+
         <div className="row pb-3">
           <div className="form-group input-container col-lg-6 col-sm-12">
             <label htmlFor="address" className="title-label-provider">Precio</label>
@@ -59,7 +87,7 @@ const AddNewAd = () => {
             />
           </div>
           <div className="form-group input-container col-lg-6 col-sm-12">
-            <label htmlFor="phone" className="title-label-provider"> Descripcion del Servicio :</label>
+            <label htmlFor="phone" className="title-label-provider"> Descripción del Servicio :</label>
             <input
               type="text"
               className="form-control border-label-provider"
@@ -70,7 +98,8 @@ const AddNewAd = () => {
               required
             />
           </div>
-        </div>
+
+        
         <div className="form-group input-container">
           <label htmlFor="" className="title-label-provider">Portada del Servicio</label>
           <input
@@ -84,8 +113,10 @@ const AddNewAd = () => {
           />
         </div>
         <button
+
           type="submit"
           className="button-style-provider title-label-provider mt-4 btn-save"
+
           onClick={handleSaveService}
         >
           Guardar

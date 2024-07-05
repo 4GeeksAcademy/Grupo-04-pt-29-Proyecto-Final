@@ -23,8 +23,9 @@ const AddProvider = () => {
         actions.getProviders();
     };
     return (
+
         <div className="pb-5">
-            <div className="editProvider container shadow" onSubmit={handleSaveProvider}>
+            <div className="editProvider container shadow">
                 <form className="Forms container " >
                     <div className="row py-3">
                         <div className="form-group input-container col-lg-6 col-sm-12">
@@ -167,12 +168,13 @@ const AddProvider = () => {
                             required
                         />
                     </div>
-                    <button type="submit" className="button-style-provider title-label-provider mt-4 btn-save">
+                    <button type="submit" className="button-style-provider title-label-provider mt-4 btn-save"  onClick={handleSaveProvider}>
                         Guardar
                     </button>
                 </form>
                 <br />
             </div>
+
         </div>
     );
 };
