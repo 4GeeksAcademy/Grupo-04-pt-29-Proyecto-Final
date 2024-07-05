@@ -48,12 +48,12 @@ export const ListaServicios = ({ data, filters }) => {
             <div className="row g-0" key={`${service.id}${service.provider_id}`}>
                 <div className="col-md-4">
                     <img className="img-fluid rounded-start foto-listaServ" src={service.url_image} alt="..." />
-                    <p className="card-text categoria-listaServ"><small className="text-body-secondary">{item.category}</small></p>
+                    <p className="card-text categoria-listaServ"><small className="text-body-secondary">{service.category}</small></p>
                 </div>
                 <div className="col-md-8">
                     <div className="card-body">
                         <div className="d-flex justify-content-between">
-                            <h5 className="card-title titulo-listaServ">{item.title}</h5>
+                            <h5 className="card-title titulo-listaServ">{service.title}</h5>
                             <p className="precio-listaServ">
                                 <i className="fa-solid fa-dollar-sign icono-listaServ">{service.price}</i>
                             </p>
