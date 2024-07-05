@@ -98,6 +98,7 @@ const AddNewAd = () => {
               required
             />
           </div>
+          </div>
 
         
         <div className="form-group input-container">
