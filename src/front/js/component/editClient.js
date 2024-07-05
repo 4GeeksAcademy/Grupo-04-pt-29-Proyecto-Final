@@ -32,13 +32,13 @@ const EditClient = () => {
 
  
   return (
-    <div className="editClient container ">
+    <div className="editClient container shadow">
       <form className="Forms container"onSubmit={handleSubmit}>
         <div className="form-group input-container">
-          <label htmlFor="name">Nombre:</label>
+          <label htmlFor="name" className="title-label-client">Nombre:</label>
           <input
             type="text"
-            className="form-control"
+            className="form-control border-label-client"
             id="name"
             name="name"
             value={name}
@@ -47,10 +47,10 @@ const EditClient = () => {
           />
         </div>
         <div className="form-group input-container">
-          <label htmlFor="name">Apellido:</label>
+          <label htmlFor="name" className="title-label-client">Apellido:</label>
           <input
             type="text"
-            className="form-control"
+            className="form-control border-label-client"
             id="lastname"
             name="lastname"
             value={last_name}
@@ -59,10 +59,10 @@ const EditClient = () => {
           />
         </div>
         <div className="form-group input-container">
-          <label htmlFor="phone">Phone:</label>
+          <label htmlFor="phone" className="title-label-client">Phone:</label>
           <input
             type="text"
-            className="form-control"
+            className="form-control border-label-client"
             id="phone"
             name="phone"
             value={phone}
@@ -71,10 +71,10 @@ const EditClient = () => {
           />
         </div>
         <div className="form-group input-container">
-          <label htmlFor="adress">Ubicacion:</label>
+          <label htmlFor="adress" className="title-label-client">Ubicacion:</label>
           <input
             type="adress"
-            className="form-control"
+            className="form-control border-label-client"
             id="adress"
             name="adress"
             value={location}
@@ -83,10 +83,10 @@ const EditClient = () => {
           />
         </div>
         <div className="form-group input-container">
-          <label htmlFor="phone"> Biografia:</label>
+          <label htmlFor="phone" className="title-label-client"> Biografia:</label>
           <input
             type="text"
-            className="form-control"
+            className="form-control border-label-client"
             id="description"
             name="description"
             value={bio}
@@ -95,10 +95,10 @@ const EditClient = () => {
           />
         </div>
         <div className="form-group input-container">
-          <label htmlFor="">Imagen de Portada</label>
+          <label htmlFor="" className="title-label-client">Imagen de Portada</label>
           <input
             type="text"
-            className="form-control"
+            className="form-control border-label-client"
             id="img"
             name="img"
             value={url_image}
@@ -106,8 +106,8 @@ const EditClient = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary mt-4 btn-save">
-          Save
+        <button type="submit" className="button-style-client title-label-client mt-4 btn-save">
+          Guardar
         </button>
       </form>
       <br />

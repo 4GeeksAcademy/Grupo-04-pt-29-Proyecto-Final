@@ -48,7 +48,9 @@ export const ListaServicios = ({ data, filters }) => {
             {item.services.map((service) => ( 
             <div className="row g-0" key={`${service.id}${service.provider_id}`}>
                 <div className="col-md-4">
+                    <Link to={`/singleprovider/${item.id}`}>
                     <img className="img-fluid rounded-start foto-listaServ" src={service.url_image} alt="..." />
+                    </Link>
                     <p className="card-text categoria-listaServ"><small className="text-body-secondary">{service.category}</small></p>
                 </div>
                 <div className="col-md-8">

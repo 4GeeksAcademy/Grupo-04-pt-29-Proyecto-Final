@@ -4,23 +4,24 @@ import { useParams } from "react-router-dom";
 import rigoImage from "../../img/rigo-baby.jpg";
 import EditClient from "../component/editClient";
 import MyProfileClient from "../component/myProfileClient";
+import "../../styles/dashboardclient.css";
 
 const DashboardClient = () => {
   const { store, actions } = useContext(Context);
-  const {id}=useParams()
+  const { id } = useParams()
 
-  useEffect(()=>{
+  useEffect(() => {
     actions.getClientByUserID(id)
-  },[]);
+  }, []);
 
 
   return (
-    <div className="Dash-Client d-flex justify-content-center">
-      <div className="Client-card">
+    <div className="Dash-Client  justify-content-center dashboard-responsive-client py-5">
+      <div className="Client-card px-4 mb-5">
         <div className="profile justify-content-center">
           <div className="d-flex justify-content-center">
             <div
-              className="card d-flex justify-content-center"
+              className="card d-flex justify-content-center shadow"
               style={{ width: "20rem" }}
             >
               <div className="d-flex justify-content-center">
@@ -36,24 +37,24 @@ const DashboardClient = () => {
               </div>
 
               <div className="card-body">
-                <h5>
-                  <p>Username {store.user.username}</p>
-                </h5>
-                <p>{store.client.name} {store.client.last_name} </p>
-                <p>Email:{store.user.email}</p>
-                <p>Telefono:{store.client.phone}</p>
-                <p>Ubicacion:{store.client.location}</p>
+                <div className="">
+                  <h5 className="title-label-client d-flex"><i class="fa-solid fa-user"></i> <p className="p-client ps-2"> {store.user.username}</p></h5>
+                  <p className="p-client"> {store.client.name} {store.client.last_name} </p>
+                  <h5 className="title-label-client d-flex"><i class="fa-solid fa-envelope"></i> <p className="p-client ps-2">{store.user.email}</p></h5>
+                  <h5 className="title-label-client d-flex"><i class="fa-solid fa-phone"></i>  <p className="p-client ps-2">{store.client.phone}</p></h5>
+                  <h5 className="title-label-client d-flex"><i class="fa-solid fa-location-dot"></i> <p className="p-client ps-2">{store.client.location}</p></h5>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="Client-Configurate">
+      <div className="Client-Configurate mx-3">
         <>
-          <ul className="nav nav-tabs" id="myTab" role="tablist">
+          <ul className="nav nav-tabs menu-items-width-client" id="myTab" role="tablist" >
             <li className="nav-item" role="presentation">
               <button
-                className="nav-link active"
+                className="nav-link active title-buttons-client title-label-client"
                 id="home-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#home-tab-pane"
@@ -62,12 +63,12 @@ const DashboardClient = () => {
                 aria-controls="home-tab-pane"
                 aria-selected="true"
               >
-                Agregar Datos
+                Agregar Mis Datos
               </button>
             </li>
             <li className="nav-item" role="presentation">
               <button
-                className="nav-link"
+                className="nav-link title-buttons-client title-label-client"
                 id="edit-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#edit-tab-pane"
@@ -81,7 +82,7 @@ const DashboardClient = () => {
             </li>
           </ul>
           <div className="tab-content" id="myTabContent">
-          <div
+            <div
               className="tab-pane fade show active"
               id="home-tab-pane"
               role="tabpanel"
@@ -97,7 +98,7 @@ const DashboardClient = () => {
               aria-labelledby="edit-tab"
               tabIndex={0}
             >
-				      <EditClient/>
+              <EditClient />
             </div>
           </div>
         </>
