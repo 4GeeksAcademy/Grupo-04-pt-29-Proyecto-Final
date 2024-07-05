@@ -580,10 +580,10 @@ def add_favorite_service(client_id, service_id):
 @app.route('/api/send-mail', methods=['GET'])
 def send_mail():
     try:
-        msg = Message('Hello from Flask',
+        msg = Message('Hola desde ServiExpert!',
                       sender="serviexpert.dev@gmail.com",
                       recipients=['josea.tovarp.blue7@gmail.com']) 
-        msg.body = 'This is a test email sent from a Flask web application.'
+        msg.body = 'Este es un mensaje enviado desde ServiExpert.'
         mail.send(msg)
         return jsonify({'msg':'Correo enviado correctamente'}), 200
     except Exception as e:

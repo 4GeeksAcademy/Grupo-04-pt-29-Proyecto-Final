@@ -76,7 +76,7 @@ const EditProvider = () => {
         </div>
         <div className="row pb-3">
           <div className="form-group input-container col-lg-6 col-sm-12">
-            <label htmlFor="identity_number" className="title-label-provider">Numero de Identidad:</label>
+            <label htmlFor="identity_number" className="title-label-provider">Número de Identidad:</label>
             <input
               type="text"
               className="form-control border-label-provider"
@@ -88,7 +88,7 @@ const EditProvider = () => {
             />
           </div>
           <div className="form-group input-container col-lg-6 col-sm-12">
-            <label htmlFor="company" className="title-label-provider">Empresa</label>
+            <label htmlFor="company" className="title-label-provider">Empresa:</label>
             <input
               type="text"
               className="form-control border-label-provider"
@@ -101,7 +101,7 @@ const EditProvider = () => {
         </div>
         <div className="row pb-3">
           <div className="form-group input-container col-lg-6 col-sm-12">
-            <label htmlFor="number_company" className="title-label-provider">Identificacion de la Empresa</label>
+            <label htmlFor="number_company" className="title-label-provider">Identificación de la Empresa:</label>
             <input
               type="text"
               className="form-control border-label-provider"
@@ -112,7 +112,7 @@ const EditProvider = () => {
             />
           </div>
           <div className="form-group input-container col-lg-6 col-sm-12">
-            <label htmlFor="phone" className="title-label-provider"> Telefono :</label>
+            <label htmlFor="phone" className="title-label-provider"> Teléfono:</label>
             <input
               type="text"
               className="form-control border-label-provider"
@@ -126,7 +126,7 @@ const EditProvider = () => {
         </div>
         <div className="row pb-3">
           <div className="form-group input-container col-lg-6 col-sm-12">
-            <label htmlFor="address" className="title-label-provider">Ubicacion:</label>
+            <label htmlFor="address" className="title-label-provider">Ubicación:</label>
             <input
               type="text"
               className="form-control border-label-provider"
@@ -138,7 +138,7 @@ const EditProvider = () => {
             />
           </div>
           <div className="form-group input-container col-lg-6 col-sm-12">
-            <label htmlFor="profession" className="title-label-provider">profession o Oficio</label>
+            <label htmlFor="profession" className="title-label-provider">Profesión o Oficio:</label>
             <input
               type="text"
               className="form-control border-label-provider"
@@ -152,7 +152,7 @@ const EditProvider = () => {
         </div>
         <div className="row pb-3">
           <div className="form-group input-container col-lg-6 col-sm-12">
-            <label htmlFor="experience" className="title-label-provider">Experiencia Laboral</label>
+            <label htmlFor="experience" className="title-label-provider">Experiencia Laboral:</label>
             <input
               type="text"
               className="form-control border-label-provider"
@@ -164,7 +164,7 @@ const EditProvider = () => {
             />
           </div>
           <div className="form-group input-container col-lg-6 col-sm-12">
-            <label htmlFor="address" className="title-label-provider">Descripcion Profesional</label>
+            <label htmlFor="address" className="title-label-provider">Descripción Profesional:</label>
             <input
               type="text"
               className="form-control border-label-provider"
@@ -177,7 +177,7 @@ const EditProvider = () => {
           </div>
         </div>
         <div className="form-group input-container">
-          <label htmlFor="" className="title-label-provider">Imagen de Portada</label>
+          <label htmlFor="" className="title-label-provider">Imagen de Portada:</label>
           <input
             type="text"
             className="form-control border-label-provider"
