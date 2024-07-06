@@ -46,7 +46,7 @@ const AddClient = () => {
                     />
                 </div>
                 <div className="form-group input-container">
-                    <label htmlFor="phone" className="title-label-client">Phone:</label>
+                    <label htmlFor="phone" className="title-label-client">Teléfono:</label>
                     <input
                         type="text"
                         className="form-control border-label-client"
@@ -58,7 +58,7 @@ const AddClient = () => {
                     />
                 </div>
                 <div className="form-group input-container">
-                    <label htmlFor="adress" className="title-label-client">Ubicacion:</label>
+                    <label htmlFor="adress" className="title-label-client">Ubicación:</label>
                     <input
                         type="adress"
                         className="form-control border-label-client"
@@ -70,7 +70,7 @@ const AddClient = () => {
                     />
                 </div>
                 <div className="form-group input-container">
-                    <label htmlFor="phone" className="title-label-client"> Biografia:</label>
+                    <label htmlFor="phone" className="title-label-client">Biografía:</label>
                     <input
                         type="text"
                         className="form-control border-label-client"
@@ -82,7 +82,7 @@ const AddClient = () => {
                     />
                 </div>
                 <div className="form-group input-container">
-                    <label htmlFor="" className="title-label-client">Imagen de Portada</label>
+                    <label htmlFor="" className="title-label-client">Imagen de Portada:</label>
                     <input
                         type="text"
                         className="form-control border-label-client"

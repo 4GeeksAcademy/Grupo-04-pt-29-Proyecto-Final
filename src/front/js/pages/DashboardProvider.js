@@ -13,7 +13,7 @@ const DashboardProvider = () => {
   const { store, actions } = useContext(Context);
   const { id } = useParams()
 
-
+    
   useEffect(() => {
     actions.getProfileProvider(id)
     actions.getProviderByUserID(id)

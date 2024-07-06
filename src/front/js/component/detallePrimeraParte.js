@@ -23,7 +23,7 @@ const DetallePrimeraParte = () => {
       {store.provider.length != 0 ?
         <div className="container py-5 ">
           <div className=" col-12 container-detalleprimeraparte">
-            <div className="col-12 col-sm-12 col-md-6"><img className="img-detalleprimeraparte" src="https://res.cloudinary.com/dq3mxxidu/image/upload/v1719269434/front-view-woman-cleaning-home_vm9f3m.jpg"  /></div>
+            <div className="col-12 col-sm-12 col-md-6"><img className="img-detalleprimeraparte" src={store.provider[0].data.url_image}  /></div>
             <div className="col-xl-6 col-sm-12 col-md-8 d-flex align-items-center justify-content-center">
               <div>
                 <div><p className="title-dpp">{store.provider[0].data.name} {store.provider[0].data.last_name}</p></div>

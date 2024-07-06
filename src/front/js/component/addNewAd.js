@@ -24,7 +24,7 @@ const AddNewAd = () => {
   const [description, setDescription] = useState("");
   const [url_image, setUrl_image] = useState("");
 
-  const handleSaveService = async () => {
+  const handleSaveService = async (e) => {
     await actions.createService(title, selectOption, price, description, url_image);
   };
 
@@ -37,10 +37,10 @@ const AddNewAd = () => {
   return (
     <div className="pb-5">
     <div className="AddServices container shadow">
-      <form className="Forms container">
+      <form className="Forms container" onSubmit={handleSaveService}>
         <div className="row py-3">
           <div className="form-group input-container col-lg-6 col-sm-12">
-            <label htmlFor="title" className="title-label-provider">Titulo:</label>
+            <label htmlFor="title" className="title-label-provider">Título:</label>
             <input
               type="text"
               className="form-control border-label-provider"
@@ -52,7 +52,7 @@ const AddNewAd = () => {
             />
           </div>
           <div className="form-group input-container col-lg-6 col-sm-12" >
-          <label htmlFor="category" className="title-label-provider">Categoria:</label>
+          <label htmlFor="category" className="title-label-provider">Categoría:</label>
           <select
             className="form-select border-label-provider"
             aria-label="Default select example"
@@ -75,7 +75,7 @@ const AddNewAd = () => {
 
         <div className="row pb-3">
           <div className="form-group input-container col-lg-6 col-sm-12">
-            <label htmlFor="address" className="title-label-provider">Precio</label>
+            <label htmlFor="address" className="title-label-provider">Precio:</label>
             <input
               type="text"
               className="form-control border-label-provider"
@@ -87,7 +87,7 @@ const AddNewAd = () => {
             />
           </div>
           <div className="form-group input-container col-lg-6 col-sm-12">
-            <label htmlFor="phone" className="title-label-provider"> Descripción del Servicio :</label>
+            <label htmlFor="phone" className="title-label-provider"> Descripción del Servicio:</label>
             <input
               type="text"
               className="form-control border-label-provider"
@@ -102,7 +102,7 @@ const AddNewAd = () => {
 
         
         <div className="form-group input-container">
-          <label htmlFor="" className="title-label-provider">Portada del Servicio</label>
+          <label htmlFor="" className="title-label-provider">Portada del Servicio:</label>
           <input
             type="text"
             className="form-control border-label-provider"
@@ -117,8 +117,6 @@ const AddNewAd = () => {
 
           type="submit"
           className="button-style-provider title-label-provider mt-4 btn-save"
-
-          onClick={handleSaveService}
         >
           Guardar
         </button>
