@@ -187,6 +187,26 @@ def get_user():
     print(users_serialized)
     return jsonify({"data":users_serialized}), 200
 
+
+
+
+
+@app.route('/api/private', methods=['GET'])
+@jwt_required()
+def get_current_user():
+    email= get_jwt_identity()
+    if not email:
+        return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'msg':'el usuario no existe'}), 404
+    return jsonify(user.serialize()),200
+
+
+
+
+
+
 # Enpoint para Traer un Usuario por su Id (FUNCIONA)
 @app.route('/api/profile/<int:user_id>', methods=['GET'])
 @jwt_required()
@@ -529,9 +549,9 @@ def update_service(id):
     return jsonify({"data": update_service.serialize()})
 
 ## Ruta para ELIMINAR un SERVICIO (FUNCIONA)
-##@app.route('/api/services/<int:id>/provider/<int:providers_id>', methods=['DELETE'])
-##def delete_service(id,provider_id):
-    service = Services.query.filter_by(id=id,provider_id=provider_id).first()
+# @app.route('/api/services/<int:id>/', methods=['DELETE'])
+#def delete_service(id):
+    service = Services.query.filter_by(id=id).first()
     if service is None:
         return jsonify({"msg":"el servicio no existe" }), 404
     db.session.delete(service)
