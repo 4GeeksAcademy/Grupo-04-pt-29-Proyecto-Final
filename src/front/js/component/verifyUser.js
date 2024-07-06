@@ -31,7 +31,7 @@ const VerifyUser = () => {
 
         return (
             <div className="VerifyUsercontainer ">
-
+                <p>Hola</p>
             </div>
         );
     };

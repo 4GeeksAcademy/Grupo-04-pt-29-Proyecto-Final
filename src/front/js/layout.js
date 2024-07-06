@@ -38,11 +38,11 @@ const Layout = () => {
             <Route element={<Single />} path="/single/:theid" />
             <Route element={<Demo />} path="/demo" />
             <Route element={<DetallePrimeraParte />} path="/singleprovider/:idProvider" />
-            <Route element={<PrivateRoutes/>}>
+            <Route element={<PrivateRoutes />}>
               {/* Aqui van todas las rutas que quiero Proteger *(las Rutas Privadas) */}
               <Route element={<ProductsPage />} path="/productspage" />
               <Route element={<DashboardClient />} path="/client/:id" />
-            <Route element={<DashboardProvider />} path="/provider/:id" />
+              <Route element={<DashboardProvider />} path="/provider/:id" />
             </Route>
             <Route element={<VerifyUser />} path="/verify" />
             <Route element={<Login />} path="/login" />
