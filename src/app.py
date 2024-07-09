@@ -98,15 +98,15 @@ def serve_any_other_file(path):
 # FUNCIO DE VERIFICACION DEL EMAIL 
 def send_verification_email(email,username):
     try:
-        backend_url = os.environ.get('BACKEND_URL')
-        if not backend_url:
-            raise ValueError("Missing BACKEND_URL environment variable")
+        print('enviando correo')
+       
+           
         verify_token= create_access_token(identity=email)
         msg = Message('Hola , bienvenido a ServiExpert',
                       sender="serviexpert.dev@gmail.com",
                       recipients=[email]) 
         
-        verify_url = f"{backend_url}/verify?verify_token={verify_token}"
+        verify_url = f"{os.environ.get('FRONTEND_URL')}verify?verify_token={verify_token}"
         html= render_template("verify_email.html",username=username,verify_url=verify_url)
         msg.html=html
         mail.send(msg)
@@ -145,6 +145,7 @@ def signup():
     db.session.add(new_user)
     db.session.commit()
     send_verification_email(body["email"],body["username"])
+
     return jsonify ({'msg':'Usuario Creado .'}), 200
 
 # Log In o Iniciar Seccion  (FUNCIONA)

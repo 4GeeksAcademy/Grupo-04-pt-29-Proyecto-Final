@@ -192,4 +192,13 @@
         margin-top: 50px;
         margin-bottom: 50px;
     }
+    .bienvenida-verify{
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        color: #000000;
+        font-size: 20px;
+        text-align: center;
+    }
 }

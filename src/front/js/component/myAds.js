@@ -23,12 +23,14 @@ const MyAds = () => {
                     <div className="col-md-4">
                      {/* <img className="img-fluid rounded-start foto-listaServ" src={provider.url_image} alt="..." /> */}
                         <img
-                            src={rigoImage}
+                            src={service.url_image}
                             alt=""
-                            className="img-fluid pt-4"
+                            className="img-fluid pt-4 rounded"
                             style={{
-                                borderRadius: "50%",
-                                width: "200px",
+                               
+                                width: "150px",
+                                height: "150px",
+                                backgroundSize: "cover"
                             }}
                         />
                         <p className="card-text categoria-listaServ"><small className="text-body-secondary">{service.category}</small></p>
