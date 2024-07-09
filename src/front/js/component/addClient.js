@@ -81,7 +81,7 @@ const AddClient = () => {
                         required
                     />
                 </div>
-                <div className="form-group input-container">
+                {/* <div className="form-group input-container">
                     <label htmlFor="" className="title-label-client">Imagen de Portada:</label>
                     <input
                         type="text"
@@ -92,7 +92,7 @@ const AddClient = () => {
                         onChange={(e) => setUrl_image(e.target.value)}
                         required
                     />
-                </div>
+                </div> */}
                 <button
                     type="button"
                     className="button-style-client title-label-client mt-4 btn-save"

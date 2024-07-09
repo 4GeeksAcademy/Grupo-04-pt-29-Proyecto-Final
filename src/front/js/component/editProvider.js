@@ -43,6 +43,7 @@ const EditProvider = () => {
   };
 
 
+
   return (
     <div className="pb-5">
     <div className="editProvider container shadow" onSubmit={handleSubmit}>
@@ -176,7 +177,7 @@ const EditProvider = () => {
             />
           </div>
         </div>
-        <div className="form-group input-container">
+        {/* <div className="form-group input-container">
           <label htmlFor="" className="title-label-provider">Imagen de Portada:</label>
           <input
             type="text"
@@ -187,7 +188,7 @@ const EditProvider = () => {
             onChange={(event) => setUrl_image(event.target.value)}
             required
           />
-        </div>
+        </div> */}
         <button type="submit" className="button-style-provider title-label-provider mt-4 btn-save">
           Guardar
         </button>

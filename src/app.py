@@ -302,7 +302,7 @@ def update_client(id):
     email= get_jwt_identity()
     if not email:
         return jsonify({'msg':'el accesstoken es incorrecto, o esta Vencido'}), 400
-    user = User.query.filter_by(user_id=id).first()
+    user = User.query.filter_by(email=email).first()
     if not user:
         return jsonify({'msg':'el usuario no existe'}), 400
     update_client = Client.query.filter_by(user_id=id).first()

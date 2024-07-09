@@ -162,7 +162,7 @@ const AddProvider = () => {
                             />
                         </div>
                     </div>
-                    <div className="form-group input-container">
+                    {/* <div className="form-group input-container">
                         <label htmlFor="" className="title-label-provider">Imagen de Portada:</label>
                         <input
                             type="text"
@@ -173,7 +173,7 @@ const AddProvider = () => {
                             onChange={(event) => setUrl_image(event.target.value)}
                             required
                         />
-                    </div>
+                    </div> */}
                     <button
                         type="button"
                         className="button-style-provider title-label-provider mt-4 btn-save"

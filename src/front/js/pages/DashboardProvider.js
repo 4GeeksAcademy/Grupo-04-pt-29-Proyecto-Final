@@ -29,7 +29,7 @@ const DashboardProvider = () => {
               className="card d-flex justify-content-center shadow "
               style={{ width: "20rem" }}
             >
-              <div className="d-flex justify-content-center border-bottom pb-3">
+              {/* <div className="d-flex justify-content-center border-bottom pb-3">
                
                 <img
                   src={store.provider.url_image}
@@ -43,7 +43,7 @@ const DashboardProvider = () => {
                   }}
                 />
              
-              </div>
+              </div> */}
 
               <div className="card-body " >
                 <div className="d-flex">
