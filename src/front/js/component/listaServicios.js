@@ -44,7 +44,7 @@ export const ListaServicios = ({ data, filters }) => {
 
       
     const e = filteredData.map((item) => (
-         <div key={` ${item.id}`} className={`card mb-3 tarjeta-listaServ ${item.id}`} style={{ maxWidth: "1200px" }}>
+         <div key={` ${item.id}`} className={`card mb-3 tarjeta-listaServ ${item.id}`} style={{ width: "700px" }}>
             {item.services.map((service) => ( 
             <div className="row g-0" key={`${service.id}${service.provider_id}`}>
                 <div className="col-md-4">

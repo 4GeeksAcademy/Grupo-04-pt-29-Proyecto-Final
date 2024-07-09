@@ -37,6 +37,23 @@
         height: 51px;
         width: 250px;
     }
+    .botton-navbar{
+        border: 1px solid #508df7;
+        height: 40px;
+        width: 150px;
+        color: black;
+        background-color: transparent;
+        border-radius: 10px;
+       
+    }
+    .botton-navbar:hover{
+        background-color: #508df7;
+        color: white;
+        border: none;
+        height: 40px;
+        width: 150px;
+        border-radius: 10px;
+    }
 }
 
 
@@ -81,6 +98,23 @@
         height: 51px;
         width: 250px;
     }
+    .botton-navbar{
+        border: 1px solid #508df7;
+        height: 40px;
+        width: 150px;
+        color: black;
+        background-color: transparent;
+        border-radius: 10px;
+       
+    }
+    .botton-navbar:hover{
+        background-color: #508df7;
+        color: white;
+        border: none;
+        height: 40px;
+        width: 150px;
+        border-radius: 10px;
+    }
 }
 
 
@@ -120,6 +154,23 @@
     .menu{
         display: flex;
         justify-content: end;
+    }
+    .botton-navbar{
+        border: 1px solid #508df7;
+        height: 40px;
+        width: 150px;
+        color: black;
+        background-color: transparent;
+        border-radius: 10px;
+       
+    }
+    .botton-navbar:hover{
+        background-color: #508df7;
+        color: white;
+        border: none;
+        height: 40px;
+        width: 150px;
+        border-radius: 10px;
     }
 
 }

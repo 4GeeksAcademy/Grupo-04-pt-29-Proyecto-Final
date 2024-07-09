@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import Login from "../pages/login";
+import "../../styles/login.css";
+
 
 const VerifyUser = () => {
     const location = new URLSearchParams(useLocation().search)
@@ -31,7 +34,12 @@ const VerifyUser = () => {
 
         return (
             <div className="VerifyUsercontainer ">
-                <p>Hola</p>
+                <div className="d-flex justify-content-center">
+                <p className="bienvenida-verify pt-5">¡Felicidades! Has verificado exitosamente tu cuenta. <br/>
+                    Ahora puedes disfrutar de todas las funcionalidades y beneficios que te ofrecemos. <br/>
+                    ¡Gracias por confiar en nosotros!</p>
+                </div>
+                <Login/>
             </div>
         );
     };

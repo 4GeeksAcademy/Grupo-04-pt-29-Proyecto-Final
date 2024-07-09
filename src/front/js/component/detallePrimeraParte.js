@@ -8,12 +8,14 @@ const DetallePrimeraParte = () => {
 
   const { store, actions } = useContext(Context)
   const params = useParams()
+  let providerStore = store.provider
+
 
   useEffect(() => {
     actions.getSingleProvider(params.idProvider)
-  }, [])
+  }, [providerStore])
 
-  console.log(store.provider);
+
 
 
 
@@ -23,12 +25,12 @@ const DetallePrimeraParte = () => {
       {store.provider.length != 0 ?
         <div className="container py-5 ">
           <div className=" col-12 container-detalleprimeraparte">
-            <div className="col-12 col-sm-12 col-md-6"><img className="img-detalleprimeraparte" src={store.provider[0].data.url_image}  /></div>
+            <div className="col-12 col-sm-12 col-md-6"><img className="img-detalleprimeraparte" src={providerStore[0].data.url_image}  /></div>
             <div className="col-xl-6 col-sm-12 col-md-8 d-flex align-items-center justify-content-center">
               <div>
                 <div><p className="title-dpp">{store.provider[0].data.name} {store.provider[0].data.last_name}</p></div>
                 <div><p className="price-ddp">${store.provider[0].data.services[0].price}</p></div>
-                <div><p className="detalles-ddp">Detalles</p></div>
+                <div><p className="detalles-ddp">Detalles | {store.provider[0].data.services[0].category}</p></div>
                 <div><p className="detalle-parrafo-ddp">{store.provider[0].data.services[0].description}.</p></div>
                 <div className="gap-3 pt-3">
                  

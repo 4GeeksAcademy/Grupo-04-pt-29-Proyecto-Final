@@ -252,5 +252,11 @@ img{
     height: 516px;
     width: 536px;
     background-size: cover;
+    
+     
+        background-position: center;
+        background-repeat: no-repeat;
+       
+    
 }
  }
