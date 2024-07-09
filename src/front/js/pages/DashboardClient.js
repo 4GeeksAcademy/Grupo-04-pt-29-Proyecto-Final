@@ -40,8 +40,7 @@ const DashboardClient = () => {
 
               <div className="card-body">
                 <div className="">
-                  <h5 className="title-label-client d-flex"><i class="fa-solid fa-user"></i> <p className="p-client ps-2"> {store.user.username}</p></h5>
-                  <p className="p-client"> {store.client.name} {store.client.last_name} </p>
+                  <h5 className="title-label-client d-flex"><i class="fa-solid fa-user"></i> <p className="p-client ps-2">  {store.client.name} {store.client.last_name}</p></h5>
                   <h5 className="title-label-client d-flex"><i class="fa-solid fa-envelope"></i> <p className="p-client ps-2">{store.user.email}</p></h5>
                   <h5 className="title-label-client d-flex"><i class="fa-solid fa-phone"></i>  <p className="p-client ps-2">{store.client.phone}</p></h5>
                   <h5 className="title-label-client d-flex"><i class="fa-solid fa-location-dot"></i> <p className="p-client ps-2">{store.client.location}</p></h5>

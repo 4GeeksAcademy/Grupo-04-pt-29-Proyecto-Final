@@ -13,7 +13,7 @@ const DetallePrimeraParte = () => {
 
   useEffect(() => {
     actions.getSingleProvider(params.idProvider)
-  }, [providerStore])
+  }, [])
 
 
 
