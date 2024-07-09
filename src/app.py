@@ -549,8 +549,8 @@ def update_service(id):
     return jsonify({"data": update_service.serialize()})
 
 ## Ruta para ELIMINAR un SERVICIO (FUNCIONA)
-# @app.route('/api/services/<int:id>/', methods=['DELETE'])
-#def delete_service(id):
+@app.route('/api/services/<int:id>/', methods=['DELETE'])
+def delete_service(id):
     service = Services.query.filter_by(id=id).first()
     if service is None:
         return jsonify({"msg":"el servicio no existe" }), 404

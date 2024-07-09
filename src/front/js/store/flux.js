@@ -516,20 +516,20 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       // FETCH DELETE SERVICES ID (OJO)
-      // deleteService: function (id) {
-      //   fetch(process.env.BACKEND_URL + `/api/services/${id}`, {
-      //     method: "DELETE",
-      //   })
-      //     .then(response => {
-      //       if (!response.ok) {
-      //         throw new Error('Network response was not ok');
-      //       }
-      //       console.log("El Servicio ha sido eliminado correctamente");
-      //     })
-      //     .catch(error => {
-      //       console.error('Hubo un problema con la solicitud:', error);
-      //     });
-      // },
+      deleteService: function (id) {
+        fetch(process.env.BACKEND_URL + `/api/services/${id}`, {
+          method: "DELETE",
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            console.log("El Servicio ha sido eliminado correctamente");
+          })
+          .catch(error => {
+            console.error('Hubo un problema con la solicitud:', error);
+          });
+      },
 
 
 

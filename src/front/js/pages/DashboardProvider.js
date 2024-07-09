@@ -43,7 +43,7 @@ const DashboardProvider = () => {
 
               <div className="card-body " >
                 <div className="d-flex">
-                  <h5 className="title-label-provider d-flex"><i class="fa-solid fa-user"></i>  <p className="p-provider ps-2">  {store.user.username} {store.provider.last_name}</p>
+                  <h5 className="title-label-provider d-flex"><i class="fa-solid fa-user"></i>  <p className="p-provider ps-2">   {store.provider.name} {store.provider.last_name}</p>
                   </h5>
                 </div>
                 <h5 className="title-label-provider d-flex"><i class="fa-solid fa-envelope"></i> <p className="p-provider ps-2"> {store.user.email}</p></h5>

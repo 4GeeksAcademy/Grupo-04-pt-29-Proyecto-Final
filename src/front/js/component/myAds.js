@@ -4,6 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import "../../styles/listaServicios.css";
 import rigoImage from "../../img/rigo-baby.jpg";
 
+
+
 const MyAds = () => {
     const {id}= useParams()
 
@@ -43,7 +45,8 @@ const MyAds = () => {
                             <p className="card-text textoTarjeta-listaServ">{service.description}</p>
                             <div className="d-flex justify-content-between mt-5">
                                 <p className="card-text textoIconos-listaServ"><small className="text-body-secondary"> <i className="fa-solid fa-location-dot icono-listaServ"></i>  {store.provider.location}</small></p>
-                                {/* <button onClick={()=>actions.deleteService(service.id)}><i class="fa-solid fa-trash fa-lg"></i></button> */}
+                                <button onClick={() => actions.deleteService(service.id)} style={{ border: 'none', height:"10px" }}><i class="fa-solid fa-trash fa-lg"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
