@@ -92,13 +92,13 @@ export const Navbar = () => {
                 </button>
                 <ul
                   className="dropdown-menu"
-                  style={{ backgroundColor: "transparent" }}
+                  style={{ backgroundColor: "white", borderColor: "#508df7", padding: "10px" }}
                 >
                   <li className="p-1" onClick={handleProfile}>
-                    <button className="btn btn-outline-primary"> Mi Perfil </button>
+                    <button className="botton-navbar"> Mi Perfil </button>
                   </li>
                   <li className="p-1" onClick={handlerOut}>
-                    <button className="btn btn-outline-primary"> Cerrar Sesion</button>
+                    <button className="botton-navbar">Cerrar Sesión</button>
                   </li>
                 </ul>
               </div>

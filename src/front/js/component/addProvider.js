@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/editprovider.css";
 const AddProvider = () => {
+
 
 
     const { actions } = useContext(Context);
@@ -22,6 +23,11 @@ const AddProvider = () => {
         await actions.createProvider(name, last_name, identity_number, company, number_company, phone, location, profession, experience, description, url_image);
         actions.getProviders();
     };
+
+    useEffect(() => {
+
+    }, []);
+
     return (
 
         <div className="pb-5">
@@ -164,11 +170,14 @@ const AddProvider = () => {
                             id="img"
                             name="img"
                             value={url_image}
-                            onChange={(e) => setUrl_image(e.target.value)}
+                            onChange={(event) => setUrl_image(event.target.value)}
                             required
                         />
                     </div>
-                    <button type="submit" className="button-style-provider title-label-provider mt-4 btn-save"  onClick={handleSaveProvider}>
+                    <button
+                        type="button"
+                        className="button-style-provider title-label-provider mt-4 btn-save"
+                        onClick={handleSaveProvider}>
                         Guardar
                     </button>
                 </form>

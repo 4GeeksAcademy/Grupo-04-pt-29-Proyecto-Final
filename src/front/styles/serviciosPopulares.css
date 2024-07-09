@@ -44,12 +44,21 @@
       color: #000000;
 }
 
+.image-cover{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 158px;
+    width: 238px;
+}
+
 @media (max-width:750px){
     .contenedor-card{
         display: flex;
         flex-direction: column;
         align-items: center;
         /* justify-content: center; */
+        padding: 0;
         
     }
 }

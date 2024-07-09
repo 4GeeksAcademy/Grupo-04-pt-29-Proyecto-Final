@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/serviciosPopulares.css"
+import { Link } from "react-router-dom";
+
 
 
 const Serviciospopulares = () => {
@@ -32,13 +34,19 @@ const Serviciospopulares = () => {
                 <div className="row row-content m-auto">
                     {providers.map((value, index) => {
                         return (
-                            <div className="col contenedor-card">
+                            <div className="col contenedor-card ">
                                 <div key={index} className="card mb-5" style={{ "width": "15rem" }}>
-                                    <img src={value.url_image} className="img-fluid card-img-top" alt="..." />
+                                {value.services.map((image,index)=>{
+                                return <img src={image.url_image} className="img-fluid card-img-top image-cover" alt="..."/>
+                                })}
                                     <div className="color-card card-body text-center">
                                         <h5 className="h5-descripcion card-title text-center font-weight-bold">{value.profession}</h5>
-                                        <h2 className="valor-card card-title text-center ">${value.experience}</h2>
-                                        <a href="/productspage" className="btn-minfo btn">Más Información</a>
+                                        {value.services.map((service, index)=>{
+                                       return <h2 className="valor-card card-title text-center ">${service.price}</h2>
+                                    })}
+                                        <Link to={`/singleprovider/${value.id}`}>
+                                        <button className="btn-minfo btn">Más Información</button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

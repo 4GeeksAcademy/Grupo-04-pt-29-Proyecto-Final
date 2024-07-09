@@ -28,13 +28,14 @@ export const ProductsPage = () => {
 
 	return (
 		<div className="container"> 
-			<div className="pt-3 pb-3"> Inicio - Servicios Disponibles </div> 
-			<div className="d-flex">
+			<div className="d-flex justify-content-center">
 				<div className="m-3">
 					<BarraCategorias filters={filters} onFilterChange={handleFilterChange} />
 				</div>
-				<div className="m-3">
+				<div className="m-3 ps-5">
+					<div>
 					<ListaServicios data={data} filters={filters} />
+					</div>
 				</div>
 			</div>
 		</div>

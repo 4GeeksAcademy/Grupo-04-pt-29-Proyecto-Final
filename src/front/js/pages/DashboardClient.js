@@ -24,14 +24,16 @@ const DashboardClient = () => {
               className="card d-flex justify-content-center shadow"
               style={{ width: "20rem" }}
             >
-              <div className="d-flex justify-content-center">
+              <div className="d-flex justify-content-center border-bottom pb-3">
                 <img
-                  src={rigoImage}
+                  src={store.client.url_image}
                   alt=""
-                  className="img-fluid pt-4"
+                  className="img-fluid pt-4 rounded"
                   style={{
-                    borderRadius: "50%",
+                    
                     width: "200px",
+                    height: "200px",
+                    backgroundSize: "cover"
                   }}
                 />
               </div>
