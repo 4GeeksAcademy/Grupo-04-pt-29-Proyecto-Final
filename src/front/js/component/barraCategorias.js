@@ -15,7 +15,7 @@ export const BarraCategorias = ({ filters, onFilterChange }) => {
   const [selectedLocations, setSelectedLocations] = useState(filters.selectedLocations);
 
   useEffect(() => {
-    onFilterChange({ ...filters, category, selectedCategories, price, location, selectedLocations });
+    onFilterChange({ ...filters, category, selectedCategories, price, location, selectedLocations,selectedPrices });
   }, [category, selectedCategories, price, location, selectedPrices, selectedLocations]);
 
   const handleCategoryChange = (e) => {
@@ -38,12 +38,12 @@ export const BarraCategorias = ({ filters, onFilterChange }) => {
   };
 
   const handleCheckboxChangePrice = (price) => {
-    const updatedSelectedLocations = selectedPrices.includes(price)
+    const updatedSelectedPrices = selectedPrices.includes(price)
       ? selectedPrices.filter(c => c !== price)
       : [...selectedPrices, price];
-    setSelectedPrices(updatedSelectedLocations);
+    setSelectedPrices(updatedSelectedPrices);
   };
-
+  
   const handleCheckboxChangeLocations = (location) => {
     const updatedSelectedLocations = selectedLocations.includes(location)
       ? selectedLocations.filter(c => c !== location)
